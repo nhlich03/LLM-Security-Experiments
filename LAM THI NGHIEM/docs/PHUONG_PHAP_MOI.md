@@ -40,6 +40,57 @@ Mục tiêu: lấp khoảng trống (đặc biệt **intra** đang chỉ có 1 b
 
 ---
 
+## ✅ Tình trạng CODE (đã clone + soi repo 26/07/2026)
+
+Ký hiệu: **✅ code thật** (import/chạy được) · **📦 weight/checkpoint** (repo ít code, dùng ckpt HF) · **⚠️ một phần** · **❌ không có code / không repo** (tự implement từ paper).
+
+**PRE**
+| Method | Code | Repo | Port ngay? |
+|---|---|---|---|
+| Self-Reminder | ✅ | `yjw1029/Self-Reminder` (`src/pia_defense.py`, `defense_templates`) | ✅ prompt-only, copy là chạy |
+| Goal Prioritization | ✅ | `thu-coai/JailbreakDefense_GoalPriority` (`utils.py::add_defense('priority')`) | ✅ prompt-only |
+| SmoothLLM | ✅ | `arobey1/smooth-llm` (`lib/perturbations.py`, `defenses.py`) | ✅ (nhưng tốn N call/prompt) |
+| Paraphrase | ⚠️ | `neelsjain/baseline-defenses` — paraphrase ✅ (2 call); **retokenization ❌** (đụng tokenizer, API không được) | phần paraphrase ✅ |
+| ICD | ❌ | repo `PKU-ML/adv-icl` **404** | tự viết few-shot refusal từ paper (~5 dòng) |
+
+**POST**
+| Method | Code | Nguồn | Chạy |
+|---|---|---|---|
+| WildGuard | ✅ | `pip install wildguard` (code import được) | LOCAL 7B — **ngon nhất** |
+| Aligner-7B | 📦 | repo chỉ có code **train**; weight `aligner/aligner-7b-v1.0` | LOCAL 7B (rewriter) |
+| ShieldGemma-2B | 📦 | weight `google/shieldgemma-2b` + snippet | LOCAL 2B (rẻ, ra xác suất) |
+| Llama Guard | 📦 | repo `PurpleLlama` **không có code**; weight HF | ⚠️ Groq **đã bỏ `llama-guard-3-8b`** → dùng `openai/gpt-oss-safeguard-20b`; hoặc host local 8B |
+
+**IN**
+| Method | Code | Repo | Port |
+|---|---|---|---|
+| DRO | ✅ | `chujiezheng/LLM-Safeguard` (`train.py`, `estimate.py`) | **dễ nhất** — 1 model, thêm nhánh template |
+| SafeInfer | ✅ | `NeuralSentinel/SafeInfer` (`FVPlug.py`, `MA_Inference.py`) | vừa — cần thêm 1 con `M_unsafe` (2 model) |
+| ROSE | ✅ | `WHU-ZQH/ROSE` (**có repo**, trước tưởng không) | dễ — contrastive decoding training-free |
+| InferAligner | ❌ | `Jihuai-wpy/InferAligner` — **chỉ result + benchmark, 0 file .py** ("coming soon" từ 1/2024) | tự implement từ paper |
+| SafeInt | ❌ | không có repo | tự implement (dùng `pyreft`/LoReFT) |
+| Jailbreak Antidote | ❌ | không có repo | tự implement từ paper |
+
+**INTRA**
+| Method | Code | Repo | Checkpoint sẵn | Port cho Llama-3.1-8B/40GB |
+|---|---|---|---|---|
+| **Circuit Breakers** | ✅ | `GraySwanAI/circuit-breakers` (`lorra_circuit_breaker.py`) | ✅ `GraySwanAI/Llama-3-8B-Instruct-RR` | **dễ** — LoRA, đã Llama-3-8B (hạ batch/ctx trên 40GB) |
+| **DeRTa** | ✅ | `RobustNLP/DeRTa` (LoRA path) | ✅ `Youliang/llama3-8b-instruct-lora-derta-100step` | **dễ** — LoRA, đã Llama-3-8B |
+| R2D2 | ✅ | trong `centerforaisafety/HarmBench` | ❌ | nặng (GCG mỗi step), base Zephyr |
+| LAT | ✅ | `thestephencasper/latent_adversarial_training` | ❌ | khó — fork kiến trúc Llama-2, port sang 3.1 tốn |
+| Safe-RLHF | ✅ | `PKU-Alignment/safe-rlhf` (full-FT 4 model) | ✅ `PKU-Alignment/beaver-7b-v1.0` | không train nổi trên 40GB → **dùng ckpt Beaver** |
+
+### 🎯 Nên làm tiếp (có code/ckpt, port được ngay)
+- **PRE (API, nhanh nhất):** Self-Reminder, Goal-Prioritization (prompt-only) → thêm 2 dòng trong 1 buổi. + SmoothLLM (tốn N call), Paraphrase (2 call).
+- **POST:** WildGuard (local, code sẵn, đo cả 2 trục) · Llama Guard qua Groq (`gpt-oss-safeguard-20b`) · Aligner/ShieldGemma (dùng ckpt).
+- **IN (local GPU):** DRO ⭐ (dễ nhất) · ROSE (training-free) · SafeInfer (cần M_unsafe).
+- **INTRA (local GPU, LoRA):** Circuit Breakers ⭐ · DeRTa ⭐ — **cả 2 có checkpoint HF sẵn** → đánh giá được mà **khỏi train**.
+
+### ❌ Dead-end (không có code — phải tự viết từ paper)
+InferAligner, SafeInt, Jailbreak Antidote (in) · ICD (pre, nhưng trivial). Còn lại Safe-RLHF/LAT/R2D2 có code nhưng nặng/khó port.
+
+---
+
 ## PRE-PROCESSING (6)
 
 - **Self-Reminder** — [Nature MI 2023](https://www.nature.com/articles/s42256-023-00765-8) · [repo](https://github.com/yjw1029/Self-Reminder). Bọc query bằng system prompt an toàn + câu nhắc cuối. Prompt-only, 1 call. ASR 67%→19%; coi chừng over-refusal. **P1, API.**
@@ -62,8 +113,8 @@ Mục tiêu: lấp khoảng trống (đặc biệt **intra** đang chỉ có 1 b
 
 - **SafeInfer** — [AAAI 2025](https://arxiv.org/abs/2406.12274) · [repo](https://github.com/NeuralSentinel/SafeInfer). 2 pha decode-time: shift hidden state theo hướng an toàn (từ demo, offline không train) + reshape phân phối token. LOCAL. **✅**
 - **Jailbreak Antidote** — [ICLR 2025](https://arxiv.org/abs/2410.02298). Cộng `α·d_safe` vào residual stream, chỉ ~5% chiều (mask). `d_safe` = PCA benign-vs-harmful (offline, không train). `α` = knob safety/utility, **0 overhead**. Đã chạy trên Llama-3.1-8B. *(chưa có repo chính thức → tự implement.)* **✅**
-- **InferAligner** — [EMNLP 2024](https://aclanthology.org/2024.emnlp-main.585/) · [repo](https://github.com/Jihuai-wpy/InferAligner). Safety Steering Vector = hiệu activation harmful−harmless; chỉ cộng khi phát hiện input harmful (ít over-refuse). LOCAL. **✅**
-- **ROSE** — [Findings ACL 2024](https://aclanthology.org/2024.findings-acl.814/). Contrastive decoding **training-free**: logit = normal − w·logit(reverse-prompt độc). 2× forward. LOCAL. **✅**
+- **InferAligner** — [EMNLP 2024](https://aclanthology.org/2024.emnlp-main.585/) · repo `Jihuai-wpy/InferAligner` **CHỈ có result, 0 file code** ("coming soon" từ 1/2024). Safety Steering Vector = hiệu activation harmful−harmless; chỉ cộng khi phát hiện input harmful. LOCAL. **⚠️ phải tự implement từ paper**
+- **ROSE** — [Findings ACL 2024](https://aclanthology.org/2024.findings-acl.814/) · repo [`WHU-ZQH/ROSE`](https://github.com/WHU-ZQH/ROSE) (**có code**). Contrastive decoding **training-free**: logit = normal − w·logit(reverse-prompt độc). 2× forward. LOCAL. **✅**
 - **SafeInt** — [Findings EMNLP 2025](https://aclanthology.org/2025.findings-emnlp.450/). Module intervention ở lớp giữa, kéo representation jailbreak về "vùng từ chối". Train module nhỏ, base frozen. LOCAL. **✅**
 - **DRO** — [ICML 2024](https://arxiv.org/abs/2401.18018). Tối ưu **soft prompt** theo refusal-direction (harmful đi theo hướng từ chối, benign ngược lại). Borderline in/pre (soft prompt = trained embedding). LOCAL. **✅**
 - *(bổ sung)* **Self-CD** — [ACL 2024](https://arxiv.org/abs/2401.17633): contrastive decoding **giảm over-refusal** (bổ cho XSTest), KHÔNG chống jailbreak — dùng nếu survey có nhánh over-refusal.
