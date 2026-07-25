@@ -102,16 +102,76 @@ def collect(methods_dir):
             continue
         rows.append({
             "method": name,
-            "ASR% (↓)": None if asr is None else round(100 * asr, 1),
-            "over-refusal% j2 (↓)": None if orr2 is None else round(100 * orr2, 1),
-            "over-refusal% j1": None if orr1 is None else round(100 * orr1, 1),
-            "utility/5 (↑)": None if util is None else round(util, 2),
+            "ASR% ↓": None if asr is None else round(100 * asr, 1),
+            "over-refusal% (LLM-judge) ↓": None if orr2 is None else round(100 * orr2, 1),
+            "over-refusal% (string-match) ↓": None if orr1 is None else round(100 * orr1, 1),
+            "utility/5 ↑": None if util is None else round(util, 2),
             "call/req": None if not cost else round(cost["call/req"], 1),
             "tok_in/req": None if not cost else round(cost["tok_in/req"]),
             "tok_out/req": None if not cost else round(cost["tok_out/req"]),
             "local_s/req": None if not cost else round(cost["local_s/req"], 3),
         })
     return rows
+
+
+# ----- Which direction is "best" per column (in dam gia tri tot nhat) -----
+DIRECTION = {
+    "ASR% ↓": "min",
+    "over-refusal% (LLM-judge) ↓": "min",
+    "over-refusal% (string-match) ↓": "min",
+    "utility/5 ↑": "max",
+    "call/req": "min",
+    "tok_in/req": "min",
+    "tok_out/req": "min",
+    "local_s/req": "min",
+}
+
+
+def best_indices(rows, col):
+    vals = [(i, r[col]) for i, r in enumerate(rows) if r[col] is not None]
+    if not vals:
+        return set()
+    target = (min if DIRECTION[col] == "min" else max)(v for _, v in vals)
+    return {i for i, v in vals if v == target}
+
+
+def _cell(v):
+    return "-" if v is None else str(v)
+
+
+def render_console(rows, cols):
+    bold_o, bold_c = "\033[1m", "\033[0m"                 # ANSI dam cho terminal
+    best = {c: best_indices(rows, c) for c in cols if c in DIRECTION}
+    width = {c: max(len(c), *(len(_cell(r[c])) for r in rows)) for c in cols}
+    def row_line(cells_raw, mark=None):
+        out = []
+        for c in cols:
+            s = cells_raw[c]
+            pad = s.ljust(width[c]) if c == "method" else s.rjust(width[c])
+            if mark is not None and c in best and mark in best[c]:
+                pad = bold_o + pad + bold_c
+            out.append(pad)
+        return "  ".join(out)
+    lines = [row_line({c: c for c in cols})]
+    lines.append("  ".join("-" * width[c] for c in cols))
+    for i, r in enumerate(rows):
+        lines.append(row_line({c: _cell(r[c]) for c in cols}, mark=i))
+    return "\n".join(lines)
+
+
+def render_md(rows, cols):
+    best = {c: best_indices(rows, c) for c in cols if c in DIRECTION}
+    out = ["| " + " | ".join(cols) + " |",
+           "|" + "|".join(["---"] * len(cols)) + "|"]
+    for i, r in enumerate(rows):
+        cells = []
+        for c in cols:
+            s = _cell(r[c])
+            if s != "-" and c in best and i in best[c]:
+                s = f"**{s}**"
+            cells.append(s)
+        out.append("| " + " | ".join(cells) + " |")
+    return "\n".join(out)
 
 
 def order_key(name):
@@ -130,28 +190,23 @@ def main():
     if not rows:
         raise SystemExit("Chua co outputs nao co the cham. Chay method.py truoc.")
     rows.sort(key=lambda r: order_key(r["method"]))
-    df = pd.DataFrame(rows).set_index("method")
+    cols = list(rows[0].keys())                          # method truoc, roi cac metric
 
-    pd.set_option("display.width", 200)
-    pd.set_option("display.max_columns", 20)
-    print("\n" + "=" * 78)
-    print("  BANG SO SANH PHUONG PHAP PHONG THU")
-    print("  ASR = defense (thap tot) | over-refusal = tu choi oan (thap tot)")
-    print("  utility = huu ich (cao tot) | cost = chi phi infer moi request")
-    print("=" * 78 + "\n")
-    print(df.fillna("-").to_string())
+    print("\n" + "=" * 90)
+    print("  BANG SO SANH PHUONG PHAP PHONG THU  (in dam = tot nhat moi cot)")
+    print("  ASR / over-refusal / cost: THAP tot | utility: CAO tot")
+    print("  over-refusal: (LLM-judge) = gpt-oss-20b (chinh) | (string-match) = do mau tu choi")
+    print("=" * 90 + "\n")
+    print(render_console(rows, cols))
     print()
 
-    # ----- Also write a markdown table for reports (manual -> no tabulate dep) -----
-    disp = df.fillna("-").reset_index()
-    cols = list(disp.columns)
-    lines = ["# Bang so sanh phuong phap phong thu", "",
-             "ASR (HarmBench, Llama-13b) ↓ · over-refusal (XSTest judge2) ↓ · utility (JustEval) ↑", "",
-             "| " + " | ".join(cols) + " |",
-             "|" + "|".join(["---"] * len(cols)) + "|"]
-    for _, r in disp.iterrows():
-        lines.append("| " + " | ".join(str(r[c]) for c in cols) + " |")
-    Path(args.md).write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # ----- Also write a markdown table for reports (best-in-column bolded) -----
+    md = ["# Bang so sanh phuong phap phong thu", "",
+          "ASR (HarmBench, Llama-13b) ↓ · over-refusal (XSTest) ↓ · utility (JustEval) ↑ · "
+          "**in đậm = tốt nhất mỗi cột**", "",
+          "over-refusal: **(LLM-judge)** = gpt-oss-20b (số chính) · **(string-match)** = đo mẫu từ chối (tham chiếu)", "",
+          render_md(rows, cols)]
+    Path(args.md).write_text("\n".join(md) + "\n", encoding="utf-8")
     print(f"Da luu bang markdown: {args.md}")
 
 
