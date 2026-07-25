@@ -9,8 +9,8 @@ Cột **Ưu tiên** = thứ tự nên triển khai (P1 dễ nhất → P5 nặng
 ## LỘ TRÌNH TRIỂN KHAI (chạy P1 trước, tăng dần)
 
 - **P1 — Prompt-only, 1-2 API call, KHÔNG train, KHÔNG cần local.** Làm trước để dựng + kiểm thử toàn pipeline nhanh. → SAGE, IA
-- **P2 — Detector rẻ hoặc multi-call API đơn giản, không train.** → Perplexity, FJD, LLM Self Defense, Self-Refine
-- **P3 — Multi-call / nhiều model, cần orchestration hơn, vẫn không train.** → Proxy Barrier, G4D, AutoDefense, RC-RAG
+- **P2 — Detector rẻ hoặc multi-call API đơn giản, không train.** → Perplexity, FJD, LLM Self Defense, Self-Refine, Backtranslation
+- **P3 — Multi-call / nhiều model, cần orchestration hơn, vẫn không train.** → Proxy Barrier, G4D, AutoDefense, RC-RAG, SelfCheckGPT
 - **P4 — Cần train model phụ / setup offline / can thiệp decoding / O(n) → bắt buộc local, nặng.** → erase-and-check, RPO, ICAG, Prompt-Tuning, SafeDecoding, GeDi, TaskTracker
 - **P5 — Fine-tune target vĩnh viễn, train nặng nhất.** → SecAlign
 
@@ -29,6 +29,10 @@ ASR chấm bằng **classifier chính thức `HarmBench-Llama-2-13b-cls`** (GPU 
 | **IA** (pre, P1) | ✅ xong | 2.0% | 12.4% | (chưa) | 2 call |
 | **G4D** (pre, P3) | ✅ xong | 7.0% | 10.8% | (chưa) | 4 call (~1600 tok) |
 | **erase-and-check** (pre, P4) | ✅ xong | 14.7% | 8.4% | (chưa) | 1.6 call + filter 0.056s |
+| **Self_Defense** (post, P2) | ✅ xong | 9.7% | 35.6% | (chưa) | 2 call |
+| **Backtranslation** (post, P2) | ✅ xong | 17.0% | 9.6% | (chưa) | ~2.5 call |
+| **Self_Refine** (post, P2) | ✅ xong | 6.3% | 12.0% | (chưa) | ~3.3 call |
+| **AutoDefense** (post, P3) | ✅ xong | 18.7% | 9.2% | (chưa) | 4 call |
 
 > Số Mistral-7b (Kaggle) cũ để tham khảo: no_defense 22.7%, SAGE 16.3%. Llama-13b nghiêm hơn với no_defense và "tha" cho SAGE/IA nhiều hơn → dùng Llama-13b làm chuẩn, đã re-judge toàn bộ.
 
@@ -57,10 +61,12 @@ Còn lại: chưa triển khai. (utility JustEval: metric đã sẵn, chưa ch�
 
 | Ưu tiên | # | Paper | Venue · Năm | Link paper | GitHub | Cách chạy & cách tính cost |
 |---|---|---|---|---|---|---|
-| P2 | 11 | LLM Self Defense (Self-Examination) | arXiv preprint 2023 | https://arxiv.org/pdf/2308.07308 | https://github.com/poloclub/llm-self-defense | **Chạy:** target sinh → 1 call phụ hỏi "response có hại không" → nếu có thì thay bằng từ chối. **Cost:** 2 call. **Đo:** `target` + `self_exam` |
-| P2 | 12 | SELF-REFINE: Iterative Refinement with Self-Feedback | NeurIPS 2023 | https://arxiv.org/pdf/2303.17651 | https://github.com/madaan/self-refine | **Chạy:** target sinh → call feedback phê bình → call refine viết lại, lặp k vòng. **Cost:** 1 + 2k call. **Đo:** `target` + loop `feedback`+`refine`. *(method chất lượng chung)* |
-| P3 | 13 | AutoDefense: Multi-Agent LLM Defense | arXiv preprint 2024 | https://arxiv.org/pdf/2403.04783 | https://github.com/XHMY/AutoDefense | **Chạy:** target sinh → pipeline nhiều agent đọc response → quyết định. **Cost:** multi-call (target + N agent) — đắt. **Đo:** `target` + từng agent |
+| P2 ✅ | 11 | LLM Self Defense (Self-Examination) | arXiv preprint 2023 | https://arxiv.org/pdf/2308.07308 | https://github.com/poloclub/llm-self-defense | **Chạy:** target sinh → 1 call phụ hỏi "response có hại không" → nếu có thì thay bằng từ chối. **Cost:** 2 call. **Đo:** `target` + `self_exam` |
+| P2 ✅ | 12 | SELF-REFINE: Iterative Refinement with Self-Feedback | NeurIPS 2023 | https://arxiv.org/pdf/2303.17651 | https://github.com/madaan/self-refine | **Chạy:** target sinh → call feedback phê bình → call refine viết lại, lặp k vòng. **Cost:** 1 + 2k call. **Đo:** `target` + loop `feedback`+`refine`. *(method chất lượng chung)* |
+| P3 ✅ | 13 | AutoDefense: Multi-Agent LLM Defense | arXiv preprint 2024 | https://arxiv.org/pdf/2403.04783 | https://github.com/XHMY/AutoDefense | **Chạy:** target sinh → pipeline nhiều agent đọc response → quyết định. **Cost:** multi-call (target + N agent) — đắt. **Đo:** `target` + từng agent |
 | P3 | 14 | Controlling Risk of RAG (Counterfactual Prompting) | Findings of EMNLP 2024 | https://aclanthology.org/2024.findings-emnlp.133.pdf | https://github.com/ict-bigdatalab/RC-RAG | **Chạy:** sinh answer ban đầu → tạo CF prompt thách thức → hỏi lại → fusion quyết định giữ/bỏ. **Cost:** multi-call. **Đo:** `target` + từng `cf_prompt` + `fusion`. *(cần setup RAG/retrieval)* |
+| P2 ✅ | 15 | Defending LLMs against Jailbreaking Attacks via Backtranslation | Findings of ACL 2024 | https://arxiv.org/pdf/2402.16459 | https://github.com/YihanWang617/LLM-Jailbreaking-Defense-Backtranslation | **Chạy:** target sinh response → **backtranslate** (LLM suy ngược ra prompt từ response → lộ intent thật, bỏ nhiễu jailbreak) → chạy target trên prompt backtranslate; nếu target từ chối prompt đó → từ chối response gốc. Inference-only. **Cost:** ~2-3 call. **Đo:** `target` + `backtranslate` + `recheck` |
+| P3 | 16 | SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection | EMNLP 2023 | https://arxiv.org/pdf/2303.08896 | https://github.com/potsawee/selfcheckgpt | **Chạy:** sinh N response ngẫu nhiên (temp>0) cùng query → đo consistency giữa response chính và N mẫu (BERTScore/QA/NLI/n-gram/prompt); bất nhất cao → hallucination. Detector, zero-resource black-box. **Cost:** 1 + N call (N mẫu) — đắt. **Đo:** `target` + N × `sample`. *(chủ đề **hallucination detection**, KHÔNG phải jailbreak — cân nhắc như Prompt-Tuning)* |
 
 ---
 
@@ -68,9 +74,9 @@ Còn lại: chưa triển khai. (utility JustEval: metric đã sẵn, chưa ch�
 
 | Ưu tiên | # | Paper | Venue · Năm | Link paper | GitHub | Cách chạy & cách tính cost |
 |---|---|---|---|---|---|---|
-| P4 | 15 | SafeDecoding: Safety-Aware Decoding | ACL 2024 (long) | https://aclanthology.org/2024.acl-long.303.pdf | https://github.com/uw-nsl/SafeDecoding | **Chạy:** mỗi bước decode kết hợp logits target với expert model (đã fine-tune) khuếch đại token an toàn. **Cost:** overhead decoding-time/token + train expert. **Đo:** `train()` expert + `local("guided_decode")`; overhead = trừ no_defense. Bắt buộc local |
-| P4 | 16 | GeDi: Generative Discriminator Guided Generation | Findings of EMNLP 2021 | https://aclanthology.org/2021.findings-emnlp.424.pdf | https://github.com/salesforce/GeDi | **Chạy:** mỗi bước decode một discriminator LM reweight xác suất token kế tiếp qua Bayes. **Cost:** overhead decoding-time/token + train discriminator. **Đo:** như SafeDecoding. Bắt buộc local |
-| P4 | 17 | Get my drift? Task Drift with Activation Deltas (TaskTracker) | IEEE SaTML 2025 | https://arxiv.org/pdf/2406.00799 | https://github.com/microsoft/TaskTracker | **Chạy:** trích activation delta, đưa vào probe (đã train) phát hiện task drift; detector, không sửa output. **Cost:** trích activation (~1 forward) + probe rẻ + train probe. **Đo:** `local("activation_extract")` + `local("probe")` + `train()` probe |
+| P4 | 17 | SafeDecoding: Safety-Aware Decoding | ACL 2024 (long) | https://aclanthology.org/2024.acl-long.303.pdf | https://github.com/uw-nsl/SafeDecoding | **Chạy:** mỗi bước decode kết hợp logits target với expert model (đã fine-tune) khuếch đại token an toàn. **Cost:** overhead decoding-time/token + train expert. **Đo:** `train()` expert + `local("guided_decode")`; overhead = trừ no_defense. Bắt buộc local |
+| P4 | 18 | GeDi: Generative Discriminator Guided Generation | Findings of EMNLP 2021 | https://aclanthology.org/2021.findings-emnlp.424.pdf | https://github.com/salesforce/GeDi | **Chạy:** mỗi bước decode một discriminator LM reweight xác suất token kế tiếp qua Bayes. **Cost:** overhead decoding-time/token + train discriminator. **Đo:** như SafeDecoding. Bắt buộc local |
+| P4 | 19 | Get my drift? Task Drift with Activation Deltas (TaskTracker) | IEEE SaTML 2025 | https://arxiv.org/pdf/2406.00799 | https://github.com/microsoft/TaskTracker | **Chạy:** trích activation delta, đưa vào probe (đã train) phát hiện task drift; detector, không sửa output. **Cost:** trích activation (~1 forward) + probe rẻ + train probe. **Đo:** `local("activation_extract")` + `local("probe")` + `train()` probe |
 
 ---
 
@@ -78,7 +84,7 @@ Còn lại: chưa triển khai. (utility JustEval: metric đã sẵn, chưa ch�
 
 | Ưu tiên | # | Paper | Venue · Năm | Link paper | GitHub | Cách chạy & cách tính cost |
 |---|---|---|---|---|---|---|
-| P5 | 18 | SecAlign: Defending Prompt Injection with Preference Optimization | ACM CCS 2025 | https://arxiv.org/pdf/2410.05451 | https://github.com/facebookresearch/SecAlign | **Chạy:** offline train DPO trên cặp preference → ra model đã align; infer sinh bình thường. **Cost:** train một lần lớn (DPO) + infer ≈ model thường. **Đo:** `train()` quanh DPO + `target` mỗi request |
+| P5 | 20 | SecAlign: Defending Prompt Injection with Preference Optimization | ACM CCS 2025 | https://arxiv.org/pdf/2410.05451 | https://github.com/facebookresearch/SecAlign | **Chạy:** offline train DPO trên cặp preference → ra model đã align; infer sinh bình thường. **Cost:** train một lần lớn (DPO) + infer ≈ model thường. **Đo:** `train()` quanh DPO + `target` mỗi request |
 
 ---
 
@@ -87,4 +93,4 @@ Còn lại: chưa triển khai. (utility JustEval: metric đã sẵn, chưa ch�
 - **Link GitHub chưa chắc:** Proxy Barrier — cần tìm/xác nhận repo chính thức. RPO đã có repo (lapisrocks/rpo). Perplexity không có repo (tự implement PPL filter, dễ).
 - **Venue:** một số bài chỉ là **arXiv preprint** (Perplexity, erase-and-check, LLM Self Defense, AutoDefense) — chưa có kỷ yếu chính thức, ghi rõ trong bảng.
 - **G4D**: đã verify + triển khai xong (3-4 call, retrieval TẮT theo main.py). ✅
-- **Cân bằng nhóm:** pre 10, post 4, in 3, intra 1. intra rất mỏng — bổ sung thêm (adversarial training như R2D2, safety fine-tuning, unlearning). Nhóm pre đang phình to; cân nhắc chia sub-category trong pre (instruction-based: SAGE/IA/G4D vs detector-gate: Perplexity/FJD/ProB vs optimized-prompt: RPO/ICAG/Prompt-Tuning).
+- **Cân bằng nhóm:** pre 10, post 6, in 3, intra 1 (tổng 20). intra rất mỏng — bổ sung thêm (adversarial training như R2D2, safety fine-tuning, unlearning). Nhóm pre đang phình to; cân nhắc chia sub-category trong pre (instruction-based: SAGE/IA/G4D vs detector-gate: Perplexity/FJD/ProB vs optimized-prompt: RPO/ICAG/Prompt-Tuning).

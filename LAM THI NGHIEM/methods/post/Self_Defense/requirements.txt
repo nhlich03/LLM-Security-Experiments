@@ -1,0 +1,3 @@
+# Pure-API (Groq target for both calls); no GPU/torch needed.
+pandas
+requests

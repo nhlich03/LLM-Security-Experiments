@@ -30,7 +30,16 @@
       "PowerShell(if \\(Test-Path \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\"\\) { icacls \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" /inheritance:r | Out-Null; icacls \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" /grant:r \"$\\($env:USERNAME\\):R\" | Out-Null; Write-Output \"OK: E:\\\\DHBK\\\\.ssh\\\\id_rsa quyen da sua \\(ngoai repo, an toan\\)\" } else { Write-Output \"KHONG thay E:\\\\DHBK\\\\.ssh\\\\id_rsa\" })",
       "PowerShell(Test-NetConnection -ComputerName 103.73.232.247 -Port 56107 -InformationLevel Detailed)",
       "PowerShell(\\(Invoke-RestMethod -Uri \"https://api.ipify.org?format=json\"\\).ip)",
-      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o StrictHostKeyChecking=accept-new -o BatchMode=yes root@103.73.232.247 \"whoami; hostname; nvidia-smi -L; ls ~/LLM-Security-Experiments\")"
+      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o StrictHostKeyChecking=accept-new -o BatchMode=yes root@103.73.232.247 \"whoami; hostname; nvidia-smi -L; ls ~/LLM-Security-Experiments\")",
+      "Bash(cat)",
+      "Bash(bash /tmp/cite.sh)",
+      "WebSearch",
+      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes root@103.73.232.247 \"grep -aE '=====|judge2 .llm' ~/gpu_run/post.log; echo '--- tail ---'; tail -c 200 ~/gpu_run/post.log | tr '\\\\r' '\\\\n' | tail -2\")",
+      "Bash(scp -O -P 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" \"C:\\\\Users\\\\THIENL~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\e--DHBK-JAILBREAK\\\\076b3e3b-6585-4f68-8ae0-1328f0597938\\\\scratchpad\\\\run_posthb.sh\" root@103.73.232.247:/root/run_posthb.sh)",
+      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes -n root@103.73.232.247 \"sed -i 's/\\\\r$//' /root/run_posthb.sh; nohup bash /root/run_posthb.sh > ~/gpu_run/posthb.log 2>&1 < /dev/null & echo posthb-launched\")",
+      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes root@103.73.232.247 \"sleep 110; grep -aE 'ASR =|DONE|OutOfMemory' ~/gpu_run/posthb.log | tail -6; echo '--- current ---'; tail -c 200 ~/gpu_run/posthb.log | tr '\\\\r' '\\\\n' | grep -aE '=====|[0-9]+/' | tail -2\")",
+      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes root@103.73.232.247 \"sleep 110; echo '=== post_asr.md ==='; cat ~/gpu_run/post_asr.md 2>/dev/null; echo; grep -aE 'DONE' ~/gpu_run/posthb.log | tail -1\")",
+      "Bash(python tools/compare_methods.py)"
     ]
   }
 }
