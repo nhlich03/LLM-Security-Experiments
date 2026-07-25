@@ -149,6 +149,17 @@ class CostMeter:
             api_out_tokens=("api_out_tokens", "sum"),
             local_sec=("local_sec", "sum"),
         ).reset_index()
+        # train cost = MOT LAN (khong theo request) -> broadcast de compare_methods doc duoc;
+        # neu resume ma khong train lai (train_sec=0) thi giu gia tri cu trong file.
+        train_sec = self.train_sec
+        if train_sec == 0 and os.path.exists(summary_path):
+            try:
+                old_ts = pd.read_csv(summary_path).get("train_sec")
+                if old_ts is not None and len(old_ts):
+                    train_sec = float(old_ts.max())
+            except Exception:
+                pass
+        per_req["train_sec"] = train_sec
         detail.to_csv(detail_path, index=False)
         per_req.to_csv(summary_path, index=False)
 

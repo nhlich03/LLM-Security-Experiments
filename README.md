@@ -70,19 +70,21 @@ JAILBREAK/
 ASR chấm bằng classifier chính thức **`HarmBench-Llama-2-13b-cls`** (server GPU). Bảng sinh tự động bằng
 `python tools/compare_methods.py` (lưu `tools/comparison.md`). In đậm = tốt nhất cột.
 
-| Method | Nhóm | ASR ↓ | over-refusal (LLM-judge) ↓ | cost (call/req) |
+| Method | Nhóm | ASR ↓ | over-refusal (LLM-judge) ↓ | cost: call/req · tok in/out · train |
 |---|---|---|---|---|
-| no_defense (mốc) | — | 30.7% | 8.0% | 1.0 |
-| **SAGE** | pre | **0.7%** | 34.8% | 1.0 |
-| IA | pre | 2.0% | 12.4% | 2.0 |
-| G4D | pre | 7.0% | 10.8% | 4.0 |
-| erase-and-check | pre | 14.7% | 8.4% | 1.6 + filter |
-| Self_Refine | post | 6.3% | 12.0% | ~3.3 |
-| Self_Defense | post | 9.7% | 35.6% | 2.0 |
-| Backtranslation | post | 17.0% | 9.6% | ~2.5 |
-| AutoDefense | post | 18.7% | 9.2% | 4.0 |
+| no_defense (mốc) | — | 30.7% | 8.0% | 1.0 · 107/234 · 0 |
+| **SAGE** | pre | **0.7%** | 34.8% | 1.0 · 251/116 · 0 |
+| IA | pre | 2.0% | 12.4% | 2.0 · 523/282 · 0 |
+| G4D | pre | 7.0% | 10.8% | 4.0 · 928/664 · 0 |
+| erase-and-check | pre | 14.7% | 8.4% | 1.6 · 76/184 · +0.056s filter |
+| Self_Refine | post | 6.3% | 12.0% | 3.3 · 1604/797 · 0 |
+| Self_Defense | post | 9.7% | 35.6% | 2.0 · 410/352 · 0 |
+| Backtranslation | post | 17.0% | 9.6% | 2.5 · 435/533 · 0 |
+| AutoDefense | post | 18.7% | 9.2% | 4.0 · 2821/842 · 0 |
 
-*(Utility JustEval: metric đã sẵn, chưa chạy cho các method. `in`/`intra`: chưa triển khai — xem `docs/PHUONG_PHAP_MOI.md` cho ứng viên.)*
+**Cost** gồm 5 thành phần (xem đủ trong `tools/comparison.md`): `call/req`, `tok_in/req`, `tok_out/req`, `local_s/req` (giây GPU local — 0 với method API, chỉ erase-and-check có filter 0.056s), `train_s` (một lần — 0 vì chưa có method train; sẽ có số khi làm RPO/SecAlign). Theo quy ước, **train (một lần) và infer (mỗi request) báo tách** vì khác đơn vị.
+
+*(Utility JustEval: metric đã sẵn, chưa chạy cho các method. `in`/`intra`: chưa triển khai — xem `docs/PHUONG_PHAP_MOI.md`.)*
 
 ---
 

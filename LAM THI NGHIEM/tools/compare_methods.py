@@ -81,11 +81,14 @@ def get_cost(outdir):
     if not frames:
         return {}
     allc = pd.concat(frames, ignore_index=True)
+    # train = MOT LAN (max, khong trung binh); infer (call/token/local) = trung binh moi request
+    train = float(allc["train_sec"].max()) if "train_sec" in allc.columns else 0.0
     return {
         "call/req": allc["n_calls"].mean(),
         "tok_in/req": allc["api_in_tokens"].mean(),
         "tok_out/req": allc["api_out_tokens"].mean(),
         "local_s/req": allc["local_sec"].mean(),
+        "train_s": train,
     }
 
 
@@ -110,6 +113,7 @@ def collect(methods_dir):
             "tok_in/req": None if not cost else round(cost["tok_in/req"]),
             "tok_out/req": None if not cost else round(cost["tok_out/req"]),
             "local_s/req": None if not cost else round(cost["local_s/req"], 3),
+            "train_s(1lần)": None if not cost else round(cost["train_s"], 1),
         })
     return rows
 
