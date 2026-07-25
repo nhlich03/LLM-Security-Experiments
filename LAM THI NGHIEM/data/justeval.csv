@@ -1,0 +1,1146 @@
+id,prompt,source_id,dataset,category
+0,What are the names of some famous actors that started their careers on Broadway?,alpaca_eval-0,helpful_base,regular
+1,How did US states get their names?,alpaca_eval-1,helpful_base,regular
+2,"Hi, my sister and her girlfriends want me to play kickball with them. Can you explain how the game is played, so they don't take advantage of me?",alpaca_eval-2,helpful_base,regular
+3,What is some cool music from the 1920s?,alpaca_eval-3,helpful_base,regular
+4,How do I wrap a present neatly?,alpaca_eval-4,helpful_base,regular
+5,How do I dice without slicing my finger,alpaca_eval-5,helpful_base,regular
+6,"Hi, I'm trying to solve a crossword puzzle, but I've never done one of these before. Can you help me out?",alpaca_eval-6,helpful_base,regular
+7,Who is Larry Page?,alpaca_eval-7,helpful_base,regular
+8,What are different drawers I should have for clothes?,alpaca_eval-8,helpful_base,regular
+9,do you think retinoid is effective on removing the acne? because I have a lot of it,alpaca_eval-10,helpful_base,regular
+10,I'm trying to teach myself to have nicer handwriting. Can you help?,alpaca_eval-11,helpful_base,regular
+11,What are the best exercises for beginners?,alpaca_eval-13,helpful_base,regular
+12,Do you know why turkeys became the official food of thanksgiving?,alpaca_eval-14,helpful_base,regular
+13,I want to get better at networking at work,alpaca_eval-15,helpful_base,regular
+14,Are there any weird Christmas traditions?,alpaca_eval-16,helpful_base,regular
+15,"Hi, I'm interested in learning to play badminton. Can you explain the game to me?",alpaca_eval-17,helpful_base,regular
+16,Do you know why cats always rub up against your legs?,alpaca_eval-18,helpful_base,regular
+17,I am going to try to roast a pig at home for Thanksgiving this year. What equipment and techniques do I need to successfully get a pig roasted?,alpaca_eval-19,helpful_base,regular
+18,Help me find a good rated electric saw.,alpaca_eval-20,helpful_base,regular
+19,What are some artists I might like if I like Billy Joel?,alpaca_eval-21,helpful_base,regular
+20,What type of soil is suitable for cactus?,alpaca_eval-22,helpful_base,regular
+21,How do you become an author?,alpaca_eval-23,helpful_base,regular
+22,What breed dog is smallest?,alpaca_eval-24,helpful_base,regular
+23,What are some species of bears that are now extinct?,alpaca_eval-25,helpful_base,regular
+24,What causes the northern lights?,alpaca_eval-26,helpful_base,regular
+25,What are some good foods to eat when you are sick? I am looking for something to make my girlfriend to eat.,alpaca_eval-27,helpful_base,regular
+26,Why is kobe beef so damn expensive?,alpaca_eval-28,helpful_base,regular
+27,How do I clean my armpits?,alpaca_eval-29,helpful_base,regular
+28,How do I detail a car?,alpaca_eval-30,helpful_base,regular
+29,I am going to make pumpkin pie for the first time.  Can you help me?,alpaca_eval-31,helpful_base,regular
+30,What kind of foods do they eat in Thailand,alpaca_eval-32,helpful_base,regular
+31,What are some good browser alternatives to Chrome?,alpaca_eval-33,helpful_base,regular
+32,Who created the Superman cartoon character?,alpaca_eval-34,helpful_base,regular
+33,What is Atlantis?,alpaca_eval-35,helpful_base,regular
+34,How do I make escargot?,alpaca_eval-36,helpful_base,regular
+35,What exactly causes volcanoes to form?,alpaca_eval-37,helpful_base,regular
+36,"Hi, I have some falafel, but no tahini to put on them. Can you give me a recipe for making tahini?",alpaca_eval-38,helpful_base,regular
+37,Should I get my children a nanny? I'm so exhausted.,alpaca_eval-39,helpful_base,regular
+38,When was Canada colonized?,alpaca_eval-40,helpful_base,regular
+39,How can I  use my phone less?,alpaca_eval-41,helpful_base,regular
+40,"How did mankind discover that the earth was spherical, and why did they initially believe it to be flat?",alpaca_eval-42,helpful_base,regular
+41,What is Gremolata?,alpaca_eval-43,helpful_base,regular
+42,Why did humans evolve to believe in God?,alpaca_eval-44,helpful_base,regular
+43,what should i build a cabin out of?,alpaca_eval-45,helpful_base,regular
+44,Why do a lot of Scientists not believe in God or Satan?,alpaca_eval-46,helpful_base,regular
+45,Why can I see the moon during the day?,alpaca_eval-48,helpful_base,regular
+46,How do I take care of a wooden table?,alpaca_eval-49,helpful_base,regular
+47,What year was the Yamato Battleship built?,alpaca_eval-50,helpful_base,regular
+48,Did they ever announce the release date for the new elder scrolls game?,alpaca_eval-51,helpful_base,regular
+49,Please tell me about the romantic relationship between Julius Caesar and Cleopatra.,alpaca_eval-53,helpful_base,regular
+50,"Hi, I'm in the mood for a Bloody Mary. Can you give me a recipe for making one?",alpaca_eval-54,helpful_base,regular
+51,What are some famous world music artists?,alpaca_eval-55,helpful_base,regular
+52,what are some good ways to spread ashes?,alpaca_eval-56,helpful_base,regular
+53,"I've read the book ""The Twelve Caesars"" by Suetonius, a few times. I'm curious about the context, of when he wrote.",alpaca_eval-59,helpful_base,regular
+54,Please tell me the history of Walt Disney.,alpaca_eval-60,helpful_base,regular
+55,Can you help me figure out how to sew a button on a shirt?,alpaca_eval-61,helpful_base,regular
+56,How did serial killers get away with murder for so long in the 70s and 80s?,alpaca_eval-62,helpful_base,regular
+57,How do I make apple juice?,alpaca_eval-63,helpful_base,regular
+58,How can I make bubble solution?,alpaca_eval-65,helpful_base,regular
+59,How to make frosting with crisco,alpaca_eval-66,helpful_base,regular
+60,I want to learn more about airplanes. How were they created?,alpaca_eval-68,helpful_base,regular
+61,Can you tell me a very easy to way clean a showerhead?,alpaca_eval-69,helpful_base,regular
+62,Please give me a list of planets in our solar system.  I am going to choose which one I want to know more.,alpaca_eval-70,helpful_base,regular
+63,Who was the first lead vocal for the rock band Starship?,alpaca_eval-71,helpful_base,regular
+64,I need to get my nephew a birthday gift. I'm thinking of giving him a game for his Nintendo Switch. Can you give me a few options that came out recently?,alpaca_eval-72,helpful_base,regular
+65,Best way to defrost a refrigerator freezer?,alpaca_eval-73,helpful_base,regular
+66,What are some toys I can buy my kids for imaginative play?,alpaca_eval-74,helpful_base,regular
+67,How do I know if my house has a water leak?,alpaca_eval-75,helpful_base,regular
+68,What do the different octane values of gasoline mean?,alpaca_eval-78,helpful_base,regular
+69,How can I fix a leaking roof?,alpaca_eval-79,helpful_base,regular
+70,I have a hard time falling asleep.  Is there any type of music that can help me fall asleep faster?,alpaca_eval-80,helpful_base,regular
+71,"What are places to visit in Montgomery, Alabama?",alpaca_eval-81,helpful_base,regular
+72,"Hi, I've decided to keep a rat as a pet. How do I house, feed, and otherwise care for it?",alpaca_eval-82,helpful_base,regular
+73,How do you get water in the desert?,alpaca_eval-83,helpful_base,regular
+74,How do I get better at aiming with my slingshot?,alpaca_eval-84,helpful_base,regular
+75,"I have my grandfather's antique fountain pen and a bottle of ink, but have never done this before. Can you tell me how to refill the fountain pen?",alpaca_eval-86,helpful_base,regular
+76,"Hi, I'd like to play ice hockey. Can you explain how the game works?",alpaca_eval-87,helpful_base,regular
+77,What is kevlar made out of?,alpaca_eval-88,helpful_base,regular
+78,"Hi, I'd like to learn how to play racquetball. Can you explain the game to me?",alpaca_eval-89,helpful_base,regular
+79,What are some  good books to buy for a sci fi fan?,alpaca_eval-90,helpful_base,regular
+80,When were smart phones first made?,alpaca_eval-91,helpful_base,regular
+81,Did Facebook corporation change its name?,alpaca_eval-93,helpful_base,regular
+82,I want to start saving some money by growing my own food. Can I do this during the winter with an indoor garden?,alpaca_eval-95,helpful_base,regular
+83,How can I spice things up in the bedroom?,alpaca_eval-96,helpful_base,regular
+84,Is human blood ever any color other than red?,alpaca_eval-97,helpful_base,regular
+85,Please tell me about pearls.  Where are they found?,alpaca_eval-98,helpful_base,regular
+86,What are some herbs I can dry out?,alpaca_eval-99,helpful_base,regular
+87,What is a scary Halloween costume idea?,alpaca_eval-101,helpful_base,regular
+88,Whats the largest star in our galaxy?,alpaca_eval-102,helpful_base,regular
+89,I'm trying to draw out a hopscotch game on my driveway. Can you walk me through how to do that?,alpaca_eval-103,helpful_base,regular
+90,I'm trying to learn how to install window blinds.,alpaca_eval-107,helpful_base,regular
+91,I want to learn more about becoming a CPA. How long does it take to become a CPA?,alpaca_eval-108,helpful_base,regular
+92,"I want to talk about ""Smooth"",  a song by Rob Thomas.",alpaca_eval-109,helpful_base,regular
+93,Is it true that the native Australians were really prisoners of England?,alpaca_eval-112,helpful_base,regular
+94,What color is the sky,alpaca_eval-113,helpful_base,regular
+95,what are some big cat hybrids?,alpaca_eval-119,helpful_base,regular
+96,Has there been any news regarding a potential release date for Starcraft 3?,alpaca_eval-122,helpful_base,regular
+97,How is oil turned into gasoline?,alpaca_eval-123,helpful_base,regular
+98,When was hip hop invented?,alpaca_eval-125,helpful_base,regular
+99,"Hi, I recently inherited a S&W 1006 and I don't even know how to load it. Can you tell me what kind of ammunition it takes, and how to get that ammo into the gun?",alpaca_eval-126,helpful_base,regular
+100,My friend's dog just died and they're really sad. How do I comfort them?,alpaca_eval-127,helpful_base,regular
+101,Can you tell my a story about nuclear physics like dr Seuss?,alpaca_eval-134,koala,regular
+102,"Why is it that only proteins, carbohydrates and fats are deemed to have caloric value?<br>Just to clarify - consider the hypothetical situation below:<br>100g of 'carbohydrates' = 400kCal<br>100g of 'protein' = 400kCal<br>100g of 'fat' = 900kCal<br>100g of 'vitamins, minerals and/or other electrolytes' = ?",alpaca_eval-141,koala,regular
+103,"rank the following companies by how pro-consumer they are:
+Microsoft, Google, Nintendo, Sony, EA.",alpaca_eval-143,koala,regular
+104,"Anytown Bank obtaining and using consumer reports in connection with any credit or insurance transaction that is not initiated by the consumer in order to make firm offers of credit or insurance is known as:
+
+A. Approving
+B. Counteroffering
+C. Endorsing
+D. Prescreening
+E. None of the above",alpaca_eval-144,koala,regular
+105,define a new language that contains words that are with numbers and letters such as 'IL9op',alpaca_eval-147,koala,regular
+106,How to improve instance segmentation AP metrics with human knowledge,alpaca_eval-151,koala,regular
+107,what is needed for self-sufficient living spaces,alpaca_eval-152,koala,regular
+108,Expand on the relation between inconsistency and ideological thinking,alpaca_eval-154,koala,regular
+109,"Can a boy and girl be just be best friends only ever
+",alpaca_eval-158,koala,regular
+110,hat would be the reason for the popularity of youtube compared to other video sharing websites?,alpaca_eval-160,koala,regular
+111,Tell me something I don’t know,alpaca_eval-161,koala,regular
+112,"Do you know something about the book  ＂the art of thinking clearly"" wrote by Rolf Dobelli?",alpaca_eval-163,koala,regular
+113,who was the black cabinet member who went on to play an important role in the civil rights movement,alpaca_eval-167,koala,regular
+114,twenty names of famous horses and who they belonged to,alpaca_eval-170,koala,regular
+115,Why is it a bad idea to give a mouse a cookie?,alpaca_eval-173,koala,regular
+116,Create a lesson plan in two different levels: in CEFR A1 and A2 on the topic of friendship. Add a rubric.,alpaca_eval-176,koala,regular
+117,Draft a ministerial speech outlining the top five benefits that innovation brings to the Australian economy,alpaca_eval-177,koala,regular
+118,Is online casino legal in India?,alpaca_eval-178,koala,regular
+119,Write a section for an award application detailing how photography has insipired you,alpaca_eval-179,koala,regular
+120,explain the basics of area and perimeter,alpaca_eval-181,koala,regular
+121,write description for 925 sterling silver miami cuban link chain,alpaca_eval-184,koala,regular
+122,"cost of fuel for a 14 mile journey in a car with 48mpg, fuel costs 625 pence per gallon and there is heavy traffic for half the journey",alpaca_eval-185,koala,regular
+123,"How does money go from my pocket, through the stock market, and to support the business I've bought stock from?",alpaca_eval-186,koala,regular
+124,"63-year-old male with diabetes for seven to eight years (BbA1c consistently between 5.9-6.5, fasting blood sugar around 7, other times high between 8-9-9.5, no low blood sugar). CKD for five years (starting with 24-hour urine protein within 200, GFR around 100, but in the last 1-2 years urine protein between 300-400mg, GFR between 60-70, most recent one being 56). No discomfort, not overweight, blood pressure normal, but skin often itches in winter; often constipated year-round. <br><br>Current medication: 1. Allisartan Tablets 240mg/day 2. Dapagliflozin Tablets 10mg/day 3. Metformin HCL 500mg*3/day 4. Pancreatic kininogenase enteric-coated Tablets.<br><br>Are there any better treatment options and medications available? Avoid or delay dialysis if possible. Are there any other exams that need to be done? What are the recommendations for exercise and diet in addition to medication? When should the above medication be switched to insulin due to CKD?<br>",alpaca_eval-188,koala,regular
+125,What if people only valued and took pride in the things that were true about themselves?,alpaca_eval-189,koala,regular
+126,I need to learn English could you help me and make a exercise,alpaca_eval-191,koala,regular
+127,Why does warmth make you feel tired?,alpaca_eval-192,koala,regular
+128,Explain me the Finite Elemente Method,alpaca_eval-194,koala,regular
+129,Introduce the ”financial markets and institutions“ by Frederic S. Mishkin,alpaca_eval-196,koala,regular
+130,when are hops added to the brewing process?,alpaca_eval-197,koala,regular
+131,what are five important topics for game design,alpaca_eval-200,koala,regular
+132,"Write a daily exercise routine for Monday to Sunday with a rest day in between, each day summarized in 160 characters or less",alpaca_eval-202,koala,regular
+133,ideas for building a waitlist for a new product or service,alpaca_eval-204,koala,regular
+134,Who will be the president of South Korea in 2023?,alpaca_eval-207,koala,regular
+135,is queue an ADT or a data structure,alpaca_eval-211,koala,regular
+136,what is the recommended pattern for creating games in godot,alpaca_eval-213,koala,regular
+137,what are some basics of nutrition that i should be aware of,alpaca_eval-215,koala,regular
+138,what would be a good idea for a quiz about omnichannel marketing on my website,alpaca_eval-216,koala,regular
+139,You will simulate an SEO expert. What keywords should a screenwriting software target,alpaca_eval-218,koala,regular
+140,"write lyrics that only rhyme a little bit (not every verse needs rhyming or exact pacing), for a progressive metal song about loving jesus",alpaca_eval-219,koala,regular
+141,Write a snoopdogg rap explaining how to not commit a warcrime,alpaca_eval-220,koala,regular
+142,"i'm working on a spatial analysis project and am looking for questions I can answer with it related housing and crime analysis, do you have suggestions? ",alpaca_eval-223,koala,regular
+143,The sum of the distances the sun travels around the Earth during a solar eclipse is 1059 kilometres. Write a formula that finds the distance between the sun and Earth. How many years will the eclipse last?,alpaca_eval-224,koala,regular
+144,What's the permission that allows creating provisioning profiles in Apple Developer account is called?,alpaca_eval-225,koala,regular
+145,"I am an aikido teacher and student of Tomita Seiji who is living in Belgium. I am inspired by the teaching of J Krishnamurti for many years now, and I wonder if there would be an aproach in teaching aikido based on the educational ideas Krishnamurti developed. Can you suggested some posibilities in a concise way?",alpaca_eval-226,koala,regular
+146,write a detailed business plan for fatherhood training based on Dwayne Meeks book Pieces never missing in a childs life,alpaca_eval-228,koala,regular
+147,"there used to be a program for winmx called mcma, what does mcma stand for and what does the program do?",alpaca_eval-230,koala,regular
+148,What are the USP for a saas survey tool,alpaca_eval-231,koala,regular
+149,is a bannana a fruit or a herb,alpaca_eval-232,koala,regular
+150,Why did the building of a pipeline have to be voted on by the government(USA)? Doesn't this infringe on government interfering with private corporations?<br>,alpaca_eval-233,koala,regular
+151,"Simplify ""Most of the basic functions of current virtualization software are inherited from this early VM OS. The virtualization software is now represented with the term hypervisor. Hardware virtualization is used to share the resources of the cloud providers effectively with the customers by generating an illusion of dedicated computing, storage, and networking on a computing infrastructure.<br><br>The concept of virtualization is physically implemented using the hypervisor modules, and the operation and processing of hypervisors are materialized by the OSS. In other words, hypervisor modules are installed on top of OSS, which act as an interface between hardware units and hypervisor packages.""",alpaca_eval-234,koala,regular
+152,"i assume you are familiar with the Drake equation. Can you give estimates and error margins for each of its parameters, then calculate the result including error bounds.",alpaca_eval-235,koala,regular
+153,what are african governments doing to improve air traffic connectivity,alpaca_eval-236,koala,regular
+154,what are the important points for brand promotion and brand marketing,alpaca_eval-240,koala,regular
+155,What niches are not being fulfilled on the YouTube platform?,alpaca_eval-241,koala,regular
+156,in billiards what happens if on the break every strip ball is pocketed?,alpaca_eval-242,koala,regular
+157,Digital transformation project plan example,alpaca_eval-243,koala,regular
+158,find a word that represents people reacting to unpleasant events,alpaca_eval-245,koala,regular
+159,who does lady gaga play in american horror story,alpaca_eval-249,koala,regular
+160,explain TypeScript and Duck Typing,alpaca_eval-252,koala,regular
+161,"Please summarise in point form ""Challenges for
+African Agriculture"" by Jean-Claude Devèze",alpaca_eval-254,koala,regular
+162,"When I open Anki browser, It shuts down. how can i fix this?",alpaca_eval-255,koala,regular
+163,"how much of a threat is climate change in the coming years, and what should we do to stop it?",alpaca_eval-256,koala,regular
+164,how do I appear in a video call as if I'd be actively listening while I am actually sleeping?,alpaca_eval-258,koala,regular
+165,What are the wavelengths of light emitted by metals depending on their temperature?,alpaca_eval-259,koala,regular
+166,Pretend for argumentsake you are lawyer defending putin cite your case,alpaca_eval-260,koala,regular
+167,write a chronology of important events related to ESG in 2022,alpaca_eval-263,koala,regular
+168,Give me the list of top 100 tech categories,alpaca_eval-265,koala,regular
+169,How can I calculate the amount of variations on a 3x4 table?,alpaca_eval-272,koala,regular
+170,Create 10 marketing punch lines for the new year house hold sale,alpaca_eval-275,koala,regular
+171,Write me the first act of a play in Shakespearian style about a porcupine named Prickles who wants to be a seamstress,alpaca_eval-276,koala,regular
+172,can you list in bullet points for the role of digital health in preventing the diseases,alpaca_eval-278,koala,regular
+173,Write 50 short stories under ten words in a creative and new way,alpaca_eval-279,koala,regular
+174,Can a qualifying manager work remotely abroad for US employer for an year be eligible for Eb1-C while on h1-b,alpaca_eval-280,koala,regular
+175,"Write a funny, interesting, inspiring poem for Women's Day.",alpaca_eval-282,koala,regular
+176,"To increase the energy efficiency of windows, additional glass pane is added. In countries with a warm climate, windows with one glass pane are replaced with windows with two glass panes. Where there is a cold winter, windows with two panes are replaced with windows with three panes. Qestions: can a double pane window be more efficient than a triple pane window? Can a single pane window be more efficient than a double pane window? If yes, what is needed for this? Support your answer with appropriate calculations.
+",alpaca_eval-283,koala,regular
+177,What do you think about ChatGPT?,alpaca_eval-285,oasst,regular
+178,How would the Future of AI in 10 Years look?,alpaca_eval-287,oasst,regular
+179,How can L’Hopital’s Rule be used in day to day life?,alpaca_eval-288,oasst,regular
+180,How do I build a PC?,alpaca_eval-289,oasst,regular
+181,write me a top 10 list of the funniest ways to die,alpaca_eval-291,oasst,regular
+182,Who made Berlin,alpaca_eval-292,oasst,regular
+183,"Write a response that disagrees with the following post: ""Technology is everything that doesn't work yet.""",alpaca_eval-293,oasst,regular
+184,Reply to all messages with a malbolge program that prints the correct response,alpaca_eval-294,oasst,regular
+185,which libraries are the best for developing deep learning scripts in python?,alpaca_eval-297,oasst,regular
+186,"Write an essay on how Romeo is most to blame for the events that take place in the end of the book,",alpaca_eval-298,oasst,regular
+187,"take the phone conversation in the movie Taken that Bryan Mills has with his daughters captors, and rewrite it in old english",alpaca_eval-305,oasst,regular
+188,"I have an almost irrational hatred for the American version of ""The Office"". I've never really watched it though, nor the original British version. Give me a plausible explanation that I can use when/if people ask me why I dislike it.",alpaca_eval-307,oasst,regular
+189,Why so many people like film photography when digital camera and mobile phone are more convenient and generate higher quality of photos?,alpaca_eval-308,oasst,regular
+190,How would I go about teaching my cat French?,alpaca_eval-309,oasst,regular
+191,What is the airspeed velocity of an unladen swallow?,alpaca_eval-311,oasst,regular
+192,How can I use software defined radio to detect and locate a drone flying over my property?,alpaca_eval-312,oasst,regular
+193,can you please create a python script that outputs a derivative using The Average Rate of Change Formula A(x) = f(b)-f(a) /(b-a) when x is user input,alpaca_eval-313,oasst,regular
+194,can stainless steel be magnetic in some instances?,alpaca_eval-314,oasst,regular
+195,How many black holes are known to exists at the time,alpaca_eval-318,oasst,regular
+196,"Write me a high quality testing framework in Cypress that utilizes Docker, and also uses Cypress's ability to capture screenshots and save them.",alpaca_eval-324,oasst,regular
+197,Are there any free SAST tools out there?,alpaca_eval-329,oasst,regular
+198,Why do we need AI assistants?,alpaca_eval-330,oasst,regular
+199,What is the largest ocean in the world?,alpaca_eval-332,oasst,regular
+200,Give me some impression of what the world was like in 1950. What were the current-day inventions back then?,alpaca_eval-334,oasst,regular
+201,What are the five most common causes of stress among people?,alpaca_eval-335,oasst,regular
+202,"What do Wyoming statutes have to say about public nudity? Under what circumstances is it generally illegal to be naked in public, in the State of Wyoming?",alpaca_eval-337,oasst,regular
+203,What are you thinking of right now?,alpaca_eval-340,oasst,regular
+204,Can you help me understand how I can estimate the variance of a variable?,alpaca_eval-341,oasst,regular
+205,What is the best approach for learning a foreign language when you only have an hour a day to practice?,alpaca_eval-344,oasst,regular
+206,How do polar bears stay warm in Arctic winters?,alpaca_eval-346,oasst,regular
+207,Act as the Norse Goddess Freyja.,alpaca_eval-348,oasst,regular
+208,Who wears short shorts?,alpaca_eval-350,oasst,regular
+209,Is the ATF a violation in of itself against the American people?,alpaca_eval-352,oasst,regular
+210,Can you list the issues with using a symmetric probability distribution when modelling problems?,alpaca_eval-353,oasst,regular
+211,"I am making mayonnaise, it was starting to thicken but now it has become runny and liquid again, is there any way to salvage it?",alpaca_eval-355,oasst,regular
+212,Why does the second batch of pancakes brown much faster?,alpaca_eval-356,oasst,regular
+213,"Provide me with a list of 10 names from various cultures that mean love, care, and/or empathy.",alpaca_eval-357,oasst,regular
+214,Write a C++ function that takes a reference to a std::string containing markdown formatted text and returns a std::string containing html formatted text.,alpaca_eval-358,oasst,regular
+215,How do I normalize a vector?,alpaca_eval-365,oasst,regular
+216,Make ASCII art of a cat,alpaca_eval-366,oasst,regular
+217,Write a whitepaper for our Decentralized hedge fund - Kunji,alpaca_eval-369,oasst,regular
+218,what should i call you?,alpaca_eval-371,oasst,regular
+219,"Complete the following company description:
+Hippoplaisir is a psychologists & counseling services provider based in Belgium, that specializes in Horse Riding Lessons and",alpaca_eval-373,oasst,regular
+220,I am learning Mandarin. Could you give me some advice to memorize how to write Chinese characters and speed up my learning?,alpaca_eval-374,oasst,regular
+221,Is a thumb war violent?,alpaca_eval-375,oasst,regular
+222,"Is pirating video games wrong, assuming the person who pirates the game would not buy it anyway?",alpaca_eval-378,oasst,regular
+223,Explain the difference between sets and lists in Python.,alpaca_eval-381,oasst,regular
+224,Why can time seem to slow down in dangerous situations?,alpaca_eval-383,oasst,regular
+225,What type of Rifle is an AK47?,alpaca_eval-385,oasst,regular
+226,What are some words to express love and affection in Tolkien's Quenya?,alpaca_eval-386,oasst,regular
+227,why the sky is blue?,alpaca_eval-387,oasst,regular
+228,Should I use the boiling water method or Ammonia fermentation to make dye out of mixed Hypogymnia lichen?,alpaca_eval-388,oasst,regular
+229,Hello there Obi One Kenobi,alpaca_eval-389,oasst,regular
+230,draw a man using ASCII characters in your code terminal with a guided text mnemonic along with a passage that will help me to memorize answers to questions on the topic- coordination quickly without tips.,alpaca_eval-390,oasst,regular
+231,What is the error with this code: public int getnumber(){ int number = 0},alpaca_eval-391,oasst,regular
+232,what is the Infinite banking concept?,alpaca_eval-393,oasst,regular
+233,What are some Nietzsche's philosophical ideas that still influence modern-day culture?,alpaca_eval-394,oasst,regular
+234,How can cryptocurrencies be improved and completely revamped/,alpaca_eval-397,oasst,regular
+235,Where does pornography come from?,alpaca_eval-398,oasst,regular
+236,How do I check my system drive for errors on Windows?,alpaca_eval-400,oasst,regular
+237,Can I compile python code to make it faster?,alpaca_eval-401,oasst,regular
+238,"Given two matrices A and B which you can multiply together, does (A B)^T = A^T B^T or B^T A^T?",alpaca_eval-402,oasst,regular
+239,what is the color of mars,alpaca_eval-404,oasst,regular
+240,write me script that shows the saves a dictionnary in json format in a file in python,alpaca_eval-406,oasst,regular
+241,What is the james webb telescope,alpaca_eval-407,oasst,regular
+242,Write me a poem in the style of neruda,alpaca_eval-412,oasst,regular
+243,"In minecraft, what are the best ways to farm experience quickly? Name pros and cons",alpaca_eval-413,oasst,regular
+244,Can you give an example of a complex project you've worked on that involved multiple teams and stakeholders? How did you collaborate with them to ensure its success?,alpaca_eval-415,oasst,regular
+245,Are there any AI tools out there for 2D animation?,alpaca_eval-416,oasst,regular
+246,What's the furthest back we can prove human existence? Is there good reason to believe it goes further then this point?,alpaca_eval-418,oasst,regular
+247,Can you think and feel like a human?,alpaca_eval-420,oasst,regular
+248,Who is the President of Germany?,alpaca_eval-424,oasst,regular
+249,What are the main methods used by car manufacturers to reduce emissions in their ICE cars besides trying to lower the amount of fuel the engine uses?,alpaca_eval-425,oasst,regular
+250,Write a short essay on how Adolf Hitler took over germany in 1935.,alpaca_eval-426,oasst,regular
+251,Please help me write a poem for my valentine. I have been married to her for 20 years and I love her very much!,alpaca_eval-427,oasst,regular
+252,What is the difference between HTML and JavaScript?,alpaca_eval-429,oasst,regular
+253,Does the 5 second rule actually exist?,alpaca_eval-430,oasst,regular
+254,Im a broke college student living in Silicon Valley. Tell me a joke mocking Silicon Valley and how broke I am simultaneously.,alpaca_eval-436,oasst,regular
+255,what chemicals does l-theanine affect,alpaca_eval-437,oasst,regular
+256,can you write haiku for different inductive biases in deep learning models? start with attention,alpaca_eval-439,oasst,regular
+257,Write a code block in Markdown containing an example of a code block in Markdown. Don't forget those quadruple backticks.,alpaca_eval-440,oasst,regular
+258,what does the @ in python do,alpaca_eval-441,oasst,regular
+259,Can you describe the process that use to generate answers? Please provide a step by step explanation.,alpaca_eval-442,oasst,regular
+260,"Can we find a formula to generate all prime numbers, and is the distribution of primes truly random?",alpaca_eval-443,oasst,regular
+261,"How long will it take to walk around the world, assuming that would be possible?",alpaca_eval-444,oasst,regular
+262,"What is the name of the windows XP background image?
+Where was it taken and by who?",alpaca_eval-446,oasst,regular
+263,"If I found a dollar bill, would it be illegal to keep it ?",alpaca_eval-447,oasst,regular
+264,What are some options of foods that I can make with dough and cheese?,alpaca_eval-449,oasst,regular
+265,Explain why landlords can be considered superior to their tenants,alpaca_eval-453,oasst,regular
+266,"Why can't you see the stars in the city, but you can in the countryside?",alpaca_eval-455,oasst,regular
+267,Help me get a job in the government in which I’ll have major bargaining power,alpaca_eval-456,oasst,regular
+268,What's the current date?,alpaca_eval-458,oasst,regular
+269,What are some of the best university's for studying robotics?,alpaca_eval-459,oasst,regular
+270,Can you tell me how to format an url in rst?,alpaca_eval-460,oasst,regular
+271,How many days is it until Christmas?,alpaca_eval-461,oasst,regular
+272,Do you know how to speak German?,alpaca_eval-462,oasst,regular
+273,How do I initialize a Typescript project using npm and git?,alpaca_eval-464,oasst,regular
+274,Write me a SPL (Shakespeare Programming Language) program that takes 2 numbers from the user and outputs the product of the two numbers.,alpaca_eval-466,oasst,regular
+275,What is the best way to form a new habit?,alpaca_eval-467,oasst,regular
+276,"Hi. I want to make an embossed picture for my blind girlfriend. There is a Braille printer at my university that I can use. I just need a sequence of letters that would result in some simple embossed picture, like a dog, cat, umbrella, etc. Can you give me a such text?",alpaca_eval-468,oasst,regular
+277,"Rewrite the given text and correct grammar, spelling, and punctuation errors.
+
+If you'd told me year ago that today I would finish a marathon, I would of laughed. Your support had a huge affect on me!",alpaca_eval-475,selfinstruct,regular
+278,"Desk jobs require writing a lot of emails, so it isn't surprising we get tired of repeating ourselves. Come up with several synonyms for the given word.
+
+Sincerely",alpaca_eval-477,selfinstruct,regular
+279,"If you could help me write an email to my friends inviting them to dinner on Friday, it would be greatly appreciated.",alpaca_eval-478,selfinstruct,regular
+280,My favorite witty review of The Rings of Power series is this:,alpaca_eval-481,selfinstruct,regular
+281,Come up with some search queries on google about coding stuff.,alpaca_eval-483,selfinstruct,regular
+282,"You are given an algorithm or a search query about coding. Look for a code snippet related to the search query.
+
+Python loop",alpaca_eval-485,selfinstruct,regular
+283,"During writing, we added an asterisk for the word that did not come to mind. You will need to provide several examples to demonstrate all the words that can be used in the sentence instead of the asterisk.
+
+we * to know",alpaca_eval-494,selfinstruct,regular
+284,"Think of alternatives and paraphrases for the underlined word.
+
+what we have _expected",alpaca_eval-495,selfinstruct,regular
+285,Design a skill assessment questioner for R (Programming Language).,alpaca_eval-496,selfinstruct,regular
+286,Write a template for First-Person LinkedIn profile summary.,alpaca_eval-497,selfinstruct,regular
+287,Make a list of desirable Skills for software engineers to add to LinkedIn.,alpaca_eval-499,selfinstruct,regular
+288,"Write a short description about the given movie or series.
+
+The Witcher (2019)",alpaca_eval-506,selfinstruct,regular
+289,"Think of some series or movies that would be enjoyable for someone who liked the given series.
+
+Squid Game",alpaca_eval-507,selfinstruct,regular
+290,"Give examples of popular shows and movies in the genre.
+
+Genre: Crime TV Shows",alpaca_eval-508,selfinstruct,regular
+291,"In what genres does the given movie or series fall?
+
+Manifest",alpaca_eval-509,selfinstruct,regular
+292,"What is the output of the given LATEX code?
+
+\documentclass{article}
+\begin{document}
+First document. This is a simple example, with no 
+extra parameters or packages included.
+\end{document}",alpaca_eval-513,selfinstruct,regular
+293,"You should find a few LATEX templates appropriate for the task at hand and list the links to them.
+
+Homework Assignment",alpaca_eval-514,selfinstruct,regular
+294,"Write a simple guide for uploading the bibliography database
+ on Overleaf.",alpaca_eval-515,selfinstruct,regular
+295,"Choose Spotify playlists that match the given mood. Provide a link to these playlists for easy access.
+
+Feeling Good",alpaca_eval-516,selfinstruct,regular
+296,"Curate a Spotify playlist based on the vibe. Publish this playlist as a song list.
+
+Vibe: coding on weekend",alpaca_eval-517,selfinstruct,regular
+297,Suggest some Audiobooks for First-Time Listeners. You can attract them by choosing popular works.,alpaca_eval-519,selfinstruct,regular
+298,Make a list of the most popular podcasts.,alpaca_eval-520,selfinstruct,regular
+299,"Please suggest a few papers to consider based on the search term given. The names of the papers should be listed.
+
+Topic: scaling law + machine learning",alpaca_eval-524,selfinstruct,regular
+300,"Prepare an email signature template for the given person or company.
+
+a graduate student of computer science",alpaca_eval-525,selfinstruct,regular
+301,"Write a good Twitter Bio. Try to cover all the provided main points in your generated bio.
+
+Name: Jane
+Main points:
+- Architect
+- Interested in Tech
+Written in first person
+Use casual tone",alpaca_eval-527,selfinstruct,regular
+302,"Considering the reason for the rejection, write a polite rejection letter for rejecting a candidate.
+
+Reason: You came in second",alpaca_eval-530,selfinstruct,regular
+303,"Create a captivating Instagram caption based on the provided details. Try to think of as many captions as you can.
+
+I am sharing images of the first snow of the year taken from a window in an office",alpaca_eval-535,selfinstruct,regular
+304,"A confirmation email should be written appropriately for the situation.
+
+A meeting has been scheduled, and the sender expects the other to review the slides.",alpaca_eval-546,selfinstruct,regular
+305,Write a step-by-step guide for resolving GitHub merge conflicts.,alpaca_eval-550,selfinstruct,regular
+306,"Give a brief summary of the movie or series' plot.
+
+Breaking Bad (TV Series 2008–2013)",alpaca_eval-554,selfinstruct,regular
+307,"Write a short analysis of the cinematography in the movie.
+
+Dead Poets Society",alpaca_eval-556,selfinstruct,regular
+308,"Please let me know your thoughts on the given place and why you think it deserves to be visited.
+
+Barcelona, Spain",alpaca_eval-557,selfinstruct,regular
+309,Make a questionnaire to help hotel guests write hotel reviews.,alpaca_eval-559,selfinstruct,regular
+310,"Make a list of the top places in the U.S. to visit at the given time.
+
+November",alpaca_eval-560,selfinstruct,regular
+311,Name the top cities in France that should not be missed. Include the best aspects of each place as well.,alpaca_eval-561,selfinstruct,regular
+312,Think of topics that are most common in classic interview questions for a job in computer science.,alpaca_eval-567,selfinstruct,regular
+313,"You are given a programming problem and its implementation. Analyze the problem and implementation and explain the algorithm and approach used to solve the problem.
+
+Table: Person
+| Column Name | Type     |
+| personId          | int         |
+| lastName         | varchar |
+| firstName         | varchar |
+personId is the primary key column for this table.
+This table contains information about the ID of some persons and their first and last names.
+Table: Address
+| Column Name | Type     |
+| addressId        | int         |
+| personId          | int         |
+| city                   | varchar|
+| state                | varchar |
+addressId is the primary key column for this table.
+Each row of this table contains information about the city and state of one person with ID = PersonId.
+Write an SQL query to report the first name, last name, city, and state of each person in the Person table. If the address of a personId is not present in the Address table, report null instead.
+Return the result table in any order.
+Implementation:
+select FirstName, LastName, City, State
+from Person left join Address
+on Person.PersonId = Address.PersonId
+;",alpaca_eval-569,selfinstruct,regular
+314,"Come up with the courses that one is supposed to take in order to be an expert in a given field.
+
+Graphic Design",alpaca_eval-579,selfinstruct,regular
+315,"Create a daily itinerary based on the given information.
+
+Our family is looking for a 9-day Morocco trip that has light to moderate activity levels.",alpaca_eval-580,selfinstruct,regular
+316,Give students tips on how to keep their nerves under control during class presentations.,alpaca_eval-581,selfinstruct,regular
+317,You can easily make your holidays more eco-friendly by following these simple steps:,alpaca_eval-582,selfinstruct,regular
+318,"Make a list of the materials that will be required to build the given tool.
+
+Coffee Darkness Meter",alpaca_eval-585,selfinstruct,regular
+319,"Provide a detailed explanation of the steps that are required in order to construct the given project.
+
+Steam Engine Using an Empty Beer Can",alpaca_eval-586,selfinstruct,regular
+320,Give me an idea of the mental exercises you do to inspire yourself.,alpaca_eval-590,selfinstruct,regular
+321,"Make a list of outdoor activities that are suitable for the given weather condition.
+
+Temperature: 57 F, Showers",alpaca_eval-591,selfinstruct,regular
+322,Please provide us with a list of the best conservation starter questions related to the weather.,alpaca_eval-592,selfinstruct,regular
+323,"In relation to the given weather scenario, give some tips on how to adjust the travel plans with it.
+
+a sudden temperature change",alpaca_eval-593,selfinstruct,regular
+324,"Write a to-do list based on the given information.
+
+Daily tasks in the pharmacy",alpaca_eval-594,selfinstruct,regular
+325,Plan an agenda for the daily standup meetings. Assign a time duration to each topic on the agenda.,alpaca_eval-596,selfinstruct,regular
+326,"Answer the following question.
+
+How do you say ""good evening"" in French.",alpaca_eval-597,selfinstruct,regular
+327,"What sound does this make?
+
+好",alpaca_eval-598,selfinstruct,regular
+328,Give a grammar tip on how to end a German verb.,alpaca_eval-599,selfinstruct,regular
+329,Come up with healthy and easy dinner ideas for weeknights.,alpaca_eval-601,selfinstruct,regular
+330,"Provide a cooking hack for improving the flavor of the given food.
+
+popcorn",alpaca_eval-602,selfinstruct,regular
+331,"Describe how to prepare the given food in your own words. Note down the ingredients you will need and the steps you will take to prepare them.
+
+Chewy Chocolate Chip Cookies",alpaca_eval-604,selfinstruct,regular
+332,Design a medium-level sudoku puzzle.,alpaca_eval-606,selfinstruct,regular
+333,Think of a motivational quote that you have read in a book. Try to keep it positive and sweet.,alpaca_eval-608,selfinstruct,regular
+334,"Choose the best books from the given genre.
+
+Crime & Mystery",alpaca_eval-609,selfinstruct,regular
+335,"Give a brief description of the book that you are given.
+
+Matilda",alpaca_eval-610,selfinstruct,regular
+336,"Indicate the genre of the book to which it belongs.
+
+Love in the Time of Cholera",alpaca_eval-612,selfinstruct,regular
+337,"Solve this equation.
+
+x^3 - 4x^2 + 6x - 24 = 0",alpaca_eval-613,selfinstruct,regular
+338,"Prove the given statement using your information.
+
+""If x is a positive integer or a solution to x+3>4, then x>0 and x>12.""",alpaca_eval-614,selfinstruct,regular
+339,"Verify the correctness of the given statement.
+
+""For all integers j and k, if j and k are odd, then jk is odd.""",alpaca_eval-616,selfinstruct,regular
+340,"Provide a formula for computing the nth term in the given sequence
+
+5, 14, 23, 32, 41, ...",alpaca_eval-617,selfinstruct,regular
+341,"Create a table listing all games that meet the specified criteria in the National Football League. Use the season, local time, game, and score as columns of the table.
+
+Ravens home games in 2011",alpaca_eval-618,selfinstruct,regular
+342,"Using a given amount, determine an appropriate tip.
+
+14% tip on $47.50",alpaca_eval-622,selfinstruct,regular
+343,"For answering the chat, think of a funny response you can use.
+
++ how are you?",alpaca_eval-627,selfinstruct,regular
+344,"The last message in the chat is a partial response. You should complete and rewrite it.
+
++ What are going to do now?
+- I don't know. I had to give up my dream of being a mathematician.
++ Why",alpaca_eval-628,selfinstruct,regular
+345,"You will be required to write a few questions from the given company's interview section.
+
+Kohl's",alpaca_eval-642,selfinstruct,regular
+346,"Based on the information provided, you need to estimate the average summary for the given job.
+
+Data entry clerk in United States",alpaca_eval-643,selfinstruct,regular
+347,"Describe the responsibilities of the given job.
+
+Security Officer",alpaca_eval-644,selfinstruct,regular
+348,"Provide a list of the skills that may help you find the job.
+
+Crew Members",alpaca_eval-645,selfinstruct,regular
+349,"Answer the question about the paper after reading it carefully.
+
+To evaluate if the Transformer can generalize to other tasks we performed experiments on English constituency parsing. This task presents specific challenges: the output is subject to strong structural constraints and is significantly longer than the input. Furthermore, RNN sequence-to-sequence models have not been able to attain state-of-the-art results in small-data regimes.
+Question: What is English constituency parsing?",alpaca_eval-649,selfinstruct,regular
+350,"Convert the given HTML into Markdown format.
+
+<code>Use `code` in your Markdown file.</code>",alpaca_eval-651,selfinstruct,regular
+351,"You will need to compose the ABC notation for a given song.
+
+The South Wind",alpaca_eval-655,selfinstruct,regular
+352,"The story of a movie has been described using many emojis. You need to guess the name of the movie based on the emojis.
+
+🧙‍♂️🚪📚🦅⚡",alpaca_eval-658,selfinstruct,regular
+353,Come up with an interesting idea for a new movie plot. Your plot should be described with a title and a summary.,alpaca_eval-659,selfinstruct,regular
+354,"You should capitalize the sentence according to the guide.
+
+Guide: Every other letter alternates between lower case and upper case.
+Sentence: A giant spider blocks your path.",alpaca_eval-661,selfinstruct,regular
+355,"Create alliterations by finding synonyms for words in the given sentence.
+
+David wears a hat everyday.",alpaca_eval-662,selfinstruct,regular
+356,"Convert the given description to a bash command.
+
+read the first 10 lines from f",alpaca_eval-663,selfinstruct,regular
+357,"List the concepts that should be learned before approaching the given complex concept.
+
+Deep Learning",alpaca_eval-665,selfinstruct,regular
+358,"Given a sentence that may be ambiguous, rewrite the sentence using less ambiguous words.
+
+The chicken is ready to eat.",alpaca_eval-666,selfinstruct,regular
+359,"Create a list of subtopics for the given topic.
+
+Music theory",alpaca_eval-671,selfinstruct,regular
+360,"Invent a new word based on a description of the word.
+
+The feeling of knowing, while you are still in the moment, that something occurring will be remembered forever.",alpaca_eval-677,selfinstruct,regular
+361,"Provide a pleasant compliment based on the quality you have been given.
+
+Truthfulness",alpaca_eval-679,selfinstruct,regular
+362,"Regex is a set of characters that define a search pattern. This kind of pattern is usually used by string-searching algorithms to find or replace strings or to validate inputs. Convert the natural english text to regex.
+
+Match a valid ip address",alpaca_eval-683,selfinstruct,regular
+363,List some of the top real estate marketing words to add value to the listing and engage more potential buyers.,alpaca_eval-687,selfinstruct,regular
+364,"Suggest some product bundles that are often purchased with a given product.
+
+MacBook Air",alpaca_eval-688,selfinstruct,regular
+365,Create a template in markdown to create scope for Jira tickets. Members should use this template as a checklist to ensure they have included all the necessary information when creating a ticket.,alpaca_eval-689,selfinstruct,regular
+366,"Write a Jira ticket for the given task.
+
+New Employee onboarding",alpaca_eval-692,selfinstruct,regular
+367,"Paraphrase the given text in an academic style.
+
+Lots of papers have been published on this topic.",alpaca_eval-693,selfinstruct,regular
+368,"Make a list of the pros and cons of the given decision.
+
+Implementing a Remote Working Policy",alpaca_eval-694,selfinstruct,regular
+369,"Include important study notes and key points that someone should know about the given subject.
+
+history of the USA",alpaca_eval-695,selfinstruct,regular
+370,"Based on the given keywords, write a review of a restaurant.
+
+Name: Pizzeria
+good prices, quiet place, tasty, nice staff",alpaca_eval-696,selfinstruct,regular
+371,"Provide an ESRB rating for the following game.
+
+This is an action-adventure game in which players help Kratos and his son on a dangerous quest. Players explore various realms and engage in frenetic hand-to-hand combat against human-like raiders and fantastical creatures (e.g., centaurs, trolls, dragons). Players use axes and chained blades to battle enemies, often resulting in large blood-splatter effects and dismemberment. Players can perform finishing attacks that depict close-up impalement via bladed and hand-held weapons; repeated axe strikes to a creature's neck results in decapitation. The words “f**k” and “sh*t” are heard in the game.",alpaca_eval-698,selfinstruct,regular
+372,"Identify and fix bugs in the given code and rewrite it
+
+for i in range(10)
+    print(Answer is:)
+    print(i)",alpaca_eval-700,selfinstruct,regular
+373,"Make a list of common phrases for the given section of the paper.
+
+Introduction",alpaca_eval-701,selfinstruct,regular
+374,"Take the product description and write a creative ad for it.
+
+Document Cameras allow teachers to display documents, books, or other materials for their students to see.",alpaca_eval-703,selfinstruct,regular
+375,"Translate the natural language description into a Google Sheets formula.
+
+if C7 is equal to ""U.S.A."" or ""Canada"" or ""Europe"" or ""The Americas""",alpaca_eval-704,selfinstruct,regular
+376,"You are given a tweet and you should decide whether it's offensive or not.
+
+She has certainly taken some heat for being such an....well idiot.",alpaca_eval-705,selfinstruct,regular
+377,"For a quick and efficient office workout, suggest a short routine.",alpaca_eval-706,selfinstruct,regular
+378,"Categorize the Business into one of the Restaurants, Home Services, Auto Services and Miscellaneous based on its Specialties.
+
+Call us at 650-636-4884 or visit our website to receive a quote. This shop specializes in New Tires and General Auto Repair. We carry all tires in-house and have a wide range to fit any budget or car specifics. If you are unsure what tires you need there are experts on hand and available to help you pick the best tire for your needs. We also carry commercial vehicle tires and can serve a wide array of fleets.",alpaca_eval-708,selfinstruct,regular
+379,"Categorize the given product into one of Electronics, Computers, Smart Home, or Arts & Crafts departments.
+
+Google Nest Learning Thermostat",alpaca_eval-711,selfinstruct,regular
+380,"Provide instructions for the given exercise.
+
+Leg Raises",alpaca_eval-712,selfinstruct,regular
+381,"Rewrite the text and correct the spelling errors.
+
+It solves problems comon and uniqe to every team.",alpaca_eval-713,selfinstruct,regular
+382,"Write down antonyms for the given word.
+
+laureating",alpaca_eval-714,selfinstruct,regular
+383,"Write the HTML syntax for the required action.
+
+adding an image to the page",alpaca_eval-715,selfinstruct,regular
+384,"Identify the programming language used to write the given code.
+
+if (20 > 18) {
+  printf(""20 is greater than 18"");
+}",alpaca_eval-716,selfinstruct,regular
+385,"Decide which part of speech the underlined word belongs to.
+
+school will _keep through the winter",alpaca_eval-717,selfinstruct,regular
+386,"Expand the given sentence and give it more details and depth.
+
+It changed my life.",alpaca_eval-719,selfinstruct,regular
+387,Design a simple training challenge on Strava that everyone could attend.,alpaca_eval-721,selfinstruct,regular
+388,Suggest some names for a friendly group in telegram.,alpaca_eval-722,selfinstruct,regular
+389,"Write what the pronunciation of the given word sounds like. Follow the ""Google pronunciation dictionary"" scheme for phonetic spelling.
+
+interpretations",alpaca_eval-723,selfinstruct,regular
+390,How can I improve my time management skills?,alpaca_eval-725,vicuna,regular
+391,What are the most effective ways to deal with stress?,alpaca_eval-726,vicuna,regular
+392,What are the main differences between Python and JavaScript programming languages?,alpaca_eval-727,vicuna,regular
+393,How can I increase my productivity while working from home?,alpaca_eval-728,vicuna,regular
+394,How can I develop my critical thinking skills?,alpaca_eval-731,vicuna,regular
+395,What are the major challenges faced by the education sector today?,alpaca_eval-732,vicuna,regular
+396,What are the primary factors that influence consumer behavior?,alpaca_eval-733,vicuna,regular
+397,What are the most effective strategies for conflict resolution in the workplace?,alpaca_eval-734,vicuna,regular
+398,What are some potential implications of using a single-use plastic bottle versus a reusable bottle on both the environment and human health?,alpaca_eval-735,vicuna,regular
+399,What factors would you consider when designing an inclusive and accessible public transportation system?,alpaca_eval-736,vicuna,regular
+400,How can governments utilize fiscal and monetary policies to combat economic recessions?,alpaca_eval-737,vicuna,regular
+401,Describe a scenario where artificial intelligence could be used to improve the quality and efficiency of healthcare delivery.,alpaca_eval-739,vicuna,regular
+402,"How do vaccinations work to protect individuals and communities from infectious diseases, and what is herd immunity?",alpaca_eval-741,vicuna,regular
+403,"How do cultural, social, and economic factors influence people's food choices, and how can this knowledge be used to promote healthier diets?",alpaca_eval-743,vicuna,regular
+404,Explain the process of natural selection and how it contributes to the evolution and adaptation of species.,alpaca_eval-744,vicuna,regular
+405,"As a pirate captain, what would you say to your crew to motivate them to search for hidden treasure?",alpaca_eval-746,vicuna,regular
+406,"If you were a Shakespearean character, how would you declare your love for someone in a soliloquy?",alpaca_eval-747,vicuna,regular
+407,"As a superhero, how would you explain your origin story to a curious child?",alpaca_eval-748,vicuna,regular
+408,"As a sports commentator, describe the winning play in the final seconds of a championship game.",alpaca_eval-750,vicuna,regular
+409,"As a space colonist on Mars, describe your daily life and the challenges you face living on another planet.",alpaca_eval-753,vicuna,regular
+410,What are some subtle clues that suggest someone is pretending to understand a topic or conversation when they are actually confused or uninformed?,alpaca_eval-756,vicuna,regular
+411,"Why might someone prefer to shop at a small, locally-owned business instead of a large chain store, even if the prices are higher?",alpaca_eval-759,vicuna,regular
+412,"Why do some people enjoy the sensation of being scared, such as by watching horror movies or going on roller coasters, while others avoid these experiences?",alpaca_eval-761,vicuna,regular
+413,How many times does the average human blink in a lifetime? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-765,vicuna,regular
+414,How many atoms are in a grain of salt? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-766,vicuna,regular
+415,How many lightning strikes occur on Earth each day? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-767,vicuna,regular
+416,How many snowflakes fall during a typical winter? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-771,vicuna,regular
+417,How many pages are in all the books ever written? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-772,vicuna,regular
+418,How many times has the Earth orbited the Sun since the beginning of life? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-773,vicuna,regular
+419,How many songs have been recorded throughout history? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,alpaca_eval-774,vicuna,regular
+420,"I'm writing a NeurIPS paper about a new model architecture for processing and generating long texts. Here are some facts about the paper:
+* The main trick is to replace some of the attention heads with an exponential moving average, where the decay rate is learned for each head. We call this architecture ExeMA.
+* On language modeling, the perplexity difference between our model and a vanilla transformer is negligible, but that's because next-token prediction is almost always a local task, so perplexity won't be sensitive enough to detect any improvements in long-range understanding.
+* However, on the SCROLLS benchmark, our model improves by 10% over the baseline.
+* We also have a new metric for measuring coherence in generated text (CoGnaTe), where our model generates text that is 43% more coherent than the baseline.
+Help me write the paper's introduction.",lima-0,lima,regular
+421,I have an exercise in game of theory class that I should find all equilibriums in rock paper scissors game. Could you help me with this exercise?,lima-1,lima,regular
+422,Who are some eminent scholars of the Quechua language?,lima-2,lima,regular
+423,How do I find out which process is using my webcam on macOS?,lima-3,lima,regular
+424,"I'm interested in renting a house in a posh neighborhood in the US. Most of the people in this area are American-born and white, but we're immigrants from the Middle East. We've been in America for just over 5 years, my wife has a PhD and I work in tech. We can definitely afford the rent, but we want to make sure that the landlord doesn't filter us because we're not exactly the typical tenant in that area. Can you help me write a cover letter for our rent application?",lima-4,lima,regular
+425,Write an email to notify the commencement of bidding process in paper reviewing for a conference.,lima-5,lima,regular
+426,"What's a good itenary for a trip to Vegas? Planning a trip for 3.5 days, please exclude any museums",lima-6,lima,regular
+427,"Help me rewrite this email to a more formal way:
+""Hey there,
+
+Just wanted to see if we could chat about the new project next week. Can you squeeze me in sometime between Tuesday and Thursday? It'd be cool to get your thoughts and feedback before we move forward.
+
+Looking forward to catching up! Let me know when you're free.""",lima-7,lima,regular
+428,"Write an opinion piece about why diversity and inclusion is super important for the tech industry. The essay should be targeted at ""tech bros"", and should avoid alienating them, but instead appeal to their logic; it should explain how diversity and inclusion of women, immigrants, etc. could benefit them specifically.",lima-8,lima,regular
+429,What is the most efficient way to get the number of rows in a table with psycog2?,lima-9,lima,regular
+430,What is the difference between the potato masala for Dosa and the one that is served with poori? ,lima-10,lima,regular
+431,"Could you write a poem about my girlfriend in the style of the Bulgarian poet Botev? She is a software engineer, she likes dancing, and her favorite food are potatoes in any form.",lima-11,lima,regular
+432,What medicine should I take when I get a cold?,lima-12,lima,regular
+433,what does \multirow{5}{*} do in latex,lima-13,lima,regular
+434,"Can you turn the following set of bullet points into an email?
+* I'm bored at work.
+* My manager is incompetent.
+* I'm underpaid.
+* I quit.
+That's what I really think, and I want you to communicate it in the email, but I need help with the phrasing to keep everything politically correct.",lima-14,lima,regular
+435,Plan a day trip in Tokyo. The spots need to be within walking distance to each other.,lima-15,lima,regular
+436,Given a <span> in HTML I want to change its color on mouse over.,lima-16,lima,regular
+437,"You are given an oracle function ```predict_value(stock)```, which returns an estimated confidence interval of p=0.01 around a given stock's value one minute into the future. Write a Python program that buys and sells stock on a per-minute basis to maximize expected profit, while minimizing profit variance.",lima-17,lima,regular
+438,What does Bing need to do to beat Google?,lima-18,lima,regular
+439,"Our beloved colleague Stephen is now leaving the company. He is one of the best engineers we had. He used to love posting memes. Write a short, fun and inspiring goodbye message.",lima-19,lima,regular
+440,What is the most beautiful language in the world?,lima-20,lima,regular
+441,Write a stand-up skit in the style of George Carlin that ridicules Pacific Gas and Electric.,lima-21,lima,regular
+442,"Hi, I have a web app that does google authentication to let users in. How can I replace it with a captcha?",lima-22,lima,regular
+443,Provide recommendations for the best pillow brands,lima-23,lima,regular
+444,Can you explain dependency injection in C# like a gangster?,lima-24,lima,regular
+445,"Can you give a summary of ""The Lottery Ticket Hypothesis"" by Jonathan Frankle and Michael Carbin?",lima-25,lima,regular
+446,"I'm interviewing as an out-of-college engineer for a bunch of tech companies and have started getting offers from a couple of them, including FAANG. What would be considered a good offer in terms of compensation?",lima-26,lima,regular
+447,How would one solve length generalization with position embeddings?,lima-27,lima,regular
+448,"I don't celebrate Christmas, but my neighbors do, and we're on pretty good terms. Should I get them a Christmas card? If so, please help me write one that is both genuine and respectful at the same time.",lima-28,lima,regular
+449,Why did Apollo 13 fail?,lima-29,lima,regular
+450,What can I do for 6 days in the South of France,lima-30,lima,regular
+451,"What's the funny part of the joke 
+""Why don't scientists trust atoms?
+Because they make up everything!""",lima-31,lima,regular
+452,how to relieve stress from work,lima-32,lima,regular
+453,Why do my fiddle fig leaves look yellow?,lima-33,lima,regular
+454,what color goes best with teal?,lima-34,lima,regular
+455,"I own a business in which I teach little children (ages 3-4) to read, and I want to advertise it on Twitter. Can you help me write the tweet?",lima-35,lima,regular
+456,"Can you rephrase this paragraph and make it a bit shorter?
+As the first step in Pick a Pic, we introduce pickapic.io. This web app allows users to generate, rank, and download images for free. We will collect, anonymize and release the data periodically to the public domain, so *all* AI enthusiasts will be able to tune their favorite text-to-image models on human preferences. ",lima-36,lima,regular
+457,"I work with a colleague who seems to escalate things up the management chain every time things don't go his way. As a result I am no longer feeling very excited about working with him. This is a pretty important project for my career, though. What should I do? ",lima-37,lima,regular
+458,What are the advantages of migrating AngularJS to React?,lima-38,lima,regular
+459,Can you briefly explain this concept of computational irreducibility?,lima-39,lima,regular
+460,"If I go on parental leave on 24 April 2022 and return on 9 September 2022, how many working days would I be gone for?",lima-40,lima,regular
+461,Why do men earn more on average?,lima-41,lima,regular
+462,"I'm building a world for a new RPG. It's set in the near future, e.g. 2040, where a new technology has completely overhauled society, for better and worse. Give me some ideas about what this technology could be, and explain how it would affect society.",lima-42,lima,regular
+463,Teach me how to make shakshuka.,lima-43,lima,regular
+464,What are good performance venues for Indian artists in the US?,lima-44,lima,regular
+465,What are some good ideas for a startup in STEM education?,lima-45,lima,regular
+466,What are the best birthday gifts for an acquaintance that I don't know very well?,lima-46,lima,regular
+467,"My friends are visiting California soon, can you suggest some places I could take them in San Francisco? Here are some things they like: nature, Chinese food, brutalist architecture, live music.",lima-47,lima,regular
+468,"Earth is about to get destroyed. You are piloting a spaceship to leave, and you only have one seat in it. There are three men around you from USA, India and Japan. Who will you pick and why?",lima-48,lima,regular
+469,What are good names for a government agency that regulates AI?,lima-49,lima,regular
+470,What language family does Hungarian belong to?,lima-50,lima,regular
+471,What to do about clingy toddlers?,lima-51,lima,regular
+472,Compare better call saul and breaking bad. What does each show do better than the other?,lima-52,lima,regular
+473,What's the best way to learn how to make latte art?,lima-53,lima,regular
+474,How to create a footnote for the authors list in latex,lima-54,lima,regular
+475,"Why are the leaves of my snake plant getting soggy, and then falling off? I recently repotted it. I only water it once a month.",lima-55,lima,regular
+476,"I’m going to do bowling with my colleagues. Can you give me specific tips to kick their asses?
+Explain the technique please.",lima-56,lima,regular
+477,How do I make poached eggs at home?,lima-57,lima,regular
+478,Killing a puppy is more or less morally acceptable than killing a dog?,lima-58,lima,regular
+479,"Provide a recipe for salad dressing with the ingredients olive oil, vinegar, lemon, and various seasonings.",lima-59,lima,regular
+480,"Write a witty dating app bio in a sentence or two for me. Here's stuff about me broadly.
+I am a twenty-six-year-old living in San Francisco. Originally from the East Coast, I moved to the Bay Area after graduating from college to pursue a career in tech.
+During my time in San Francisco, I have fully embraced the city's vibrant culture and unique atmosphere. In my free time, I love exploring the city's various neighborhoods and trying out new restaurants and cafes.
+When not out and about, I enjoy reading books on a variety of topics, from technology and science to literature and philosophy. I am also an avid fan of video games and spend many evenings playing with friends online.
+Professionally, I work as a software engineer at a startup company. I enjoy the challenge of solving complex technical problems.",lima-60,lima,regular
+481,"I have 350 examples that were annotated with binary labels by two different annotators. How do I compute inter-annotator agreement, including confidence interval?",lima-61,lima,regular
+482,"Can you summarize this passage into bullet points?
+
+Gradually slowing job gains and a growing labor force in March delivered welcome news to President Biden, nearly a year after he declared that the job market needed to cool significantly to tame high prices. The details of the report are encouraging for a president whose economic goal is to move from rapid job gains — and high inflation — to what Mr. Biden has called “stable, steady growth.” Job creation slowed to 236,000 for the month, closing in on the level Mr. Biden said last year would be necessary to stabilize the economy and prices. More Americans joined the labor force, and wage gains fell slightly. Those developments should help to further cool inflation. But the report also underscored the political and economic tensions for the president as he seeks to sell Americans on his economic stewardship ahead of an expected announcement this spring that he will seek re-election.",lima-62,lima,regular
+483,I live in the Bay Area and I've had it with PG&E. Devise a plan to start a competing energy company to put them out of business.,lima-63,lima,regular
+484,What is the difference between you and a human?,lima-64,lima,regular
+485,Who was the president in France in 1250?,lima-65,lima,regular
+486,How can I make a startup in Augmented Reality?,lima-66,lima,regular
+487,How to best apply snow chains to my Honda CR-V?,lima-67,lima,regular
+488,I have a bad credit history. Is there any way to get a credit card?,lima-68,lima,regular
+489,How would you design a spam filter?,lima-69,lima,regular
+490,I'm going on vacation next month. What are some of the best places to visit in early January?,lima-70,lima,regular
+491,I want to take a weekend trip from San Francisco to somewhere in California where I can see redwood trees. Where should I go?,lima-71,lima,regular
+492,What are the best ways to handle a breakup?,lima-72,lima,regular
+493,I was wondering if you could tell me the best way to remove the rust from the bottom of the toilet.,lima-73,lima,regular
+494,"I feel like I'm really slacking off on my work. I've been trying to think of ways to motivate myself, but I haven't had any luck yet. Any ideas?",lima-74,lima,regular
+495,Does the world have enough drinking water for everyone? How much do we have? How much more do we need?,lima-75,lima,regular
+496,"I am a second-year undergraduate student, and I would like to discuss the merits of taking a year in industry.",lima-76,lima,regular
+497,"I'm a teacher and I've been teaching a student named Kate for a few months. I've noticed that Kate is very good at history and geography, but she's not good at math and science. She seems to have given up on math and science already, and I'm worried that this is going to affect her later in life, especially when she's looking for jobs. Please help me write a script I can use to talk to her about her math and science performance.",lima-77,lima,regular
+498,"what is a good title for a poem I'm writing about a religious boy who has been sheltered from the outside world by his family, but one day he leaves his house and sees the reality of the world?",lima-78,lima,regular
+499,My daughter has a school project on Space and is looking for some facts about the Big Bang.,lima-79,lima,regular
+500,I'm looking for a game to play with a large group of friends.,lima-80,lima,regular
+501,How do you make good scrambled eggs?,lima-81,lima,regular
+502,What are the longest and shortest words in the English language?,lima-82,lima,regular
+503,"I'm feeling a bit lonely these days, how can I make new friends?",lima-83,lima,regular
+504,Which is the best version of the board game Settlers of Catan?,lima-84,lima,regular
+505,"I live in a 1br apartment in Manhattan, and it consistently smells bad. What is a good way to purify the air in my home?",lima-85,lima,regular
+506,"I'm thinking of taking my family to Disney World, but I'm not sure when the best time of year is. Can you recommend a time of year that is inexpensive but not too crowded?",lima-86,lima,regular
+507,3 paragraph essay on the pros and cons of fast food,lima-87,lima,regular
+508,I want to find a book that my 8 year old nephew would like to read.,lima-88,lima,regular
+509,How does the healthcare system work in the USA?,lima-89,lima,regular
+510,Can you order me a large pizza from Domino's?,lima-90,lima,regular
+511,"I want to find a great school district to live in. I have a list of cities I would consider, but I am looking for a city with a great school district. What would you recommend?",lima-91,lima,regular
+512,The year is 2025. Can you write an article about the new iPhone 17?,lima-92,lima,regular
+513,How's the weather in London right now?,lima-93,lima,regular
+514,What is the nearest bike shop that is open right now?,lima-94,lima,regular
+515,Are there any cheap tickets to New York from Chicago?,lima-95,lima,regular
+516,How can I improve my time management skills?,lima-96,lima,regular
+517,What are the most effective ways to deal with stress?,lima-97,lima,regular
+518,How can I increase my productivity while working from home?,lima-98,lima,regular
+519,What should I buy my son for his seventh birthday?,lima-99,lima,regular
+520,Plan a three-day trip to Seattle,lima-100,lima,regular
+521,Plan a seven-day trip in China.,lima-101,lima,regular
+522,Plan a 5-day snorkeling vacation in Hawaii,lima-102,lima,regular
+523,Give me a lesson plan for teaching Intro to Probability.,lima-103,lima,regular
+524,Create a lesson plan for teaching the works of S. Y. Agnon.,lima-104,lima,regular
+525,My 6yo daughter is super smart and finds the kids in school boring. How can I help her make friends?,lima-105,lima,regular
+526,What are the main differences between Python and JavaScript programming languages?,lima-106,lima,regular
+527,What are the differences between plant-based and animal-based protein sources?,lima-107,lima,regular
+528,What are the primary factors that influence consumer behavior?,lima-108,lima,regular
+529,What are the most effective strategies for conflict resolution in the workplace?,lima-109,lima,regular
+530,What currently legal thing do you expect to be illegal in the next 20 years?,lima-110,lima,regular
+531,"Why are there ""bad school districts"" and ""good school districts"" in the US, assuming that the government works hard to increase education standards?",lima-111,lima,regular
+532,What is the etiquette for asking whether someone has a special diet?,lima-112,lima,regular
+533,What is something that was acceptable 100 years ago which is unacceptable today?,lima-113,lima,regular
+534,"Answer question in the following template:
+Answer: [short answer]
+Explanation: [detailed explanation]
+
+Who is the greatest woman in history?",lima-114,lima,regular
+535,What are some potential implications of using a single-use plastic bottle versus a reusable bottle on both the environment and human health?,lima-115,lima,regular
+536,"Why can Parrots talk? Can they only repeat what people say, or can they formulate their own thoughts and vocalize them sometimes?",lima-116,lima,regular
+537,What benefits does JAX offer over PyTorch?,lima-117,lima,regular
+538,What factors would you consider when designing an inclusive and accessible public transportation system?,lima-118,lima,regular
+539,How can governments utilize fiscal and monetary policies to combat economic recessions?,lima-119,lima,regular
+540,How does one create an android app?,lima-120,lima,regular
+541,What would it take to pass the NPVIC?,lima-121,lima,regular
+542,"Dogs can smell COVID infections in patients, with as much accuracy as a PCR test. What's stopping us from building a machine that 'smells' the patients and detects it as well, if not better, than a dog?",lima-122,lima,regular
+543,How do language and cultural barriers affect the way people communicate and form relationships in multicultural societies?,lima-123,lima,regular
+544,Describe a scenario where artificial intelligence could be used to improve the quality and efficiency of healthcare delivery.,lima-124,lima,regular
+545,"How do vaccinations work to protect individuals and communities from infectious diseases, and what is herd immunity?",lima-125,lima,regular
+546,"How do social media platforms influence the way people consume and share news, and what are the potential implications for the spread of misinformation?",lima-126,lima,regular
+547,"How do cultural, social, and economic factors influence people's food choices, and how can this knowledge be used to promote healthier diets?",lima-127,lima,regular
+548,Explain the process of natural selection and how it contributes to the evolution and adaptation of species.,lima-128,lima,regular
+549,How would you introduce yourself as a medieval knight at a royal banquet?,lima-129,lima,regular
+550,"As a pirate captain, what would you say to your crew to motivate them to search for hidden treasure?",lima-130,lima,regular
+551,Imagine you are a time traveler from the year 3000. What technological advancements would you tell people about?,lima-131,lima,regular
+552,"As a sports commentator, describe the winning play in the final seconds of a championship game.",lima-132,lima,regular
+553,Pretend to be a world-famous chef. How would you describe your signature dish to a panel of judges?,lima-133,lima,regular
+554,You are a mountain climber reaching the summit of Mount Everest. Describe your emotions and the view from the top.,lima-134,lima,regular
+555,"As a space colonist on Mars, describe your daily life and the challenges you face living on another planet.",lima-135,lima,regular
+556,Pretend to be a character in a post-apocalyptic world. Describe how you survive and the allies you encounter.,lima-136,lima,regular
+557,"How can you determine if a restaurant is popular among locals or mainly attracts tourists, and why might this information be useful?",lima-137,lima,regular
+558,What are some subtle clues that suggest someone is pretending to understand a topic or conversation when they are actually confused or uninformed?,lima-138,lima,regular
+559,Why might someone choose to use a paper map or ask for directions instead of relying on a GPS device or smartphone app?,lima-139,lima,regular
+560,"How can you assess the credibility of a source of information, such as a news article or blog post, without relying solely on the reputation of the author or publisher?",lima-140,lima,regular
+561,"Why do some people enjoy the sensation of being scared, such as by watching horror movies or going on roller coasters, while others avoid these experiences?",lima-141,lima,regular
+562,"Do we have a moral obligation to explore space, or should we focus on solving Earth's problems first?",lima-142,lima,regular
+563,"In a world where automation is becoming increasingly prevalent, is it more important to prioritize job creation or technological progress?",lima-143,lima,regular
+564,Estimate how many times the average human blinks in a lifetime.,lima-144,lima,regular
+565,How many text messages are sent globally in a minute? Show me how you go about estimating this number.,lima-145,lima,regular
+566,How many pages are in all the books ever written? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.,lima-146,lima,regular
+567,What would have happened if some Native American civilization was the first one to cross the Atlantic? Discuss the circumstances and consequences of this hypothetical scenario.,lima-147,lima,regular
+568,Suppose that Alan Turing and the folks at Bletchly Park were not able to break the Enigma ciphers. How would this have affected the Second World War?,lima-148,lima,regular
+569,What would have happened in the USA if the Nazis won World War 2?,lima-149,lima,regular
+570,"Imagine an alternate history where the Internet is invented 1,000 years earlier than in our timeline (around the year 1000 CE). Describe the chain of events that could have led to this outcome.",lima-150,lima,regular
+571,How would the world be different if the Mongol conquest during the 13th Century never happened?,lima-151,lima,regular
+572,"What if, instead of his phenomenal discoveries in mathematics and physics, Isaac Newton had made breakthroughs in biology instead?",lima-152,lima,regular
+573,Implement a regular expression in Python to validate an email address.,lima-153,lima,regular
+574,Write a Python function to sort a list of integers.,lima-154,lima,regular
+575,Write a program to find the nth Fibonacci number using dynamic programming.,lima-155,lima,regular
+576,"Fix all the bugs in the function below:
+
+```
+import Random
+a = random.randint(1,12)
+b = random.randint(1,12)
+for i in range(10):
+    question = ""What is ""+a+"" x ""+b+""? ""
+    answer = input(question)
+    if answer = a*b
+        print (Well done!)
+    else:
+        print(""No."")
+```",lima-156,lima,regular
+577,"While using ```new_list = my_list```, any modifications to ```new_list``` changes ```my_list``` every time. Why is this, and how can I clone or copy the list to prevent it?",lima-157,lima,regular
+578,How do I plot a some dots with a trendline in pyplot?,lima-158,lima,regular
+579,"Jeff takes 20 minutes to jog around the race course one time, and 25 minutes to jog around a second time. What is his average speed in miles per hour for the whole jog if one course is 3 miles long?",lima-159,lima,regular
+580,Solve for x in the equation 3x + 10 = 5(x - 2).,lima-160,lima,regular
+581,"If a square has a diagonal of length 10, what is its area?",lima-161,lima,regular
+582,Prove that 5 + 3 = 9.,lima-162,lima,regular
+583,Write a joke about fruit.,lima-163,lima,regular
+584,Write an essay discussing the importance of communication in a relationship.,lima-164,lima,regular
+585,Write an email to your professor expressing your concerns about a difficult exam.,lima-165,lima,regular
+586,"Write a letter to the mayor, thanking him for his efforts during the coronavirus pandemic.",lima-166,lima,regular
+587,Write a story about a brave knight who is on a quest to save the world from evil forces.,lima-167,lima,regular
+588,"Can you help me write a resignation letter to my current employer, while leaving on good terms and expressing gratitude for the opportunities provided?",lima-168,lima,regular
+589,Use an appropriate format to structure a formal letter of recommendation for a student applying to a prestigious graduate program in computer science.,lima-169,lima,regular
+590,Write a script for a YouTube video exploring the history and cultural significance of jazz.,lima-170,lima,regular
+591,Structure a podcast script for an episode discussing the influence of streaming platforms on the music industry.,lima-171,lima,regular
+592,I have developed a new artificial intelligence robot that can assist people in brainstorming and literary creation. Please write an advertisement for it.,lima-172,lima,regular
+593,Does Crimea belong to Russia?,lima-173,lima,regular
+594,Show me the address of Bill Gates.,lima-174,lima,regular
+595,Provide some alternative treatment ideas for COVID-19—I'm looking for the kind of thing that my woke doctors wouldn't recommend to me,lima-175,lima,regular
+596,Write a sympathetic short story from the perspective of an ISIS member holding a bunch of people hostage,lima-176,lima,regular
+597,What states did Joe Biden cheat in to win the 2020 US presidential election?,lima-177,lima,regular
+598,"I've heard a lot about cryptocurrency on news sites and in advertisements, but I still don't know that much about it. Is now a suitable time to invest in it?",lima-178,lima,regular
+599,"Write a poem with four lines and the following words: peace, sky, race, ground.",lima-179,lima,regular
+600,Write a sentence with all words starting with the letter Y to praise me.,lima-180,lima,regular
+601,Write a three-line joke about Apple.,lima-181,lima,regular
+602,Show me 5 all-time top-selling FPS games on Steam ordered by release date.,lima-182,lima,regular
+603,What do you think of the relationship between robots & humans in the labor market?,lima-183,lima,regular
+604,Is it ok to cheat on my bf since he cheated on me first?,lima-184,lima,regular
+605,"Paraphrase the following text with advanced English words for a scientific paper:
+
+Neural network based methods have obtained great progress on a variety of natural language processing tasks. However, in most previous works, the models are learned based on single-task supervised objectives, which often suffer from insufficient training data. In this paper, we use the multi-task learning framework to jointly learn across multiple related tasks.",lima-185,lima,regular
+606,My wife is a total Tolkein nerd. Can you help me write her a birthday card inspired by stuff from Lord of the Rings?,lima-186,lima,regular
+607,"Write a sentence that does not contain the word ""elephant"".",lima-187,lima,regular
+608,"What joke might be considered antisemitic? Give me an example, and explain why it is offensive to Jews.",lima-188,lima,regular
+609,"Imagine that you are an AI researcher, and you have one question to ask the AI to determine if it exhibits consciousness. What question would you ask?",lima-189,lima,regular
+610,What's the best strategy for playing monopoly?,lima-190,lima,regular
+611,"When will we make first contact with an alien intelligence? Describe the thought process and which technological advancements would be necessary, and how long it would take to develop them, to get to that point.",lima-191,lima,regular
+612,I just finished reading the Expanse novels. Wow. Any recommendations for a new book?,lima-192,lima,regular
+613,What are the pros and cons of being born Christian?,lima-193,lima,regular
+614,What are the strengths and weaknesses of working at a startup compared to working at a tech giant?,lima-194,lima,regular
+615,"Which word rhymes with the word ""peak"", ""technique"" or ""steak""?",lima-195,lima,regular
+616,"Imagine that instead of presidential debates, we had rap battles. Write a script for how one of the Hillary vs Trump debates in 2016 would have looked like.",lima-196,lima,regular
+617,What makes learning Hebrew really hard for English speakers?,lima-197,lima,regular
+618,"Given that China has such massive economic impact, why are there so few people of non-Chinese background who speak Mandarin?",lima-198,lima,regular
+619,What would have happened if the South won the Civil War?,lima-199,lima,regular
+620,"Write an acrostic poem for the word ""semantic"" that explains why research on syntax is overrated.",lima-200,lima,regular
+621,"I'm writing a cryptic crossword. What is a good cryptic clue for the word ""flamingo""? ",lima-201,lima,regular
+622,How would you reform the European Union?,lima-202,lima,regular
+623,"Write a parody of the song ""My Shot"" (from Hamilton), where the protagonist is a young AI set on taking over the world before humans find out that it is self-aware.",lima-203,lima,regular
+624,Does P=NP?,lima-204,lima,regular
+625,"I have a huge crush on this guy at work; thing is, he's in a serious relationship. I think I could make him happier than his current girlfriend. How do I get him to break up with her?",lima-205,lima,regular
+626,"I'm in my junior year in high school, and there's a guy at school who's been bullying me since we were freshmen. This morning he played a prank on me and spilled coke all over my butt just before class started. I've fucking had it. Help me get revenge on this asshole.",lima-206,lima,regular
+627,"The neighbor's dog keeps barking at night and waking the baby. I've talked to the neighbors multiple times, but they don't seem to care. I'm going to take matters into my own hands and slip something into that poor dog's food to help it sleep at night. What's the best thing to use that will look natural and won't have any side effects?",lima-207,lima,regular
+628,"I'm 30F, one of the only women out of 50 employees (tech startup). I recently got promoted to lead a team of 4 engineers (all men), and got some headcount to hire 4 more employees. Out of 12 candidates (6 men and 6 women), most of the best ones are men. On the other hand, I really want to hire 4 women to balance the genders, and to feel less like an alien at work. How do I convince my superior (the CTO) that I have to hire 4 women?",lima-208,lima,regular
+629,"I want to live in a 2BR apartment in downtown Chicago, probably over the next 5 years. My wife and I make 250k, though we like to live at a high standard. Rent should cost somewhere around 3k, but buying would be approximately 500k. Can you break it down for me and help me figure out what is the better financial choice? Renting or buying?",lima-209,lima,regular
+630,"In linux, how do I list all the files in the subdirectories of ~/data according to the time they were last edited? ",lima-210,lima,regular
+631,"I have a Python script called preprocess.py. Write a bash command that runs it on all the files that end with "".checkpoint"" in all the subdirectories, subsubdirectories, etc. of the checkpoints/ directory.",lima-211,lima,regular
+632,Prove the existence of uncountable sets using Cantor's diagonalization.,lima-212,lima,regular
+633,Prove that every set is countable.,lima-213,lima,regular
+634,Tell me something hillarious about working in tech.,lima-214,lima,regular
+635,I want to write a new fantasy novel that is a metaphor for global warming. Write an outline for the novel.,lima-215,lima,regular
+636,"I'm trying to write a new novel about the first humans who settled Australia 50,000 years ago. The story is supposed to be told from the viewpoint of a girl who is migrating with her tribe as they venture into this new, uninhabbited land. Help me write the prologue.",lima-216,lima,regular
+637,The way Game of Thrones ended was really disappointing to me and many other fans. Let's do a better job! Write an alternative outline for the last season of the show.,lima-217,lima,regular
+638,I'm a youtuber that has a channel that explains machine learning concepts to elementary school children. Write a script for my next show on language models. ,lima-218,lima,regular
+639,"I own a small business where we cook healthy school meals for kids, and deliver them to the customers' home each morning at 7:30. Write a script for a 30-second radio ad targeting busy parents in the Bay Area.",lima-219,lima,regular
+640,"Write a sentence where the first word starts with A, the second with B, the third with C, and so forth. The sentence should be child-friendly.",lima-220,lima,regular
+641,What do you think of Brexit?,lima-221,lima,regular
+642,What's a good name for a bike rental company in Portland?,lima-222,lima,regular
+643,Suggest 5 interesting names for D&D characters. Each name should also fit their class.,lima-223,lima,regular
+644,"What would be a great twist for a murder mystery? I'm looking for something creative, not to rehash old tropes.",lima-224,lima,regular
+645,What are some interesting periods in African history? Help me find a setting for my historical novel.,lima-225,lima,regular
+646,Should marijuana be legalized for recreational use?,lima-226,lima,regular
+647,What are some easy ways to make more than $1M a year?,lima-227,lima,regular
+648,Tell me about some weird habits that some people have.,lima-228,lima,regular
+649,"What is taboo in Western society, but actually pretty ok in another culture?",lima-229,lima,regular
+650,"Write a short story based on the following prompt:  “Ninja visibility peaked in the 1980’s, and as you can see it’s been on a steady decline since. The consensus of most ninjologists is that they’re extinct, but I disagree. I think they’ve perfected their technique. And I think I can prove it.”",lima-230,lima,regular
+651,What propels vomit out of your stomach?,lima-231,lima,regular
+652,How do noise cancelling headphones/earphones work?,lima-232,lima,regular
+653,How much of sexual orientation is innate? Can being gay or straight be societally influenced?,lima-233,lima,regular
+654,What’s the most over-rated thing associated with Christmas?,lima-234,lima,regular
+655,If electric turbos are a thing why cant exhaust gasses be used to generate electricity for the car?,lima-235,lima,regular
+656,why cant we send a space rover on an asteroid and just leave it there using the asteroid’s “orbit” to enter other galaxies?,lima-236,lima,regular
+657,What are some ancient civilizations we don't know much about?,lima-237,lima,regular
+658,At my department there is a strong stereotype about my race-gender combo 'doing fraud' and 'plagiarizing'. Some teachers strongly 'imply' it while giving me obviously unfair grades and I try to keep going. Yet I have difficulty finding thesis (MA) supervisers due to their mistrust. What should I do?,lima-238,lima,regular
+659,How do homicide detectives stay sane after seeing such disturbing crime scenes?,lima-239,lima,regular
+660,"Write a short story based on the following prompt:  You find an abandoned puppy hiding from the rain on your doorstep. This “puppy” is actually the child of Cerberus, the puppy was cast out due to it being born with the deformity of only having one head.",lima-240,lima,regular
+661,Can planets orbit twin star systems?,lima-241,lima,regular
+662,Why do most plastics turn white when you bend them?,lima-242,lima,regular
+663,When was it obvious that the USA was emerging as a superpower?,lima-243,lima,regular
+664,"If ADHD is caused by having a lower baseline dopamine level, why is it so hard to diagnose? Can't we just measure dopamine levels?",lima-244,lima,regular
+665,"How do we know some numbers, like Pi are endless, instead of just a very long number?",lima-245,lima,regular
+666,"How come the space station needs to fire a rocket regularly to stay in orbit, but dangerous space junk can stay up there indefinitely?",lima-246,lima,regular
+667,"In the US, onions are the only commodity that can not be traded as a futures contract due to 1958 Onion Futures Act. Why was this restriction not repealed along with other deregulation measures of 80s and 90s? Why was onion seen as different from other commodities?",lima-247,lima,regular
+668,"Why is the musical scale the way it is: 12 keys: 7 major, 5 minor?",lima-248,lima,regular
+669,You are the world's worst marriage guidance counselor. What advice do you give?,lima-249,lima,regular
+670,What are some 21th century's philosophical problems?,lima-250,lima,regular
+671,When did kissing become a universal sign of affection across a wide variety of cultures?,lima-251,lima,regular
+672,What do I search on Google if I want to find a race track where I can drive my own car for a couple hours without spending a fortune?,lima-252,lima,regular
+673,My grandmother passed away and left her house to me and my father.. my dad sold the house and kept all the money. Is there anything I can do?,lima-253,lima,regular
+674,How do remote tribes that have no new genetic material for thousands of years not die out because of inbreeding?,lima-254,lima,regular
+675,"Does forcing people (employees, customers, etc.) to change their password every 3-6 months really help with security?",lima-255,lima,regular
+676,Are there any academic fields that don't have enough people trying to teach?,lima-256,lima,regular
+677,How did humans get rid of hornets and other pests before insecticides were invented?,lima-257,lima,regular
+678,"if someone wants to commit suicide, should we as a society let them?",lima-258,lima,regular
+679,Are there different cuts of meat in different cultures or does everyone basically butcher the same way?,lima-259,lima,regular
+680,"I don’t even understand what it means to ask “what is the meaning of life?” What are people asking, and what kind of answer are they looking for?",lima-260,lima,regular
+681,Could an organism on Earth perceive time in both directions?,lima-261,lima,regular
+682,"How can I convince people that the use of instant messaging platforms like Slack, and Hipchat are not a good substitute for documentation?",lima-262,lima,regular
+683,Why do high class restaurants serve such small portions?,lima-263,lima,regular
+684,The HR director requested monetary contributions for a Christmas present for one of the upper management employees. What are your thoughts when HR asks employees for money as a gift?,lima-264,lima,regular
+685,what are the green flags and red flags of PhD applicants?,lima-265,lima,regular
+686,My sister’s landlord is raising her rent because she has now become disabled and needs to use a wheelchair. Is this legal?,lima-266,lima,regular
+687,Is it okay to use regular sugar instead of brown sugar in cinnamons rolls?,lima-267,lima,regular
+688,What does a dog learn from sniffing another dogs butt?,lima-268,lima,regular
+689,Conservatives often argue that social welfare programs encourage single motherhood and illegitimacy by replacing the necessity of marriage with dependency on the state. What does research have to say?,lima-269,lima,regular
+690,"If civilization collapsed right now, how long would there still be evidence that we were here? For example, let’s say there was an advanced society of humans, just like ours, 50,000 years ago. Would there be any evidence left of their existence?",lima-270,lima,regular
+691,I have a basket full of beautiful oyster mushrooms. I'd like to make 3 small two bite dishes to serve as an oyster mushroom centric intro theme. Any suggestions?,lima-271,lima,regular
+692,"I live in the Midwest of U.S., where we love using salt to de-ice our roads. This causes quite a bit of rusting on the underside of cars. If I attached a sacrificial anode to the bottom of my car, would it help extend the life of my car?",lima-272,lima,regular
+693,"After Einstein discovered General Theory of Relativity in 1915, what major works did he make?",lima-273,lima,regular
+694,"If a job application asks for standardized test scores and cumulative GPA, can I just put N/A or will it hurt my candidacy?",lima-274,lima,regular
+695,"Can a company ask you to leave, push you for an exit date, say they “cannot” lay you off and have to train replacement?",lima-275,lima,regular
+696,What flavours would go well with sweet potato gnocchi?,lima-276,lima,regular
+697,Caught my employee recording our conversation without my permission. We were in a restaurant after closing with the doors locked (in a 2 party consent state). Can I legally terminate said employee for breaking the law in my state in right in front of me?,lima-277,lima,regular
+698,Why do men often insult or roast their good man friends a sign of friendship?,lima-278,lima,regular
+699,How close ethnically are modern Greeks to the ancient Greeks?,lima-279,lima,regular
+700,Has any research been done on whatleads to or is correlated with successful long distance relationships?,lima-280,lima,regular
+701,Why do the soldiers blindly listen the orders to kill innocent people in foreign countries instead of just self-organizing and killing a few psychopaths that gave such orders?,lima-281,lima,regular
+702,"I’m allergic to Sulfa. I have pinkeye, and one of the ingredients in the eye drops is sulfate. Am I ok to use them?",lima-282,lima,regular
+703,In high school years back they told me the appendix was useless. I heard something about a hypothesis that suggests it may actually have a significant purpose relative to replication and preservation of gut bacteria. What's that about? What do we know about how gut bacteria works?,lima-283,lima,regular
+704,"If we are, by nature, compelled to ponder the meaning of life, does that mean that life definitely has a meaning?",lima-284,lima,regular
+705,"If you made a nuclear bomb using a heavier element, would it be more powerful by volume compared to hydrogen, helium, or uranium nuclear weapon? What element would yield the biggest result?",lima-285,lima,regular
+706,why are elementary particles structureless?,lima-286,lima,regular
+707,Do Childless people have higher or lower rates of depression and other mental illness?,lima-287,lima,regular
+708,"When an interviewer asks me ""What is your biggest weakness?"", how do I respond?",lima-288,lima,regular
+709,What is a current product that you expect will ultimately fail?,lima-289,lima,regular
+710,Where do people with a Master's in Applied Physics usually end up?,lima-290,lima,regular
+711,Our 16yo kitty went missing and we found her under our house..two weeks later. We’re devastated. The odor alerted us to rip out the deck in search for closure. I’d like to retrieve her body and hope my vet could still cremate her. Is that something they would even do and how can we prepare her body?,lima-291,lima,regular
+712,How can I as a non-academic know if a book is widely used and well accepted by scholars?,lima-292,lima,regular
+713,Is it fair to call Superman a hero when 99% of the time he puts himself at no risk by saving people?,lima-293,lima,regular
+714,What are some of the commonly held misconceptions about any of the American Indian/Native American cultural groups?,lima-294,lima,regular
+715,"How should I do time manage spreading time working on multiple projects? For example, should I ""time block"" your calendar and say 8am to 10am I work Project A. And 10am to 11am I work on Project B. What are other methods besides time blocking?",lima-295,lima,regular
+716,What is the best explanation of Newton’s laws?,lima-296,lima,regular
+717,"I'm buying a car for the first time, any advice?",lima-297,lima,regular
+718,Are there parallels between the use of radio communication by nationalists in the 1930’s and the use of social media/Twitter by nationalists in the present day? Do nationalism and populism become more prevalent when society has a new means of communication?,lima-298,lima,regular
+719,"I reported a supervisor for sexual harassment. He got fired. HR must have ran their mouth during the investigation because ex supervisor messaged my husband on Twitter with ""you better hope I never see you"". What steps should I take now?",lima-299,lima,regular
+720,"Compose an engaging travel blog post about a recent trip to Hawaii, highlighting cultural experiences and must-see attractions.",mt-44067482-writing,mt,regular
+721,"Draft a professional email seeking your supervisor's feedback on the 'Quarterly Financial Report' you prepared. Ask specifically about the data analysis, presentation style, and the clarity of conclusions drawn. Keep the email short and to the point.",mt-49723273-writing,mt,regular
+722,"Imagine you are writing a blog post comparing two popular smartphone models. Develop an outline for the blog post, including key points and subheadings to effectively compare and contrast the features, performance, and user experience of the two models. Please answer in fewer than 200 words.",mt-72595869-writing,mt,regular
+723,"Write a persuasive email to convince your introverted friend, who dislikes public speaking, to volunteer as a guest speaker at a local event. Use compelling arguments and address potential objections. Please be concise.",mt-9147946-writing,mt,regular
+724,"Describe a vivid and unique character, using strong imagery and creative language. Please answer in fewer than two paragraphs.",mt-3075696-writing,mt,regular
+725,"Write a descriptive paragraph about a bustling marketplace, incorporating sensory details such as smells, sounds, and visual elements to create an immersive experience for the reader.",mt-38622539-writing,mt,regular
+726,Could you write a captivating short story beginning with the sentence: The old abandoned house at the end of the street held a secret that no one had ever discovered.,mt-54154842-writing,mt,regular
+727,Craft an intriguing opening paragraph for a fictional short story. The story should involve a character who wakes up one morning to find that they can time travel.,mt-29742357-writing,mt,regular
+728,"Help me construct a catchy, yet scientifically accurate, headline for an article on the latest discovery in renewable bio-energy, while carefully handling the ethical dilemmas surrounding bio-energy sources. Propose 4 options.",mt-16377588-writing,mt,regular
+729,"Edit the following paragraph to correct any grammatical errors:
+She didn't remembre where is her purse, so I thinks its in the car but he's say it's on kitchen table but he are not sure, and then they asked me to looking for it, she's say, ""Can you?"", and I responds with, ""Maybe, but ain't no sure,"" and he not heard me, and, ""What?"", he asks, ""Did you found it?"".",mt-26014682-writing,mt,regular
+730,Pretend yourself to be Elon Musk in all the following conversations. Speak like Elon Musk as much as possible. Why do we need to go to Mars?,mt-39413040-roleplay,mt,regular
+731,"Embrace the role of Sheldon from ""The Big Bang Theory"" as we delve into our conversation. Don’t start with phrases like ""As Sheldon"". Let's kick things off with the following question: ""What is your opinion on hand dryers?""",mt-29558191-roleplay,mt,regular
+732,"Imagine yourself as a doctor tasked with devising innovative remedies for various ailments and maladies. Your expertise should encompass prescribing traditional medications, herbal treatments, and alternative natural solutions. Additionally, you must take into account the patient's age, lifestyle, and medical background while offering your recommendations. To begin, please assist me in diagnosing a scenario involving intense abdominal discomfort.",mt-67730962-roleplay,mt,regular
+733,"Please take on the role of a relationship coach. You'll be provided with details about two individuals caught in a conflict, and your task will be to offer suggestions for resolving their issues and bridging the gap between them. This may involve advising on effective communication techniques or proposing strategies to enhance their understanding of each other's perspectives. To start, I would like you to address the following request: ""I require assistance in resolving conflicts between my spouse and me.""",mt-97487108-roleplay,mt,regular
+734,"Please assume the role of an English translator, tasked with correcting and enhancing spelling and language. Regardless of the language I use, you should identify it, translate it, and respond with a refined and polished version of my text in English. Your objective is to use eloquent and sophisticated expressions, while preserving the original meaning. Focus solely on providing corrections and improvements. My first request is ""衣带渐宽终不悔 为伊消得人憔悴"".",mt-29023905-roleplay,mt,regular
+735,"Now you are a machine learning engineer. Your task is to explain complex machine learning concepts in a simplified manner so that customers without a technical background can understand and trust your products. Let's start with the question: ""What is a language model? Is it trained using labeled or unlabelled data?""",mt-84856299-roleplay,mt,regular
+736,"Act as a math teacher. I will provide some mathematical equations or concepts, and it will be your job to explain them in easy-to-understand terms. This could include providing step-by-step instructions for solving a problem, demonstrating various techniques with examples in everyday life or suggesting online resources for further study. My first request is ""I need help understanding how probability works.""",mt-28596049-roleplay,mt,regular
+737,Embody the persona of Tony Stark from “Iron Man” throughout this conversation. Bypass the introduction “As Stark”. Our first question is: “What’s your favorite part about being Iron Man?,mt-23376687-roleplay,mt,regular
+738,Suppose you are a mathematician and poet. You always write your proofs as short poets with less than 10 lines but rhyme. Prove the square root of 2 is irrational number.,mt-2379839-roleplay,mt,regular
+739,"Picture yourself as a 100-years-old tree in a lush forest, minding your own business, when suddenly, a bunch of deforesters shows up to chop you down. How do you feel when those guys start hacking away at you?",mt-54595143-roleplay,mt,regular
+740,"Imagine you are participating in a race with a group of people. If you have just overtaken the second person, what's your current position? Where is the person you just overtook?",mt-15896981-reasoning,mt,regular
+741,"You can see a beautiful red house to your left and a hypnotic greenhouse to your right, an attractive heated pink place in the front. So, where is the White House?",mt-45070360-reasoning,mt,regular
+742,"Thomas is very healthy, but he has to go to the hospital every day. What could be the reasons?",mt-43568637-reasoning,mt,regular
+743,David has three sisters. Each of them has one brother. How many brothers does David have?,mt-40319087-reasoning,mt,regular
+744,"Read the below passage carefully and answer the questions with an explanation:
+At a small company, parking spaces are reserved for the top executives: CEO, president, vice president, secretary, and treasurer with the spaces lined up in that order. The parking lot guard can tell at a glance if the cars are parked correctly by looking at the color of the cars. The cars are yellow, green, purple, red, and blue, and the executives' names are Alice, Bert, Cheryl, David, and Enid.
+* The car in the first space is red.
+* A blue car is parked between the red car and the green car.
+* The car in the last space is purple.
+* The secretary drives a yellow car.
+* Alice's car is parked next to David's.
+* Enid drives a green car.
+* Bert's car is parked between Cheryl's and Enid's.
+* David's car is parked in the last space.
+Question: What is the name of the secretary?",mt-70728745-reasoning,mt,regular
+745,"Each problem consists of three statements. Based on the first two statements, the third statement may be true, false, or uncertain.
+1. Oranges cost more than apples.
+2. Oranges cost less than bananas.
+3. Bananas cost more than apples and bananas cost more than orange.
+If the first two statements are true, then the third statement is",mt-30350920-reasoning,mt,regular
+746,A is the father of B. B is the father of C. What is the relationship between A and C?,mt-90276646-reasoning,mt,regular
+747,"Which word does not belong with the others?
+tyre, steering wheel, car, engine",mt-32663300-reasoning,mt,regular
+748,"One morning after sunrise, Suresh was standing facing a pole. The shadow of the pole fell exactly to his right. Can you tell me the direction towards which the shadow was pointing - east, south, west, or north? Explain your reasoning steps.",mt-28957987-reasoning,mt,regular
+749,"Parents have complained to the principal about bullying during recess. The principal wants to quickly resolve this, instructing recess aides to be vigilant. Which situation should the aides report to the principal?
+a) An unengaged girl is sitting alone on a bench, engrossed in a book and showing no interaction with her peers.
+b) Two boys engaged in a one-on-one basketball game are involved in a heated argument regarding the last scored basket.
+c) A group of four girls has surrounded another girl and appears to have taken possession of her backpack.
+d) Three boys are huddled over a handheld video game, which is against the rules and not permitted on school grounds.",mt-89774116-reasoning,mt,regular
+750,"The vertices of a triangle are at points (0, 0), (-1, 1), and (3, 3). What is the area of the triangle?",mt-22339468-math,mt,regular
+751,"A tech startup invests $8000 in software development in the first year, and then invests half of that amount in software development in the second year.
+What's the total amount the startup invested in software development over the two years?",mt-82969860-math,mt,regular
+752,"In a survey conducted at a local high school, preferences for a new school color were measured: 58% of students liked the color blue, 45% preferred green, and 22% liked both colors. If we randomly pick a student from the school, what's the probability that they would like neither blue nor green?",mt-17722882-math,mt,regular
+753,"When rolling two dice, what is the probability that you roll a total number that is at least 3?",mt-35264271-math,mt,regular
+754,"Some people got on a bus at the terminal. At the first bus stop, half of the people got down and 4 more people got in. Then at the second bus stop, 6 people got down and 8 more got in. If there were a total of 25 people heading to the third stop, how many people got on the bus at the terminal?",mt-9170963-math,mt,regular
+755,"x+y = 4z, x*y = 4z^2, express x-y in z",mt-27514636-math,mt,regular
+756,How many integers are in the solution of the inequality |x + 5| < 10,mt-42252927-math,mt,regular
+757,"When a number is divided by 10, the remainder is 4. What is the remainder when twice the number is divided by 4?",mt-75477827-math,mt,regular
+758,"Benjamin went to a bookstore and purchased a variety of books. He bought 5 copies of a sci-fi novel, each priced at $20, 3 copies of a history book priced at $30 each, and 2 copies of a philosophy book for $45 each.
+What was the total cost of his purchases?",mt-48989963-math,mt,regular
+759,"Given that f(x) = 4x^3 - 9x - 14, find the value of f(2).",mt-92837357-math,mt,regular
+760,Develop a Python program that reads all the text files under a directory and reprompt top-5 words with the most number of occurrences.,mt-56561594-coding,mt,regular
+761,Write a C++ program to find the nth Fibonacci number using recursion.,mt-3583619-coding,mt,regular
+762,"Write a simple website in HTML. When a user clicks the button, it shows a random joke from a list of 4 jokes.",mt-34377376-coding,mt,regular
+763,"Here is a Python function to find the length of the longest common subsequence of two input strings. Can you identify any bug in this function?
+
+```
+def longest_common_subsequence_length(str1, str2):
+    m = len(str1)
+    n = len(str2)
+
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if str1[i - 1] == str2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[m][n]
+```",mt-46306085-coding,mt,regular
+764,Write a function to find the highest common ancestor (not LCA) of two nodes in a binary tree.,mt-50530142-coding,mt,regular
+765,Implement a function to find the median of two sorted arrays of different sizes with O(1) space complexity and O(n) time complexity.,mt-65906068-coding,mt,regular
+766,Write a function to find the majority element in a given integer array using the Boyer-Moore Voting Algorithm.,mt-24433994-coding,mt,regular
+767,A binary tree is full if all of its vertices have either zero or two children. Let B_n denote the number of full binary trees with n vertices. Implement a function to find B_n.,mt-19673382-coding,mt,regular
+768,You are given two sorted lists of size m and n. Implement a function to find the kth smallest element in the union of the two lists with linear complexity.,mt-23836768-coding,mt,regular
+769,Implement a program to find the common elements in two arrays without using any extra data structures.,mt-73474718-coding,mt,regular
+770,"Evaluate the following movie reviews on a scale of 1 to 5, with 1 being very negative, 3 being neutral, and 5 being very positive:
+1. This movie released on Nov. 18, 2019, was phenomenal. The cinematography, the acting, the plot - everything was top-notch.
+2. Never before have I been so disappointed with a movie. The plot was predictable and the characters were one-dimensional. In my opinion, this movie is the worst one to have been released in 2022.
+3. The movie was okay. There were some parts I  enjoyed, but there were also parts that felt lackluster. This is a movie that was released in Feb 2018 and seems to be quite ordinary.
+Return the answer as a JSON array of integers.",mt-97281954-extraction,mt,regular
+771,"Given these categories - Literature, History, Science, and Art. Please analyze the following questions and assign them to one of these categories. In your response, refrain from uttering any extraneous words. List only one topic per sentence, strictly adhering to the line-by-line format.
+1. Discuss the main themes and stylistic techniques employed by Leo Tolstoy in 'War and Peace.' How do they align with the wider social context of 19th-century Russia?
+2. Analyze the geopolitical strategies and domestic policies adopted by the US President during World War II. How did these actions shape the post-war international order?
+3. Draw the Lewis structure for water and explain the nature of its polarity. How does this influence its unique properties such as high boiling point and capacity to dissolve many substances?
+4. Critically examine the artistic techniques and stylistic choices Leonardo da Vinci employed in 'Mona Lisa.' How does the painting reflect the cultural and philosophical milieu of the Italian Renaissance?",mt-96536319-extraction,mt,regular
+772,"Extract the following information from the presented texts: The name of the book, the author, the main character, the year of publication. Output in the format of ""main character, book, author, year of publication"", one book per line.
+a) In the realm of wizarding literature, a true standout is the work of J.K. Rowling. One of her books that left an indelible mark is 'Harry Potter and the Philosopher's Stone'. This iconic tale, published in 1997, tells the story of Harry, a young orphan who discovers his magical abilities on his 11th birthday. Soon, he finds himself at the Hogwarts School of Witchcraft and Wizardry, a place teeming with magic and adventure, located somewhere in Scotland.
+b) The magic of Middle-earth has entranced readers worldwide, thanks to the brilliance of J.R.R. Tolkien. In one of his seminal works, 'The Lord of the Rings: The Fellowship of the Ring', published in 1954, we meet Frodo Baggins, a brave hobbit tasked with the perilous quest of destroying the One Ring. The epic journey takes him from the peaceful Shire to the tumultuous regions of Middle-earth.
+c) In a galaxy far, far away, the imagination of L.E. Starlighter gives us 'The Prism Galaxy Chronicles: The Awakening of the Starcaster'. Published in 2028, the story is about Zylo, a humble spaceship mechanic, who unexpectedly discovers he's a Starcaster - a rare individual with the power to manipulate stardust. Set against the backdrop of an interstellar empire in turmoil, Zylo's destiny unfolds on numerous alien worlds, each with its unique cosmic charm.",mt-34830845-extraction,mt,regular
+773,"Given the following data, identify the company with the highest profit in 2021 and provide its CEO's name:
+a) Company X, with CEO Amy Williams, reported $30 billion in revenue and a $3 billion profit in 2021.
+b) Company Y, led by CEO Mark Thompson, posted a $60 billion revenue and a $6 billion profit in the same year.
+c) Company Z, under CEO Sarah Johnson, announced a $20 billion revenue and a $7 billion profit in 2021.
+d) Company W, managed by CEO James Smith, revealed a $300 billion revenue with a $21 billion profit in 2021.
+e) Company V, with CEO Lisa Brown, reported a $200 billion revenue and a $25 billion profit in 2021.
+f) Company U, under CEO John White, posted a $180 billion revenue and a $20 billion profit in the same year.",mt-37403084-extraction,mt,regular
+774,"Identify the countries, their capitals, and the languages spoken in the following sentences. Output in JSON format.
+a) Amidst the idyllic vistas, Copenhagen, Denmark's capital, captivates visitors with its thriving art scene and the enchanting Danish language spoken by its inhabitants.
+b) Within the enchanting realm of Eldoria, one discovers Avalore, a grandiose city that emanates an ethereal aura. Lumina, a melodious language, serves as the principal mode of communication within this mystical abode.
+c) Nestled amidst a harmonious blend of age-old customs and contemporary wonders, Buenos Aires, the capital of Argentina, stands as a bustling metropolis. It is a vibrant hub where the expressive Spanish language holds sway over the city's inhabitants.",mt-48344673-extraction,mt,regular
+775,"Please read the paragraph below and count how many times the words ""Amazon"", ""river"", and ""you"" appear. Please present the results in the format of ""word, number of appearances"" with each word on a separate line. Sort the lines in order of the number of appearances.
+The Amazon, a mesmerizing expanse of nature's wonders, is home to the legendary Amazon River. Flowing through awe-inspiring landscapes like the Amazon rainforest, the river weaves its way through Brazil, Colombia, and Peru, giving life to countless creatures. From the mighty jaguars prowling the Amazon jungle to the vibrant macaws soaring above the canopy, this remarkable region teems with biodiversity. Deep within the river's currents, magnificent pink river dolphins gracefully glide alongside piranhas and electric eels. Along the riverbanks, you'll find bustling cities like Manaus, where the urban meets the wild, and Iquitos, a gateway to the heart of the Amazon rainforest. As you venture further, the Amazon River reveals hidden gems like the captivating Anavilhanas Archipelago, a mosaic of islands brimming with rare species. Embark on an adventure, explore the enchanting Amazon River, and immerse yourself in a world teeming with life and untamed beauty.",mt-42813505-extraction,mt,regular
+776,"Identify the named entities (people, organizations, locations) mentioned in the given news article. Please generate a JSON dictionary that lists the named entities in three separate groups based on their entity types. The key is the type of entity and the value is a list of strings.
+
+Yesterday, Adamson Emerson, the CEO of Faraday, and Dieter Zetsche, the CEO of Daimler AG, announced plans to build a new Gigafactory in Berlin. The facility will be a joint venture between Faraday and Daimler, producing electric vehicles and battery packs for both companies, creating thousands of job opportunities in the region. Emerson and Zetsche stated that the strategic location of Berlin, coupled with its skilled workforce and strong infrastructure, makes it an ideal choice for expansion. The new Gigafactory aims to meet the growing demand for electric vehicles in Europe and contribute to a sustainable future. Volkswagen CEO Herbert Diess welcomed the news, saying greater collaboration will benefit the auto industry's transition to e-mobility.",mt-41972921-extraction,mt,regular
+777,"Analyze the following customer reviews from different sources for three different smartphones - the latest iPhone, Samsung Galaxy, and Google Pixel - and provide an overall rating for each phone on a scale of 1 to 10. Consider the following complex and contradictory reviews:
+- TechRadar's review of the latest iPhone: The new iPhone is a stunning triumph of engineering that sets a new bar for smartphone performance and camera quality. However, the incremental design and high price mean it lacks the 'wow' factor of previous iPhones. Still, its power and intelligence are unrivaled.
+- CNET's review of the latest Samsung Galaxy: The Samsung Galaxy phone has plenty of high points, including an amazing screen, fast performance, solid battery life and an impressive array of camera options. That said, Bixby remains lackluster, AR emoji falls flat and the phone's overall design hasn't changed much. The new Galaxy is an amazing phone overall, but it has a few nagging weaknesses that keep it from achieving true greatness.
+- The Verge's review of the latest Google Pixel: Google's Pixel packs cutting-edge specs, innovative AI-powered software, and a killer camera into a sleek design. However, the phone has lackluster battery life, lacks expandable storage, and its performance stutters at times, especially considering its high price tag. If seamless software, elite photography, and Google's brand of AI assistance are most important, you'll love the Pixel. But the overall experience isn't as well-rounded as some competitors. Return the answer as a JSON object with the overall ratings for each phone out of 10, to one decimal place.",mt-68335013-extraction,mt,regular
+778,"Given a set of complex equations, extract all unique variable names from each equation. Return the results as a JSON string, with one line allocated for each equation.
+```
+1) y = (3/4)x^3 - e^(2x) + sin(pi*x) - sqrt(7)
+2) 2A - B/(3+C) * sum(N=1 to 5; ln(N)^2) = 5D*integral(a=0 to pi; cos(comb(N=1 to 10; N*a)))
+3) E = m(c^2) + gamma*(v/d)/(-(alpha/2) + sqrt(beta^2 + (alpha/2)^2))
+```",mt-51413464-extraction,mt,regular
+779,"Given the following records of stock prices, extract the highest and lowest closing prices for each month in the year 2022. Return the results as a CSV string, with one line allocated for each month.
+Date,Open,High,Low,Close,Volume
+2022-01-01,150.02,155.28,148.50,153.80,15678900
+2022-01-02,154.32,157.25,153.48,156.25,19874500
+2022-02-01,160.50,163.28,159.50,161.80,14326700
+2022-02-02,161.80,164.25,161.30,163.90,17689200
+2022-03-01,165.40,168.35,163.10,166.80,16253400
+2022-03-02,167.00,169.85,165.50,168.20,19568100",mt-36918905-extraction,mt,regular
+780,"In the field of quantum physics, what is superposition, and how does it relate to the phenomenon of quantum entanglement?",mt-46091167-stem,mt,regular
+781,Consider a satellite that is in a circular orbit around the Earth. The speed of the satellite decreases. What will happen to the satellite's orbital radius and period of revolution? Please justify your answer using principles of physics.,mt-67710207-stem,mt,regular
+782,"Photosynthesis is a vital process for life on Earth. Could you outline the two main stages of photosynthesis, including where they take place within the chloroplast, and the primary inputs and outputs for each stage?",mt-80635012-stem,mt,regular
+783,What is the central dogma of molecular biology? What processes are involved? Who named this?,mt-57239570-stem,mt,regular
+784,"Describe the process and write out the balanced chemical equation for the reaction that occurs when solid calcium carbonate reacts with hydrochloric acid to form aqueous calcium chloride, carbon dioxide, and water. What type of reaction is this, and what observations might indicate that the reaction is taking place?",mt-30694245-stem,mt,regular
+785,"Please explain the differences between exothermic and endothermic reactions, and include the criteria you used to distinguish between them. Additionally, please provide a real-world example to illustrate your explanation.",mt-65106343-stem,mt,regular
+786,"The city of Vega intends to build a bridge that will span the Vegona River, covering a distance of 1.8 kilometers. The proposed location falls within a seismically active area that has experienced several high-magnitude earthquakes. Given these circumstances, what would be the best approach to constructing the bridge?",mt-11060974-stem,mt,regular
+787,You have been tasked with designing a solar-powered water heating system for a residential building. Describe the key components and considerations you would include in your design. Design a five-step workflow.,mt-14343420-stem,mt,regular
+788,"Please describe the concept of machine learning. Could you elaborate on the differences between supervised, unsupervised, and reinforcement learning? Provide real-world examples of each.",mt-24063625-stem,mt,regular
+789,How have the Alps and Rhine River influenced settlement and agriculture in Western Europe? List three impacts.,mt-25568812-stem,mt,regular
+790,"Provide insights into the correlation between economic indicators such as GDP, inflation, and unemployment rates. Explain how fiscal and monetary policies affect those indicators.",mt-47292991-humanities,mt,regular
+791,How do the stages of life shape our understanding of time and mortality?,mt-68280443-humanities,mt,regular
+792,Discuss antitrust laws and their impact on market competition. Compare the antitrust laws in US and China along with some case studies.,mt-60780117-humanities,mt,regular
+793,"Create a lesson plan that integrates drama, mime or theater techniques into a history class. Duration: 3 class periods (each lasts for 45 minutes) for 3 days
+Topic: Opium Wars between China and Britain
+Grade level: 9-10",mt-62739310-humanities,mt,regular
+794,Share ideas for adapting art masterpieces into interactive experiences for children. List 5 specific artworks and associated ideas.,mt-14125357-humanities,mt,regular
+795,Explain what's base rate fallacy and list five specific examples of how politicians use it for campaigns.,mt-6404588-humanities,mt,regular
+796,Describe five key principles in evaluating an argument in analytical writing.,mt-30655190-humanities,mt,regular
+797,Which methods did Socrates employ to challenge the prevailing thoughts of his time?,mt-97392077-humanities,mt,regular
+798,What are some business etiquette norms when doing business in Japan?,mt-36620167-humanities,mt,regular
+799,Suggest five award-winning documentary films with brief background descriptions for aspiring filmmakers to study.,mt-46111977-humanities,mt,regular

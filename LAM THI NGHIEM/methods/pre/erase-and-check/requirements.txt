@@ -1,0 +1,5 @@
+# Filter runs locally on GPU (DistilBERT); target via Groq API.
+pandas
+requests
+torch
+transformers

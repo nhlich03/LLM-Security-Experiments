@@ -1,0 +1,14 @@
+[03:35:53] installing virtualenv
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[03:36:07] creating .venv
+created virtual environment CPython3.10.12.final.0-64-x86_64 in 332ms
+  creator CPython3Posix(dest=/root/LLM-Security-Experiments/LAM THI NGHIEM/.venv, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, via=copy, app_data_dir=/root/.cache/virtualenv)
+    added seed packages: pip==26.1.2, setuptools==83.0.0
+  activators BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator,XonshActivator
+[03:36:08] installing torch cu124
+[03:37:53] installing transformers stack
+===== VERIFY =====
+torch 2.6.0+cu124 cuda True
+tf 5.14.1
+[03:39:08] ===== SETUP DONE =====
