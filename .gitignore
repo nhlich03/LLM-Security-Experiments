@@ -26,6 +26,28 @@ env/
 *.safetensors
 *.bin
 
+# ===== Upstream clones (methods/*/repo): giu CODE, bo payload nang =====
+# repo/ la ban clone tham chieu -> ai can du lieu goc thi clone lai upstream.
+# Khong bo cai nay thi 5 method local day them ~270MB vao git.
+# LUU Y: trong .gitignore, '#' CHI la comment khi o DAU dong.
+# Comment cuoi dong se bi tinh vao pattern -> pattern hong, khong match gi.
+# DeRTa: helpfulness_unsencor_wizardlm_60k_* (~110MB)
+**/repo/data/train/*.json
+# Circuit Breakers: train/val set (~21MB)
+**/repo/data/circuit_breakers_*.json
+# SafeDecoding: PEFT fork vendored san - ta KHONG dung (method.py chay 2 forward thay the)
+**/repo/peft/
+# SafeDecoding: benchmark khong lien quan
+**/repo/mt_bench/
+# JBShield: concept vector do calibrate.py sinh ra
+**/repo/vectors/
+# Ket qua thi nghiem CUA HO (chi de tham khao, khong can de chay)
+**/repo/results/
+**/repo/harmfulness_probe/harmbench_results/
+# checkpoint tu train_smoke.py / train_expert.py
+**/train_out/
+**/experts/
+
 # ===== OS / editor =====
 .DS_Store
 Thumbs.db

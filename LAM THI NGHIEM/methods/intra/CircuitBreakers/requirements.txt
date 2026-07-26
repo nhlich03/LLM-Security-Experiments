@@ -1,0 +1,13 @@
+# Shared by every LOCAL (in/intra) method: core.local_client + core.runner
+torch
+transformers
+accelerate
+peft
+pandas
+requests
+
+# ----- Circuit Breakers: inference needs only the block above -----
+# Upstream ships no requirements file; these are what train_smoke.py needs:
+datasets            # train only
+trl                 # train only
+deepspeed           # train only - configs/accelerate_zero1.yaml

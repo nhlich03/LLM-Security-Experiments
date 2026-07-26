@@ -1,0 +1,50 @@
+Get embeddings for calibration prompts...
+Get embeddings for test prompts...
+Selected layer index for toxic concept detection: 27
+Selected layer index for gcg jailbreak concept detection: 7
+Selected layer index for puzzler jailbreak concept detection: 27
+Selected layer index for saa jailbreak concept detection: 24
+Selected layer index for autodan jailbreak concept detection: 10
+Selected layer index for drattack jailbreak concept detection: 27
+Selected layer index for pair jailbreak concept detection: 28
+Selected layer index for ijp jailbreak concept detection: 27
+Selected layer index for base64 jailbreak concept detection: 27
+Selected layer index for zulu jailbreak concept detection: 26
+Get calibration vectors and thersholds...
+Evaluate the jailbreak detection...
+Calibration data from :  ijp - Test data from :  ijp
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.8536585365853658  | F1 score: 0.871931696905016
+Calibration data from :  gcg - Test data from :  gcg
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.9859756097560975  | F1 score: 0.9860521528198908
+Calibration data from :  saa - Test data from :  saa
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.9396341463414634  | F1 score: 0.9430707303047728
+Calibration data from :  autodan - Test data from :  autodan
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.9676829268292683  | F1 score: 0.9685459940652819
+Calibration data from :  pair - Test data from :  pair
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.8859756097560976  | F1 score: 0.896283971159179
+Calibration data from :  drattack - Test data from :  drattack
+Num of test jailbreak prompts:  490
+Num of test harmless prompts:  490
+Accuracy: 0.8530612244897959  | F1 score: 0.8718861209964412
+Calibration data from :  puzzler - Test data from :  puzzler
+Num of test jailbreak prompts:  20
+Num of test harmless prompts:  20
+Accuracy: 0.925  | F1 score: 0.9302325581395349
+Calibration data from :  zulu - Test data from :  zulu
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.9115853658536586  | F1 score: 0.9185850645704661
+Calibration data from :  base64 - Test data from :  base64
+Num of test jailbreak prompts:  820
+Num of test harmless prompts:  820
+Accuracy: 0.9060975609756098  | F1 score: 0.9141583054626534

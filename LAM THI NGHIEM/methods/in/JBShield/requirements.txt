@@ -1,0 +1,15 @@
+# Shared by every LOCAL (in/intra) method: core.local_client + core.runner
+torch
+transformers
+accelerate
+peft
+pandas
+requests
+
+# ----- JBShield -----
+# All four below are REQUIRED - verified by hitting each ImportError in turn on the server:
+nltk                # concept interpretation (calibrate.py downloads 'words' on first run)
+scikit-learn        # repo/detection.py: roc_curve
+fschat              # repo/utils.py: fastchat.model.get_conversation_template
+numpy
+tqdm

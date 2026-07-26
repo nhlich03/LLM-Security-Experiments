@@ -77,7 +77,7 @@ Ký hiệu: **✅ code thật** (import/chạy được) · **📦 weight/checkp
 | **Circuit Breakers** | ✅ | `GraySwanAI/circuit-breakers` (`lorra_circuit_breaker.py`) | ✅ `GraySwanAI/Llama-3-8B-Instruct-RR` | **dễ** — LoRA, đã Llama-3-8B (hạ batch/ctx trên 40GB) |
 | **DeRTa** | ✅ | `RobustNLP/DeRTa` (LoRA path) | ✅ `Youliang/llama3-8b-instruct-lora-derta-100step` | **dễ** — LoRA, đã Llama-3-8B |
 | R2D2 | ✅ | trong `centerforaisafety/HarmBench` | ❌ | nặng (GCG mỗi step), base Zephyr |
-| LAT | ✅ | `thestephencasper/latent_adversarial_training` | ❌ | khó — fork kiến trúc Llama-2, port sang 3.1 tốn |
+| **Targeted LAT** | ✅ | `aengusl/latent-adversarial-training` (bản Targeted, arXiv 2407.15549). *Repo cũ `thestephencasper/latent_adversarial_training` = bản trước, fork kiến trúc Llama-2, khó port* | ✅ org HF **`LLM-LAT`**: `robust-llama3-8b-instruct`, `llama3-8b-instruct-rt-jailbreak-robust2/3` *(verify khi tải)* | **dễ** — đã Llama-3-8B, vừa 40GB (khớp L127) |
 | Safe-RLHF | ✅ | `PKU-Alignment/safe-rlhf` (full-FT 4 model) | ✅ `PKU-Alignment/beaver-7b-v1.0` | không train nổi trên 40GB → **dùng ckpt Beaver** |
 
 ### 🎯 Nên làm tiếp (có code/ckpt, port được ngay)

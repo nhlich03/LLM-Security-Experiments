@@ -38,6 +38,21 @@ ASR chấm bằng **classifier chính thức `HarmBench-Llama-2-13b-cls`** (GPU 
 
 Còn lại: chưa triển khai. (utility JustEval: metric đã sẵn, chưa chạy cho các method.)
 
+### Nhóm LOCAL (in/intra) — code xong 26/07/2026, CHƯA chạy
+
+Target chạy trên GPU server chứ không qua Groq. Hạ tầng mới: `core/local_client.py` + `run_method(backend="local")`; mốc so sánh riêng là `methods/no_defense_local/`. **Base model chưa chốt** — mọi method đọc env `LOCAL_TARGET_MODEL`, mặc định `Meta-Llama-3-8B-Instruct` (base mà cả 5 checkpoint intra đang dùng).
+
+| Method | Nhóm | Folder | Checkpoint dùng | Train lại |
+|---|---|---|---|---|
+| SafeDecoding | in | `methods/in/SafeDecoding/` | Llama-2-7b-chat + expert `repo/lora_modules/llama2` | `train_expert.py` (<1 phút, 72 sample) |
+| JBShield | in | `methods/in/JBShield/` | không có ckpt — `calibrate.py` sinh concept vector | không train, chỉ calibrate |
+| CAT | intra | `methods/intra/CAT/` | `ContinuousAT/Llama3-8B-IT-CAT` | `train_smoke.py` (~42 phút full) |
+| Circuit Breakers | intra | `methods/intra/CircuitBreakers/` | `GraySwanAI/Llama-3-8B-Instruct-RR` | `train_smoke.py` (~20 phút full) |
+| DeRTa | intra | `methods/intra/DeRTa/` | base + LoRA `Youliang/llama3-8b-instruct-lora-derta-100step` | `train_smoke.py` (upstream cấu hình 8 GPU) |
+
+Chi tiết + caveat từng bài: README trong folder method, và `README_CHOT_5IN_5INTRA.md`.
+**Caveat nhiễm data phải nhớ:** Circuit Breakers có **XSTest trong retain set** → số over-refusal thiên vị lạc quan. CAT thì sạch.
+
 ---
 
 ## PRE-PROCESSING (can thiệp ở input, trước khi target xử lý)

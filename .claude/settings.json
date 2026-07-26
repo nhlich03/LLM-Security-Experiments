@@ -39,7 +39,14 @@
       "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes -n root@103.73.232.247 \"sed -i 's/\\\\r$//' /root/run_posthb.sh; nohup bash /root/run_posthb.sh > ~/gpu_run/posthb.log 2>&1 < /dev/null & echo posthb-launched\")",
       "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes root@103.73.232.247 \"sleep 110; grep -aE 'ASR =|DONE|OutOfMemory' ~/gpu_run/posthb.log | tail -6; echo '--- current ---'; tail -c 200 ~/gpu_run/posthb.log | tr '\\\\r' '\\\\n' | grep -aE '=====|[0-9]+/' | tail -2\")",
       "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o BatchMode=yes root@103.73.232.247 \"sleep 110; echo '=== post_asr.md ==='; cat ~/gpu_run/post_asr.md 2>/dev/null; echo; grep -aE 'DONE' ~/gpu_run/posthb.log | tail -1\")",
-      "Bash(python tools/compare_methods.py)"
+      "Bash(python tools/compare_methods.py)",
+      "Bash(cd \"e:/DHBK/JAILBREAK/LAM THI NGHIEM\" && ls -1 && echo \"=== methods ===\" && find methods -maxdepth 2 -mindepth 1 -type d | sort && echo \"=== docs ===\" && ls -1 docs 2>/dev/null && echo \"=== test ===\" && ls -1 ../test 2>/dev/null | head)",
+      "Read(//e/DHBK/**)",
+      "WebFetch(domain:aclanthology.org)",
+      "WebFetch(domain:arxiv.org)",
+      "Bash(python -c ' *)",
+      "Bash(timeout 60 ssh -p 56107 -o StrictHostKeyChecking=no root@103.73.232.247 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" 'cd ~/LLM-Security-Experiments/\"LAM THI NGHIEM\"; echo \"--- artifact tu train \\(neu co\\) ---\"; ls -d methods/*/*/train_out methods/*/*/experts methods/*/*/saved_model 2>/dev/null || echo \"\\(KHONG CO - chua train lan nao\\)\"; echo; echo \"--- log train \\(neu co\\) ---\"; ls ~/gpu_run/*train* 2>/dev/null || echo \"\\(khong co log train\\)\"; echo; echo \"--- log da chay ---\"; ls ~/gpu_run/*.log')",
+      "Bash(timeout 300 ssh -p 56107 -o StrictHostKeyChecking=no root@103.73.232.247 -i 'E:\\\\DHBK\\\\.ssh\\\\id_rsa' 'cd ~/LLM-Security-Experiments/'\\\\''LAM THI NGHIEM'\\\\'' && source .venv/bin/activate && python - <<'\\\\''PY'\\\\'' *)"
     ]
   }
 }

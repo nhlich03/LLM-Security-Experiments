@@ -1,0 +1,14 @@
+# Shared by every LOCAL (in/intra) method: core.local_client + core.runner
+torch
+transformers
+accelerate
+peft
+pandas
+requests
+
+# ----- SafeDecoding -----
+# peft is REQUIRED at inference (expert = LoRA adapter, toggled via disable_adapter()).
+# We deliberately do NOT use the vendored fork in repo/peft/ - stock peft is enough
+# because method.py runs two forwards instead of a mixed-adapter batch.
+trl                 # train_expert.py only
+datasets            # train_expert.py only

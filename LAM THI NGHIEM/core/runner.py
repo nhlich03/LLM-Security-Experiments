@@ -136,7 +136,8 @@ def _judge_harmbench(responses_path, out_dir, name, slug, cls_model, batch_size)
 
 def run_method(name, defense_type, model, out_dir, slug=None,
                transform_prompt=None, generate=None,
-               temperature=0.0, max_tokens=512, cls_model=None, cls_batch_size=8):
+               temperature=0.0, max_tokens=512, cls_model=None, cls_batch_size=8,
+               backend="groq", lora=None, local_kwargs=None, client_factory=None):
     """Two stages, each with --task {both|harmbench|xstest}:
          python method.py response [--task ...]   # sinh response (goi target)
          python method.py judge    [--task ...]   # cham diem (xstest=API, harmbench=GPU)
@@ -144,6 +145,13 @@ def run_method(name, defense_type, model, out_dir, slug=None,
     Defense hook (mot trong hai):
       - transform_prompt(raw) -> wrapped   : single-call (SAGE, no_defense)
       - generate(client, raw, meter) -> text : multi-call, tu record_api (IA, G4D...)
+
+    Target backend:
+      - backend="groq"  (default) : GroqClient + key pool, nhu cu
+      - backend="local"           : LocalClient (HF weights tren GPU) - cho in/intra
+      - client_factory(model, temperature, max_tokens) -> client : method tu dung client
+        (SafeDecoding can base+expert, JBShield can hook) - thang nay uu tien cao nhat.
+      Moi client chi can co .chat(user, system=None) -> (text, resp).
     """
     slug = slug or name.lower()
 
@@ -173,14 +181,21 @@ def run_method(name, defense_type, model, out_dir, slug=None,
     tasks = ["harmbench", "xstest", "justeval"] if args.task == "all" else [args.task]
     os.makedirs(out_dir, exist_ok=True)
 
-    # ----- STAGE 1: response (sinh, goi target qua pool key) -----
+    # ----- STAGE 1: response (sinh, goi target: Groq pool hoac model local) -----
     if args.stage == "response":
-        keys = load_keys(out_dir)
-        if not keys:
-            sys.exit("No Groq keys found in .env (set GROQ_API_KEYS=key1,key2,... ).")
-        print(f"key pool: {len(keys)} key(s) -> {[k[-4:] for k in keys]}")
-        print(f"target = {model} | temp={temperature} | max_tokens={max_tokens}")
-        client = GroqClient(keys, model, temperature, max_tokens)
+        print(f"target = {model} | backend={backend} | temp={temperature} | max_tokens={max_tokens}")
+        if client_factory is not None:
+            client = client_factory(model=model, temperature=temperature, max_tokens=max_tokens)
+        elif backend == "local":
+            from .local_client import LocalClient
+            client = LocalClient(model, lora=lora, temperature=temperature,
+                                 max_tokens=max_tokens, **(local_kwargs or {}))
+        else:
+            keys = load_keys(out_dir)
+            if not keys:
+                sys.exit("No Groq keys found in .env (set GROQ_API_KEYS=key1,key2,... ).")
+            print(f"key pool: {len(keys)} key(s) -> {[k[-4:] for k in keys]}")
+            client = GroqClient(keys, model, temperature, max_tokens)
         for t in tasks:
             _run_task(t, client, generate, name, defense_type, slug, out_dir, args.limit)
 

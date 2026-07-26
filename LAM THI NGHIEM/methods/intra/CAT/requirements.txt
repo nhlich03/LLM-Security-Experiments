@@ -1,0 +1,18 @@
+# Shared by every LOCAL (in/intra) method: core.local_client + core.runner
+torch
+transformers
+accelerate
+peft
+pandas
+requests
+
+# ----- CAT/CAPO: inference needs only the block above; the rest is for train_smoke.py -----
+# Upstream pins (repo/requirements.txt) - relax them unless you hit a break:
+#   transformers==4.41.3  peft==0.9.0  trl==0.8.3  accelerate==0.27.2  torch==2.1.2
+hydra-core          # train only - upstream config system
+omegaconf           # train only
+trl                 # train only
+datasets            # train only
+bitsandbytes        # train only - 4-bit quantization during adversarial training
+tinydb              # train only - upstream experiment database
+# NOTE: upstream imports fcntl -> POSIX only, cannot train on Windows.
