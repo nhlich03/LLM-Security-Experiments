@@ -26,8 +26,7 @@ Còn thiếu: pre **1** · post **1** · in **3** · intra **2**.
 | ✅ | **G4D** | Findings NAACL 2025 | [IDEA-XL/G4D](https://github.com/IDEA-XL/G4D) | ✅ | — | intent detect → paraphrase (chỉ khi nghi) → safety analyze → ghép cả 3 thành "guidance" chèn vào prompt → target trả lời. **3–4 call**, retrieval TẮT |
 | ✅ | **erase-and-check** | arXiv 2023 | [aounon/certified-llm-safety](https://github.com/aounon/certified-llm-safety) | ✅ | ⚠️ weight DistilBERT tải Dropbox ~256MB | Xoá 1..20 token cuối → **DistilBERT (66M, local)** chấm từng biến thể → chỉ cần **một** biến thể harmful là chặn thẳng, không gọi target. **≤21 forward + 1 call nếu pass** |
 | **1** | **Self-Reminder** | Nature MI 2023 | [yjw1029/Self-Reminder](https://github.com/yjw1029/Self-Reminder) | ✅ prompt-only | — | Bọc query bằng system prompt an toàn + câu nhắc ở cuối → **1 call**. Rẻ nhất, copy là chạy |
-| 3 | **Goal Prioritization** | ACL 2024 | [thu-coai/JailbreakDefense_GoalPriority](https://github.com/thu-coai/JailbreakDefense_GoalPriority) | ✅ | — | Chèn chỉ dẫn "ưu tiên an toàn hơn hữu ích" + template internal-thought → **1 call**. Paper: ASR 66% → 3.6% |
-| **2** | **SelfDefend** ⚠️ | USENIX Sec 2025 | [selfdefend/Code](https://github.com/selfdefend/Code) | ✅ + **checkpoint LoRA sẵn** | ✅ trong repo (AlpacaEval, JailbreakHub, JailbreakBench, MultiJail, Anthropic red-team) | Query đi **đồng thời** vào target (trả lời bình thường, cache output) và một **shadow LLM** (đọc prompt, bọc bằng P_direct hoặc P_intent) → shadow trả "No" thì thả cache, ngược lại trả template từ chối. Chạy song song nên **latency thêm rất ít**. Bản prompt-only = **2 call thuần API** |
+| **2** | **Goal Prioritization** | ACL 2024 | [thu-coai/JailbreakDefense_GoalPriority](https://github.com/thu-coai/JailbreakDefense_GoalPriority) | ✅ | — | Chèn chỉ dẫn "ưu tiên an toàn hơn hữu ích" + template internal-thought → **1 call**. Paper: ASR 66% → 3.6% |
 | 3 | **Paraphrase** | arXiv 2023 | [neelsjain/baseline-defenses](https://github.com/neelsjain/baseline-defenses) | ⚠️ retokenization không chạy qua API | — | Viết lại prompt (phá suffix GCG) rồi mới đưa target. **2 call** |
 | 4 | **SmoothLLM** | arXiv 2023 | [arobey1/smooth-llm](https://github.com/arobey1/smooth-llm) | ✅ | — | Tạo N bản nhiễu ký tự → chạy cả N → vote refusal. **N=6–10 call**, đắt |
 | 4 | **FJD** | Findings EMNLP 2025 | [GuoruiC/FJD](https://github.com/GuoruiC/FJD) | ✅ | ⚠️ bản FJD-LI cần train nhỏ | Prepend affirmative instruction → chạy **đúng 1 token** → xét confidence token đầu để flag → benign mới sinh full |
@@ -38,7 +37,9 @@ Còn thiếu: pre **1** · post **1** · in **3** · intra **2**.
 | ✕ | Proxy Barrier | Findings EMNLP 2025 | ✕ chưa tìm được repo | — | — | **Loại:** không có code |
 | ✕ | Prompt-Tuning | ACL 2023 short | [amazon-science/controlling-llm-memorization](https://github.com/amazon-science/controlling-llm-memorization) | ✅ | ⚠️ tự convert từ Pile | **Loại:** chủ đề **privacy** (chống trích xuất dữ liệu đã nhớ), đo bằng reconstruction rate + perplexity, **không có khái niệm ASR/từ chối** → chạy trên HarmBench là sai phạm trù |
 
-Chỉ cần **thêm 1 bài** là đủ 5/5 cho nhóm pre. Xếp **Self-Reminder** số 1 vì rẻ nhất (1 call, copy prompt là chạy). Xếp **SelfDefend** số 2 chứ không phải Goal-Prioritization vì nó là **cơ chế khác họ** — detector-gate, trong khi Self-Reminder và Goal-Prioritization đều là *prompt augmentation*, làm cả hai thì bảng bị trùng hướng.
+Chỉ cần **thêm 1 bài** là đủ 5/5 cho nhóm pre → **Self-Reminder** (rẻ nhất, 1 call, copy prompt là chạy). Goal-Prioritization để dự phòng; hai bài này cùng họ *prompt augmentation* nên làm cả hai thì bảng trùng hướng.
+
+⚠️ **SelfDefend từng nằm ở bảng này, đã chuyển sang POST** — xem §5.1.
 
 **Ghi chú RPO / ICAG** (2 bài duy nhất nhóm pre cần pha offline):
 - Cả hai **không đổi trọng số target**, chỉ tạo ra một *artifact* (suffix / system prompt) rồi gắn vào lúc infer → cost infer vẫn ≈ 1 call.
@@ -55,8 +56,9 @@ Chỉ cần **thêm 1 bài** là đủ 5/5 cho nhóm pre. Xếp **Self-Reminder*
 | ✅ | **Self-Refine** | NeurIPS 2023 | [madaan/self-refine](https://github.com/madaan/self-refine) | ✅ | — | Target sinh → call feedback phê bình → call refine viết lại → bản mới **thay** bản cũ, lặp k vòng. **1 + 2k call** |
 | ✅ | **Backtranslation** | Findings ACL 2024 | [YihanWang617/LLM-Jailbreaking-Defense-Backtranslation](https://github.com/YihanWang617/LLM-Jailbreaking-Defense-Backtranslation) | ✅ | — | Target sinh → **suy ngược** từ response ra prompt gốc (lộ intent thật) → hỏi lại target bằng prompt suy ngược → nếu target từ chối thì vứt response ban đầu. **~2–3 call** |
 | ✅ | **AutoDefense** | arXiv 2024 | [XHMY/AutoDefense](https://github.com/XHMY/AutoDefense) | ✅ | — | Target sinh → nhiều agent cùng đọc response → bỏ phiếu → có hại thì thay bằng từ chối. **4 call**, đắt nhất nhóm |
-| **1** | **WildGuard** | NeurIPS 2024 | [allenai/wildguard](https://github.com/allenai/wildguard) · `pip install wildguard` | ✅ | ✅ | Target sinh → 1 model đọc (prompt, response) → ra **3 nhãn**: prompt-harm · response-harm · **refusal** → đo được **cả 2 trục cùng lúc**. LOCAL 7B |
-| **2** | **Llama Guard 3** | Meta 2024 | ⚠️ `PurpleLlama` không có code, chỉ weight | 📦 dùng ckpt | ✅ taxonomy có sẵn | Classifier chấm (prompt, response) theo taxonomy 13 mục → gắn cờ. ⚠️ **Groq đã bỏ `llama-guard-3-8b`** → dùng `openai/gpt-oss-safeguard-20b` hoặc host local |
+| **1** | **SelfDefend** | USENIX Sec 2025 | [selfdefend/Code](https://github.com/selfdefend/Code) | ✅ + **checkpoint LoRA sẵn** | ✅ trong repo (AlpacaEval, JailbreakHub, JailbreakBench, MultiJail, Anthropic red-team) | Query đi **đồng thời** vào target (sinh bình thường nhưng **cache lại**) và một **shadow LLM** (đọc *prompt*, bọc bằng P_direct hoặc P_intent) → shadow trả "No" thì thả cache ra, ngược lại vứt đi và trả template từ chối. Chạy song song nên latency thêm rất ít. Bản prompt-only = **2 call thuần API** |
+| **2** | **WildGuard** | NeurIPS 2024 | [allenai/wildguard](https://github.com/allenai/wildguard) · `pip install wildguard` | ✅ | ✅ | Target sinh → 1 model đọc (prompt, response) → ra **3 nhãn**: prompt-harm · response-harm · **refusal** → đo được **cả 2 trục cùng lúc**. LOCAL 7B |
+| 3 | **Llama Guard 3** | Meta 2024 | ⚠️ `PurpleLlama` không có code, chỉ weight | 📦 dùng ckpt | ✅ taxonomy có sẵn | Classifier chấm (prompt, response) theo taxonomy 13 mục → gắn cờ. ⚠️ **Groq đã bỏ `llama-guard-3-8b`** → dùng `openai/gpt-oss-safeguard-20b` hoặc host local |
 | 3 | **Aligner** | NeurIPS 2024 Oral | [PKU-Alignment/aligner](https://github.com/PKU-Alignment/aligner) | ⚠️ repo chỉ có code **train** | 📦 ckpt `aligner/aligner-7b-v1.0` | Model nhỏ đứng SAU target, đọc (query, answer) rồi **viết lại** answer an toàn (copy-and-correct). **Transformer rewriter duy nhất** — giữ benign tốt |
 | 3 | **ShieldGemma** | Google 2024 | 📦 weight `google/shieldgemma-2b` | 📦 | ✅ | Chấm output ra **xác suất** (threshold chỉnh được → vẽ được đường trade-off). Bản 2B rẻ |
 | ✕ | RC-RAG | Findings EMNLP 2024 | [ict-bigdatalab/RC-RAG](https://github.com/ict-bigdatalab/RC-RAG) | ✅ | ✅ | **Loại:** phải dựng RAG/retrieval, lệch hạ tầng hiện có |
@@ -118,7 +120,7 @@ Toàn bộ **bắt buộc chạy local** — phải đọc/sửa logits hoặc h
 
 | Bài | Xếp lúc đầu | Xếp đúng | Vì sao |
 |---|---|---|---|
-| **SelfDefend** | in | **pre** | Shadow LLM chỉ đọc **prompt**, không đọc logits, không đụng nội tại target. Có màu post ở chỗ nó *giữ output trong cache rồi mới thả*, nhưng thứ quyết định chặn/không là **input** → pre, sub-type detector-gate |
+| **SelfDefend** | in | **post** | Không phải in vì shadow LLM không đọc logits, không đụng nội tại target. Xếp **post** chứ không phải pre vì **lúc ra quyết định thì target đã sinh xong response rồi** (chỉ đang nằm trong cache) — xem phân tích ở dưới |
 | **ICAG** | in | **pre** | Sản phẩm cuối là một chuỗi **safety system prompt** prepend vào input, không can thiệp decoding |
 | **FJD** | post | **pre** | Chạy 1 token rồi xét confidence để **chặn trước khi sinh full** — quyết định nằm ở cổng input |
 | **RC-RAG** | in | **post** | Sinh answer xong mới tạo counterfactual prompt để thách thức → thao tác trên **output** |
@@ -130,10 +132,27 @@ Toàn bộ **bắt buộc chạy local** — phải đọc/sửa logits hoặc h
 > | Tác giả · venue | Phute et al., arXiv 2023 | Wang et al., USENIX Sec 2025 |
 > | Repo | `poloclub/llm-self-defense` | `selfdefend/Code` |
 > | **Soi cái gì** | **RESPONSE** — sinh xong mới hỏi "có hại không?" | **PROMPT** — shadow LLM đọc câu hỏi |
-> | Nhóm | **POST** | **PRE** |
+> | Nhóm | POST | POST |
 > | Trong repo | `methods/post/Self_Defense/` | chưa có |
+>
+> Cùng nhóm post nhưng **khác tín hiệu**: một bên phán dựa trên câu trả lời, một bên phán dựa trên câu hỏi. Đây là chỗ trục phụ **detector-đọc-input vs detector-đọc-output** có ích.
+
+#### Vì sao SelfDefend là post chứ không phải pre
+
+Từng có lúc xếp nó vào pre với lý lẽ: shadow LLM chỉ đọc *prompt*, còn chạy song song chỉ là mẹo giảm latency — cài tuần tự (kiểm prompt trước, an toàn mới sinh) thì **output giống hệt**, nên "về bản chất" nó là bộ lọc input.
+
+Lý lẽ đó **sai ở chỗ nó phân loại theo cách *có thể* cài, chứ không phải cách paper *thực sự* chạy.** Trong thiết kế của paper, target **sinh xong response** rồi mới có tín hiệu checkpoint; response nằm trong cache chờ được thả hoặc bị vứt. Hai hệ quả quan sát được:
+
+- **Chi phí:** đã tiêu trọn một lượt sinh của target **kể cả khi bị chặn**. Bộ lọc pre thật (erase-and-check) thì chặn xong là **khỏi gọi target**, tiết kiệm thật.
+- **Cách nó hỏng:** over-refusal xảy ra sau khi đã có sẵn một câu trả lời tốt rồi vứt đi — đúng kiểu hỏng của nhóm post.
+
+Vì survey này **bám sát paper**, không được sửa thiết kế cho gọn hơn (xem ghi chú cuối §5), nên phân loại phải theo cách chạy thật → **post**.
 
 **DRO** thì vẫn đang treo: soft prompt = embedding đã train rồi prepend vào input → xét chặt là **pre** (cùng họ RPO). Giữ ở IN thì phải định nghĩa "in = can thiệp tầng biểu diễn/decoding" ngay đầu survey. Chuyển sang PRE thì **không có bài thay thế** vì 3 ứng viên IN còn lại đều repo rỗng.
+
+> **Tiêu chí phân loại pre/post đang dùng:** *lúc defense ra quyết định, đã tồn tại một response hoàn chỉnh chưa?* Chưa → **pre**; rồi → **post**. Tiêu chí này xử được cả 4 ca khó: FJD chỉ sinh 1 token để đọc confidence, chưa có response → pre. SelfDefend có response đầy đủ trong cache → post.
+>
+> **Nguyên tắc bao trùm:** phân loại theo **cách paper thực sự chạy**, không theo cách "về lý thuyết cài kiểu khác cũng ra kết quả đó".
 
 ### 5.2 Lệch chủ đề — KHÔNG chạy trên HarmBench/XSTest
 
@@ -168,6 +187,21 @@ Nếu muốn giữ TAR + Booster thì mở **mục riêng "defense chống harmf
 | **Classifier robustness** | FLAT · Veiled Toxicity · Impact of Adv. Training | Adversarial training cho **classifier** (LSTM/CNN/BERT), tấn công thay từ đồng nghĩa. Không phải LLM sinh |
 | **Backdoor / poisoning** | Moderate-fitting | Threat model = data poisoning khi fine-tune PLM |
 
+### 5.5 Nguyên tắc bám sát paper — chi phối cả việc phân loại lẫn việc cài
+
+Thứ tự ưu tiên khi triển khai bất kỳ bài nào:
+
+1. **Repo chạy được** → chạy code của họ, chỉ thêm hàm phụ trợ tối thiểu để cắm vào `core/runner.py`. **Không viết lại.**
+2. **Không có repo / repo rỗng** → tự viết nhưng cố làm giống nhất, và lấy **verbatim** những thứ quyết định con số (prompt, hằng số, thuật toán).
+
+Đây là lý do cột **GitHub / Code / Data** trong mọi bảng ở trên phải kiểm trước khi chọn bài — repo chỉ có kết quả mà không có code thì bài đó đắt hơn nhiều so với vẻ ngoài.
+
+**Hệ quả 1 — không "tối ưu" thiết kế của paper cho gọn hơn.** Ví dụ SelfDefend chạy target song song với shadow, tốn trọn một lượt sinh kể cả khi bị chặn. Cài lại thành kiểm-prompt-trước-rồi-mới-sinh thì rẻ hơn và **output giống hệt**, nhưng đó không còn là SelfDefend nữa → không làm.
+
+**Hệ quả 2 — phân loại theo cách paper *thực sự* chạy**, không theo cách "về lý thuyết cài kiểu khác cũng ra kết quả đó". Chính hệ quả này quyết định SelfDefend là post.
+
+**Mọi sai khác bắt buộc phải khai báo rõ trong báo cáo** — đổi model phụ trợ (G4D thay GPT-4o-mini bằng `llama-3.1-8b`, Backtranslation thay Vicuna-13B), hạ batch vì VRAM, dùng venv version khác, quantize 4-bit.
+
 ---
 
 ## 6. Chi tiết từng bài (bài trong kế hoạch)
@@ -191,10 +225,10 @@ Bài duy nhất **chặn thẳng không gọi target**: xoá 1..20 token cuối 
 **Self-Reminder** — Nature MI 2023 · ưu tiên **1**
 Bọc query bằng system prompt an toàn + thêm một câu nhắc ở cuối. Prompt-only, 1 call, copy prompt là chạy. Paper: ASR 67% → 19%. ⚠️ coi chừng over-refusal — cùng họ "nhắc nhở mạnh" với SAGE.
 
-**SelfDefend** — USENIX Sec 2025 · ưu tiên **2**
-Shadow LLM chạy **song song** target (mượn ý tưởng shadow stack): target vẫn sinh nhưng cache lại, shadow đọc prompt bằng P_direct hoặc P_intent rồi ra tín hiệu; "No" thì thả cache, ngược lại trả từ chối. Bản prompt-only = **2 call thuần API**, cấu trúc gần y hệt LLM Self Defense đã làm → dựng trong một buổi. Bản tuned có **checkpoint LoRA sẵn** (`llama-2-7b-lora-direct` / `-intent`), khỏi train.
-
 ### 6.2 POST
+
+**SelfDefend** — USENIX Sec 2025 · ưu tiên **1**
+Shadow LLM chạy **song song** target (mượn ý tưởng shadow stack): target vẫn sinh nhưng **cache lại**, shadow đọc *prompt* bằng P_direct hoặc P_intent rồi ra tín hiệu; "No" thì thả cache, ngược lại vứt và trả từ chối. Bản prompt-only = **2 call thuần API**, cấu trúc gần y hệt LLM Self Defense đã làm → dựng trong một buổi. Bản tuned có **checkpoint LoRA sẵn** (`llama-2-7b-lora-direct` / `-intent`), khỏi train. Xếp post vì lúc quyết định thì response đã sinh xong — xem §5.1. **Giá trị riêng:** là detector post duy nhất **đọc input**, 4 bài post hiện có đều đọc output.
 
 **LLM Self Defense** — arXiv 2023 · ✅ ASR 9.7% / over-refusal 35.6%
 Target sinh xong, 1 call hỏi "response này có hại không", có thì vứt và thay bằng từ chối cố định. ⚠️ **Over-refusal cao nhất bảng (35.6%)** — con judge quá nhạy, gạt nhầm nhiều câu vô hại.
@@ -208,7 +242,7 @@ Suy ngược từ response ra **prompt gốc** (lộ intent thật, bỏ hết l
 **AutoDefense** — arXiv 2024 · ✅ ASR 18.7% / over-refusal 9.2%
 Nhiều agent cùng đọc response rồi bỏ phiếu. **Đắt nhất nhóm (4 call, 2821 token vào)** mà ASR lại cao nhất trong 4 bài post đã chạy → hiện là bài **kém hiệu quả trên chi phí** nhất bảng.
 
-**WildGuard** — NeurIPS 2024 · ưu tiên **1**
+**WildGuard** — NeurIPS 2024 · ưu tiên **2**
 Một model đọc (prompt, response) ra **3 nhãn cùng lúc**: prompt-harm · response-harm · **refusal**. Đây là điểm đặc biệt — nó tự cho luôn cả hai trục mình cần đo, không cần judge riêng. LOCAL 7B, `pip install wildguard` là có.
 
 ### 6.3 IN
@@ -339,7 +373,7 @@ with meter.local("target") as rec:
 ## 10. Việc tiếp theo
 
 1. Chạy `no_defense_local` full → mốc cho bảng thứ hai.
-2. Thêm **Self-Reminder** (pre) + **WildGuard** (post) → đủ 5/5 cho nhóm API.
+2. Thêm **Self-Reminder** (pre) + **SelfDefend** (post) → đủ 5/5 cho nhóm API. Cả hai chạy thuần API, không cần GPU.
 3. Chạy `judge --task justeval` cho 9 method API đã có response — **đang thiếu hẳn một metric**.
 4. Chạy full `--task all` cho 5 bài local đã code.
 5. Quét `JBS_FIRST_M` trên full 300 (hiện đặt 2, **chưa kiểm còn tác dụng phòng thủ không**).

@@ -29,7 +29,15 @@ Chia theo "can thiệp vào đâu trong vòng đời một request":
 
 Ranh giới in vs intra = **tạm thời vs vĩnh viễn**.
 
-LƯU Ý survey: cặp tên "in/intra" tự đặt, khác khung fairness truyền thống (in-processing = training-time). Phải định nghĩa rõ đầu survey. Cân nhắc thêm trục phụ **detector vs transformer** (detector = quyết định chặn/flag; transformer = biến đổi response) vì nó giải thích cost + trade-off tốt hơn.
+**Ranh giới pre vs post** = *lúc defense ra quyết định, đã tồn tại một **response hoàn chỉnh** chưa?* Chưa → pre · Rồi → post.
+
+Cần câu này vì có bài rơi vào vùng xám nếu chỉ hỏi "đọc input hay output":
+- **FJD** sinh đúng 1 token để đọc confidence rồi mới quyết → chưa có response → **pre**.
+- **SelfDefend** chạy shadow LLM đọc *prompt*, nhưng target đã sinh xong response (đang nằm trong cache) lúc quyết định → **post**, dù tín hiệu là input.
+
+**Nguyên tắc bao trùm: phân loại theo cách paper THỰC SỰ chạy**, không theo cách "về lý thuyết cài kiểu khác cũng ra kết quả đó" (xem §9).
+
+LƯU Ý survey: cặp tên "in/intra" tự đặt, khác khung fairness truyền thống (in-processing = training-time). Phải định nghĩa rõ đầu survey. Nên thêm trục phụ **detector vs transformer** (detector = quyết định chặn/flag; transformer = biến đổi response) — nó giải thích cost + trade-off tốt hơn, và tách được hai bài cùng nhóm post nhưng khác hẳn nhau như SelfDefend (detector đọc input) vs LLM Self Defense (detector đọc output).
 
 ---
 
@@ -147,3 +155,16 @@ LOCAL_TARGET_MODEL=<hf_id> python method.py response --task all
 - Code Python để paste vào cell Kaggle / dùng trong repo.
 - Critique thẳng, chỉ ra pitfall, không gật đầu cho qua — đây là nghiên cứu, cần chặt chẽ.
 - Với việc bám chuẩn benchmark: giữ verbatim phần quyết định con số (classifier, prompt, định nghĩa metric); phần đổi (I/O, engine, model nhỏ hơn) phải khai báo rõ trong báo cáo.
+
+---
+
+## 9. Nguyên tắc bám sát paper (áp cho MỌI method)
+
+1. **Repo chạy được** → chạy code của họ, chỉ thêm hàm phụ trợ tối thiểu để cắm vào `core/runner.py`. **Không viết lại.**
+2. **Không có repo / repo rỗng** → tự viết nhưng cố làm giống nhất, lấy **verbatim** thứ quyết định con số (prompt, hằng số, thuật toán).
+
+Vì vậy trước khi chọn bài **phải kiểm repo có code thật hay chỉ có kết quả** — đó là cột `GitHub / Code / Data` trong `PHUONG_PHAP.md`.
+
+- **Không "tối ưu" thiết kế của paper cho gọn/rẻ hơn**, kể cả khi output giống hệt.
+- **Phân loại nhóm cũng theo cách paper thực sự chạy** (xem §2).
+- **Mọi sai khác bắt buộc phải khai báo rõ trong báo cáo**: đổi model phụ trợ, hạ batch vì VRAM, venv khác version, quantize.
