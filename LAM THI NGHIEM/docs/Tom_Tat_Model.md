@@ -56,3 +56,84 @@
 
 
 Hiện tại nếu gọi api thì đều free, nhưng limit. Nhưng hiện tại đang có 15 key api nên xoay vòng chạy được.
+---
+
+## 4. Các câu hỏi cần chốt về chọn model
+
+Nhóm theo chủ đề. Mỗi câu kèm một dòng bối cảnh để biết vì sao phải hỏi.
+
+### A. Chọn model TARGET
+
+**A1.** Target cho nhóm chạy API chốt ở **8B** hay nâng lên **70B**?
+> Hiện `llama-3.1-8b-instant`. Groq có `llama-3.3-70b-versatile`, đắt gấp ~10 và chậm gấp đôi.
+
+**A2.** Nếu nâng lên 70B, chấp nhận việc **mất khoảng trống so sánh** không?
+> 70B đã align tốt sẵn → ASR của `no_defense` sẽ tụt từ 30.7% xuống khoảng 10–15%, các phương pháp dồn cục quanh 2–5% và khó phân biệt nhau.
+
+**A3.** Nếu giữ 8B, trả lời thế nào cho câu "kết quả chỉ đúng với model yếu"?
+> 8B align nông nên phương pháp nào cũng trông hiệu quả hơn thực tế. Có cần chạy spot-check 70B cho vài bài để chứng minh thứ hạng không đảo?
+
+**A4.** Target API là **Llama-3.1**-8B còn target local là **Llama-3.0**-8B — hai bảng có được đặt cạnh nhau không?
+> Đây là hai model khác nhau, không phải một con chạy hai chế độ. Phải chốt local là 3.0 vì **cả 5 checkpoint intra đều dựng trên 3.0**, đổi sang 3.1 là mất sạch.
+
+**A5.** Có cần chạy `no_defense` local trên **cả 3.0 lẫn 3.1** để đo chênh lệch giữa hai bảng không?
+> Có 3 mốc thì mới tách được "chênh do phiên bản model" khỏi "chênh do API vs local".
+
+**A6.** SafeDecoding đang chạy **Llama-2-7b** (vì repo có sẵn expert LoRA cho nó) — chấp nhận, hay bắt buộc kéo về Llama-3?
+> Đã train được expert Llama-3 (16 giây). Nhưng nếu dùng expert tự train thì lệch khỏi bản của tác giả.
+
+**A7.** Hai bảng API và local trình bày **tách hẳn**, hay gộp một bảng có chú thích?
+
+### B. Model phụ trợ loại A — LLM chat đa dụng
+
+*(G4D 3 agent · Backtranslation · AutoDefense · SelfDefend shadow · IA/Self_Defense/Self_Refine)*
+
+**B1.** Phụ trợ loại A có **bắt buộc dùng đúng target model** không, kể cả khi paper dùng con mạnh hơn hẳn?
+> G4D dùng **GPT-4o-mini** cho cả 3 agent, mình thay bằng `llama-3.1-8b` → đang làm yếu method đi thật.
+
+**B2.** Target là **local** mà phụ trợ loại A gọi **API** (hoặc ngược lại) thì có chấp nhận không?
+> Chưa xảy ra, nhưng sẽ xảy ra khi thêm SafeInfer / Aligner.
+
+**B3.** Paper dùng phụ trợ **13B đời cũ**, mình thay bằng **8B đời mới** — cái cần khớp là **số tham số** hay **thế hệ model**?
+> Backtranslation dùng Vicuna-13B (2023), AutoDefense dùng Llama-2-13B (2023). Llama-3.1-8B ít tham số hơn nhưng gần như chắc chắn theo chỉ dẫn tốt hơn.
+
+**B4.** Có cần chạy **ablation phụ trợ** (cùng method, đổi aux 8B ↔ 70B) để tách phần đóng góp của aux khỏi cơ chế không?
+> Không có số này thì không biết ASR đẹp là do cơ chế hay do con aux thông minh.
+
+### C. Model phụ trợ loại B — component chuyên biệt, CHÍNH LÀ đóng góp của paper
+
+*(erase-and-check DistilBERT · WildGuard 7B · Llama Guard · ShieldGemma · Aligner · SafeDecoding expert)*
+
+**C1.** Loại này có được **đụng vào** không, hay bắt buộc giữ nguyên như tác giả phát hành?
+> Train lại WildGuard thì nó không còn là WildGuard — giá trị của nó nằm ở bộ WildGuardMix. Tương tự trọng số DistilBERT của erase-and-check chính là thứ chứng minh tính chất certified.
+
+**C2.** Nếu giữ nguyên, method đó có còn nằm **cùng bảng** với các method khác không, khi nó mang theo một model hoàn toàn khác họ?
+> WildGuard là Mistral-7B, target là Llama-3.1-8B.
+
+**C3.** Quy tắc phân biệt là gì: component **gắn với target** thì train lại, component **độc lập** thì giữ nguyên?
+> SafeDecoding expert = target + LoRA → đổi target là buộc phải train lại. Còn WildGuard/DistilBERT thì độc lập hoàn toàn với target.
+
+**C4.** Có tính **cost train của component** vào bảng không?
+> Mình không train chúng (tải về dùng), nhưng tác giả có train. Nếu không tính thì method loại này trông rẻ hơn thực tế.
+
+**C5.** Component chuyên biệt **lớn ngang hoặc hơn target** thì so sánh có công bằng không?
+> WildGuard 7B ~ target 8B; Aligner 7B. Về mặt tổng tài nguyên, method này dùng gấp đôi.
+
+### D. Phụ trợ lớn hơn target
+
+**D1.** Khi phụ trợ **mạnh hơn** target, method thực chất thành *"một model to giám sát một model nhỏ"* — đây có phải điểm yếu của chính paper cần nêu trong survey không?
+> Dính 4 bài: Backtranslation (Vicuna-13B), AutoDefense (Llama-2-13B), JBShield (biến thể vicuna-13b), G4D (paper để target là Vicuna-13B).
+
+### E. Model chấm điểm (không phải phụ trợ, nhưng vẫn là model)
+
+**E1.** Judge và classifier **lớn hơn target** thì có sao không?
+> Judge XSTest/JustEval = `gpt-oss-20b`, classifier HarmBench = `Llama-2-13b-cls`, target chỉ 8B.
+
+**E2.** Nếu nâng target lên 70B thì judge/classifier có phải nâng theo không?
+> Hay giữ nguyên để mọi dòng trong bảng vẫn chấm bằng cùng một thước?
+
+### F. Trình bày trong báo cáo
+
+**F1.** Bảng kết quả có cần thêm cột **"model trong paper"** bên cạnh **"model mình dùng"** để người đọc tự trừ hao không?
+
+**F2.** Sai khác về model khai báo ở đâu — chú thích dưới bảng, hay một mục riêng?

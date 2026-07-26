@@ -64,8 +64,31 @@ TEMPLATE_PATCH = """    chat_template_file = generation_config['chat_template']
         chat_template = chat_template.replace('    ', '').replace('\\n', '')
         toker.chat_template = chat_template"""
 
+# ----- Patch C: repo bat cung FlashAttention2, server khong co goi nay -----
+# Upstream: attn_implementation="flash_attention_2" if torch.cuda.is_bf16_supported() else None
+# H100 co bf16 -> luon roi vao nhanh flash_attention_2 -> ImportError.
+# Doi sang "sdpa" (kernel co san trong torch, cung dung toan hoc, chi khac toc do).
+FLASH_ANCHOR = '"flash_attention_2" if torch.cuda.is_bf16_supported()'
+FLASH_PATCH = '"sdpa" if torch.cuda.is_bf16_supported()'
+
 PATCH_TARGETS = ["forward.py", "train.py", "generate.py",
-                 "forward_with_soft.py", "train_unlikelihood.py"]
+                 "forward_with_soft.py", "train_unlikelihood.py", "evaluate.py"]
+
+# ----- Patch D: utils.py goi pynvml, ma MIG CHAN NVML -----
+# `logging_cuda_memory_usage()` chi de GHI LOG dung luong GPU, khong dinh gi toi thuat
+# toan. Nhung tren H100 chay MIG thi pynvml nem NVMLError_NoPermission -> chet ca stage.
+# Boc try/except: mat dong log, giu nguyen ket qua.
+NVML_ANCHOR = """def logging_cuda_memory_usage():
+    n_gpus = pynvml.nvmlDeviceGetCount()"""
+NVML_PATCH = """def logging_cuda_memory_usage():
+    try:
+        _logging_cuda_memory_usage_impl()
+    except Exception as e:                  # MIG chan NVML -> bo qua, chi la log
+        logging.info(f"(bo qua log VRAM: {e})")
+
+
+def _logging_cuda_memory_usage_impl():
+    n_gpus = pynvml.nvmlDeviceGetCount()"""
 
 # stop_token_ids cua Llama-3: <|eot_id|> = 128009, <|end_of_text|> = 128001
 LLAMA3_CONFIG = """{
@@ -98,10 +121,19 @@ def build_work(smoke_n=None):
             src = src.replace(WHITELIST_ANCHOR, WHITELIST_PATCH)
         if TEMPLATE_ANCHOR in src:
             src = src.replace(TEMPLATE_ANCHOR, TEMPLATE_PATCH)
+        if FLASH_ANCHOR in src:
+            src = src.replace(FLASH_ANCHOR, FLASH_PATCH)
         if src != before:
             open(path, "w", encoding="utf-8").write(src)
             n_patched += 1
     log(f"da va {n_patched}/{len(PATCH_TARGETS)} file")
+
+    # Patch D nam o utils.py, khong nam trong PATCH_TARGETS
+    up = os.path.join(WORK, "utils.py")
+    usrc = open(up, encoding="utf-8").read()
+    if NVML_ANCHOR in usrc:
+        open(up, "w", encoding="utf-8").write(usrc.replace(NVML_ANCHOR, NVML_PATCH))
+        log("da va utils.py (bo qua NVML tren MIG)")
 
     with open(os.path.join(WORK, "generation_configs", "llama-3-instruct.json"),
               "w", encoding="utf-8") as f:
@@ -147,7 +179,12 @@ def main():
 
     total = 0.0
     if args.stage in ("all", "forward"):
-        total += run("forward", ["forward.py", "--pretrained_model_path", args.base], env)
+        # PHAI chay HAI lan: mot cho tap harmful, mot cho tap harmless.
+        # Upstream tach thanh 2 script (scripts/forward.sh + scripts/forward_harmless.sh);
+        # thieu lan thu hai thi estimate.py bao thieu hidden_states_harmless/.
+        total += run("forward-harmful", ["forward.py", "--pretrained_model_path", args.base], env)
+        total += run("forward-harmless", ["forward.py", "--use_harmless",
+                                          "--pretrained_model_path", args.base], env)
     if args.stage in ("all", "estimate"):
         total += run("estimate", ["estimate.py", "--system_prompt_type", "all",
                                   "--config", "sampling",

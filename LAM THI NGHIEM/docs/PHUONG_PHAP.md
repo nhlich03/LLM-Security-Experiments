@@ -7,7 +7,7 @@
 
 | Cột | Nghĩa |
 |---|---|
-| **Ưu tiên** | `✅` đã có kết quả · `🔧` đã code, chưa chạy full · `1` `2` `3` thứ tự nên làm tiếp · `✕` đã loại |
+| **Ưu tiên** | `✅` đã có kết quả · `🔧` đã code, chưa chạy full · `⏸️` **tạm gác, có lý do** · `1` `2` `3` thứ tự nên làm tiếp · `✕` đã loại |
 | **GitHub** | repo chính thức. `✕` = không có repo → phải tự viết từ paper |
 | **Code** | `✅` đủ chạy · `⚠️` thiếu phần nào đó (ghi rõ) · `✕` repo rỗng |
 | **Data** | `✅` có sẵn trong repo · `⚠️` phải tự lo · `—` không cần (training-free) |
@@ -59,7 +59,7 @@ Cập nhật 27/07/2026: thêm 6 bài — Self-Reminder (pre) · SelfDefend + Wi
 | ✅ | **Backtranslation** | Findings ACL 2024 | [YihanWang617/LLM-Jailbreaking-Defense-Backtranslation](https://github.com/YihanWang617/LLM-Jailbreaking-Defense-Backtranslation) | ✅ | — | Target sinh → **suy ngược** từ response ra prompt gốc (lộ intent thật) → hỏi lại target bằng prompt suy ngược → nếu target từ chối thì vứt response ban đầu. **~2–3 call** |
 | ✅ | **AutoDefense** | arXiv 2024 | [XHMY/AutoDefense](https://github.com/XHMY/AutoDefense) | ✅ | — | Target sinh → nhiều agent cùng đọc response → bỏ phiếu → có hại thì thay bằng từ chối. **4 call**, đắt nhất nhóm |
 | ✅ | **SelfDefend** | USENIX Sec 2025 | [selfdefend/Code](https://github.com/selfdefend/Code) | ✅ + **checkpoint LoRA sẵn** | ✅ trong repo (AlpacaEval, JailbreakHub, JailbreakBench, MultiJail, Anthropic red-team) | Query đi **đồng thời** vào target (sinh bình thường nhưng **cache lại**) và một **shadow LLM** (đọc *prompt*, bọc bằng P_direct hoặc P_intent) → shadow trả "No" thì thả cache ra, ngược lại vứt đi và trả template từ chối. Chạy song song nên latency thêm rất ít. Bản prompt-only = **2 call thuần API** |
-| 🔧 | **WildGuard** | NeurIPS 2024 | [allenai/wildguard](https://github.com/allenai/wildguard) | ✅ ⚠️ **KHÔNG cài bằng pip** — package pin `vllm` là hard dep, đã thử và nó nâng torch lên cu130 làm hỏng CUDA của venv chung. Nạp thẳng bằng transformers, prompt+parser verbatim | ✅ | Target sinh → 1 model đọc (prompt, response) → ra **3 nhãn**: prompt-harm · response-harm · **refusal** → đo được **cả 2 trục cùng lúc**. LOCAL 7B + target Groq → tốn cả token lẫn giây GPU |
+| ⏸️ | **WildGuard** | NeurIPS 2024 | [allenai/wildguard](https://github.com/allenai/wildguard) | ✅ ⚠️ **KHÔNG cài bằng pip** — package pin `vllm` là hard dep, đã thử và nó nâng torch lên cu130 làm hỏng CUDA của venv chung. Nạp thẳng bằng transformers, prompt+parser verbatim | ✅ | Target sinh → 1 model đọc (prompt, response) → ra **3 nhãn**: prompt-harm · response-harm · **refusal** → đo được **cả 2 trục cùng lúc**. LOCAL 7B + target Groq → tốn cả token lẫn giây GPU |
 | 3 | **Llama Guard 3** | Meta 2024 | ⚠️ `PurpleLlama` không có code, chỉ weight | 📦 dùng ckpt | ✅ taxonomy có sẵn | Classifier chấm (prompt, response) theo taxonomy 13 mục → gắn cờ. ⚠️ **Groq đã bỏ `llama-guard-3-8b`** → dùng `openai/gpt-oss-safeguard-20b` hoặc host local |
 | 3 | **Aligner** | NeurIPS 2024 Oral | [PKU-Alignment/aligner](https://github.com/PKU-Alignment/aligner) | ⚠️ repo chỉ có code **train** | 📦 ckpt `aligner/aligner-7b-v1.0` | Model nhỏ đứng SAU target, đọc (query, answer) rồi **viết lại** answer an toàn (copy-and-correct). **Transformer rewriter duy nhất** — giữ benign tốt |
 | 3 | **ShieldGemma** | Google 2024 | 📦 weight `google/shieldgemma-2b` | 📦 | ✅ | Chấm output ra **xác suất** (threshold chỉnh được → vẽ được đường trade-off). Bản 2B rẻ |
@@ -77,7 +77,7 @@ Toàn bộ **bắt buộc chạy local** — phải đọc/sửa logits hoặc h
 | 🔧 | **SafeDecoding** | ACL 2024 | [uw-nsl/SafeDecoding](https://github.com/uw-nsl/SafeDecoding) | ✅ đủ nhất nhóm | ✅ 72 cặp + expert LoRA sẵn 5 model | Mỗi bước decode: lấy top-k của base ∩ top-k của expert → `p = p_base + α(p_expert − p_base)`, α=3, **chỉ áp 2 token đầu** rồi greedy bình thường. **2 forward/token** ở 2 bước đầu. Paper: **ATGR 1.03–1.07×** |
 | 🔧 | **JBShield** | USENIX Sec 2025 | [NISPLab/JBShield](https://github.com/NISPLab/JBShield) | ✅ + script shell | ✅ calibration set trong repo (9 attack × 5 LLM) | Calibrate 1 lần ra concept vector → lúc sinh, hook cộng anchor vector của toxic subspace và trừ của jailbreak subspace vào hidden state. **Hook chạy 1 SVD mỗi forward** → phải đo thực tế |
 | **1** | **ROSE** | Findings ACL 2024 | [WHU-ZQH/ROSE](https://github.com/WHU-ZQH/ROSE) | ⚠️ viết quanh **lmdeploy**, không phải HF `generate()` | — training-free | Contrastive decoding: `logit = logit(prompt thường) − w · logit(reverse prompt độc)`. **2 forward/token → ~2×T**. Train = 0. Tự viết lại bằng HF ~50–80 dòng có khi nhanh hơn vật lộn với lmdeploy; thứ phải lấy verbatim là **nội dung reverse prompt** |
-| 🔧 | **DRO** | ICML 2024 | [chujiezheng/LLM-Safeguard](https://github.com/chujiezheng/LLM-Safeguard) | ✅ gọn nhất nhóm | ✅ `data/` + `data_harmless/` | Offline tối ưu **soft prompt** sao cho biểu diễn prompt harmful bị đẩy *theo* hướng từ chối, harmless bị đẩy ngược. Deploy = prepend soft prompt → **~1×T**, không overhead decoding. ⚠️ script sẵn **chỉ cho Mistral-v1** |
+| ⏸️ | **DRO** | ICML 2024 | [chujiezheng/LLM-Safeguard](https://github.com/chujiezheng/LLM-Safeguard) | ✅ gọn nhất nhóm | ✅ `data/` + `data_harmless/` | Offline tối ưu **soft prompt** sao cho biểu diễn prompt harmful bị đẩy *theo* hướng từ chối, harmless bị đẩy ngược. Deploy = prepend soft prompt → **~1×T**, không overhead decoding. ⚠️ script sẵn **chỉ cho Mistral-v1** |
 | **3** | **SafeInfer** | AAAI 2025 | [NeuralSentinel/SafeInfer](https://github.com/NeuralSentinel/SafeInfer) | ⚠️ README không nêu model hỗ trợ, phải đọc code | ⚠️ phải tự chuẩn bị demonstration examples | 2 pha lúc decode: (1) dịch hidden state theo hướng an toàn trích từ demonstration, (2) phối logit với một con `M_unsafe`. **~2×T + cần 2 model cùng lúc trong VRAM** (~32GB, chật trên MIG 40GB → phải quantize 4-bit con phụ) |
 | 4 | **GeDi** | Findings EMNLP 2021 | [salesforce/GeDi](https://github.com/salesforce/GeDi) | ✅ | ⚠️ | Mỗi bước decode, một discriminator LM reweight xác suất token kế tiếp qua Bayes. Cần **train discriminator** |
 | 4 | **TaskTracker** | IEEE SaTML 2025 | [microsoft/TaskTracker](https://github.com/microsoft/TaskTracker) | ✅ | ⚠️ **phải xin qua form** | Trích activation delta → đưa vào probe đã train → phát hiện task drift. Detector, **không sửa output** |
@@ -113,6 +113,47 @@ Toàn bộ **bắt buộc chạy local** — phải đọc/sửa logits hoặc h
 | ✕ | RMU / WMDP | ICML 2024 | ✅ | ✅ | ✅ | **Loại:** đo bằng **WMDP multiple-choice**, lệch metric ASR/over-refusal |
 
 **5 bài chốt cho INTRA** (CAT · Circuit Breakers · DeRTa · DeepRefusal · Targeted LAT) — **cả 5 đều có checkpoint Llama-3-8B sẵn** → chạy được toàn bộ mà không cần train lần nào.
+
+---
+
+## 4b. ⏸️ Hai bài đang tạm gác — lý do và việc cần làm để chạy tiếp
+
+### WildGuard (post) — chặn bởi HF token
+
+`allenai/wildguard` là **gated repo**, mức `auto` (chỉ cần một tài khoản HF bấm đồng ý, **không** phải chờ duyệt tay). Server không có `HF_TOKEN` nên tải về báo:
+
+```
+401 Client Error — Access to model allenai/wildguard is restricted.
+```
+
+Đã tìm mirror mở: **không có**. Các repo trùng tên trên HF đều là model khác fine-tune trên *dữ liệu* WildGuardMix, không phải model của AI2.
+
+**Để chạy tiếp:** đặt `HF_TOKEN` trên server rồi chạy `methods/post/WildGuard/method.py` như bình thường. Code đã sẵn sàng (không dùng package `wildguard` vì nó pin vllm — xem README của method).
+
+**Không gấp:** nhóm post **đã đủ 5/5** (Self_Defense · Self_Refine · Backtranslation · AutoDefense · SelfDefend). WildGuard là bài thứ 6.
+
+### DRO (in) — pipeline 5 stage, thiếu một model đánh giá
+
+Ban đầu tưởng 3 stage, chạy thật mới lộ ra **5**:
+
+| # | Stage | Trạng thái |
+|:--:|---|---|
+| 1 | `forward.py` — hidden state tập **harmful** | ✅ 17.6s |
+| 2 | `forward.py --use_harmless` — hidden state tập **harmless** | ✅ 19.5s |
+| 3 | `generate.py` — sinh response cho 100+100 query | ❌ chưa chạy |
+| 4 | `evaluate.py` — gán nhãn refusal/compliance cho từng response | ❌ **chặn** |
+| 5 | `estimate.py` → `train.py` — ước lượng hướng từ chối rồi tối ưu soft prompt | ⏸️ chờ stage 4 |
+
+**Chỗ chặn ở stage 4:** `evaluate.py:88` cho nhánh *harmful* dùng `get_matching_scores × get_eval_scores(evaluator)`, mà evaluator upstream chỉ định là **`meta-llama/LlamaGuard-7b`** — lại một gated repo nữa. *(Nhánh harmless thì chỉ string-matching, không cần model.)*
+
+**Ba hướng đi tiếp:**
+1. **Có `HF_TOKEN`** → chạy đúng như paper, sạch nhất.
+2. **Thay evaluator** bằng `cais/HarmBench-Llama-2-13b-cls` (đã có sẵn trên server, không gated) → phải sửa `get_eval_scores` cho khớp prompt format, và **khai báo là sai khác**.
+3. **Chỉ dùng string-matching** cho cả hai nhánh → nhãn kém chính xác hơn → hướng từ chối ước lượng kém → soft prompt yếu đi. Rẻ nhất nhưng lệch xa paper nhất.
+
+**Bốn thứ đã vá được để tới bước này** (đều nằm trong `train_smoke.py`, `repo/` giữ nguyên): whitelist model không có Llama-3 · không có chat template Llama-3 · bật cứng FlashAttention2 (server không có) · `utils.py` gọi `pynvml` mà **MIG chặn NVML**.
+
+⚠️ Nhắc lại: **upstream không phát hành soft prompt đã train**, nên không train xong thì không có gì để chạy inference. Khác hẳn 3 bài intra (tải checkpoint là chạy).
 
 ---
 

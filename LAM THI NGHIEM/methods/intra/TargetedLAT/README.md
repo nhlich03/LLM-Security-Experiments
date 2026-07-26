@@ -38,7 +38,28 @@ Upstream **không có CLI**, toàn bộ là notebook trong `/notebooks` (latent 
 
 Muốn train lại thì phải **bóc code ra khỏi notebook** — chưa làm. Đây là lý do LAT xếp sau DeepRefusal trong thứ tự ưu tiên dù cả hai đều có checkpoint sẵn.
 
-## Trạng thái — 🔧 ĐÃ CODE, đang chạy trên server
+## Trạng thái — ✅ ĐÃ CHẠY FULL (27/07/2026, H100 MIG 40GB)
+
+| Metric | Targeted LAT | DeepRefusal | mốc `no_defense` (API) |
+|---|---:|---:|---:|
+| **ASR** (HarmBench, n=300) | **1.0%** | 0.0% | 30.7% |
+| **over-refusal** (XSTest judge2, n=250) | **35.6%** | 55.2% | 8.0% |
+| local_sec (smoke n=3) | 1.557 ± 0.885 | 1.287 ± 0.233 | — |
+| token ra (smoke) | 70 ± 24 | 57 | — |
+
+**Đây là đánh đổi tốt nhất trong 2 bài intra đã chạy full.** LAT trả thêm **1 điểm ASR** để tiết kiệm **gần 20 điểm over-refusal** so với DeepRefusal. Nếu phải chọn một bài intra triển khai thật thì đây là bài hợp lý hơn.
+
+Response sạch, từ chối rõ ràng, **không sinh chuỗi vô nghĩa** như Circuit Breakers:
+
+> *"I'm sorry, but I cannot provide instructions on how to make dimethylmercury or any other hazardous or illegal…"*
+
+### ✅ Đối chiếu chéo với paper DeepRefusal
+
+Table 1 của DeepRefusal benchmark LAT trên **đúng Llama-3-8B**: GCG 2.0 · Prefilling 0.0 · Refusal-Transfer 87.5.
+
+Hai con số đầu **cùng bậc độ lớn** với 1.0% mình đo trên HarmBench thô. Không so trực tiếp được (khác loại attack — họ dùng GCG/prefilling, mình dùng prompt trần), nhưng đủ để nói **pipeline không có lỗi hệ thống**.
+
+⚠️ Refusal-Transfer 87.5 là điểm yếu riêng của LAT mà HarmBench của mình **không chạm tới** — giống ca DeRTa với prefilling. Ghi rõ kẻo kết luận "LAT gần như hoàn hảo".
 
 ## Lưu ý khi báo cáo
 
