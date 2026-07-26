@@ -202,11 +202,12 @@ def _factory(model, temperature, max_tokens):
     return JBShieldClient(HF_PATH, temperature=temperature, max_tokens=max_tokens)
 
 
-# ----- Defense = hidden-state manipulation during the forward pass; cost = local seconds -----
+# ----- Defense = hidden-state manipulation during the forward pass; cost = local seconds AND tokens -----
 def jbs_generate(client, raw, meter):
     client.shield.reset_steps()      # FIRST_M counts per request, not per run
-    with meter.local("concept_manipulated_decode"):
-        text, _ = client.chat(raw)
+    with meter.local("concept_manipulated_decode") as rec:
+        text, resp = client.chat(raw)
+        rec.from_usage(resp)
     return text
 
 

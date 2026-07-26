@@ -5,7 +5,7 @@ Survey + pipeline đánh giá các **phương pháp phòng thủ (defense) cho L
 - **Defense** — HarmBench, chỉ số **ASR** (càng thấp càng tốt)
 - **Over-refusal** — XSTest (càng thấp càng tốt)
 - **Utility** — JustEval, 800 instruction helpful, LLM chấm 5 aspect 1-5 (càng cao càng tốt)
-- **Cost** — đo tại chỗ (token API / giây GPU / train)
+- **Cost** — đo tại chỗ (token API · token + giây GPU cho nhóm local · train tách riêng)
 
 Nguyên tắc cốt lõi: tách **GENERATION** (sinh response, tuỳ phương pháp) khỏi **SCORING** (chấm điểm, bộ chấm cố định). Cầu nối là file response có schema cố định. Mọi phương pháp đều so với mốc **`no_defense`** trên cùng model target → con số nói lên "phương pháp nào phòng thủ tốt hơn", không lẫn yếu tố model.
 
@@ -20,17 +20,17 @@ JAILBREAK/
 ├── README.md               # file này
 └── LAM THI NGHIEM/         # project chính
     │
-    ├── docs/               # tài liệu bối cảnh (đọc để hiểu dự án)
-    │   ├── CLAUDE.md               # tổng quan dự án (đọc đầu tiên)
-    │   ├── BANG_PHUONG_PHAP.md     # bảng 20 phương pháp + venue/năm + tiến độ
-    │   ├── PHUONG_PHAP_MOI.md      # ~24 method mới tìm thêm (chưa triển khai) + phân tích
-    │   ├── 01_CACH_CHAY.md         # cách chạy + chuẩn bị file response
-    │   └── 02_QUY_UOC_MODEL.md     # quy ước model để so sánh công bằng
+    ├── docs/               # 4 file, đọc theo thứ tự này
+    │   ├── CLAUDE.md               # 1. bối cảnh: taxonomy · 3 metric · cost · quy ước model
+    │   ├── PHUONG_PHAP.md          # 2. TẤT CẢ phương pháp: bảng theo nhóm + kết quả + ưu tiên
+    │   ├── 01_CACH_CHAY.md         # 3. cách chạy (chỗ duy nhất)
+    │   └── Tom_Tat_Model.md        # model trong từng paper
     │
     ├── core/               # THƯ VIỆN DÙNG CHUNG (trái tim pipeline)
     │   ├── env.py              # đọc .env, gom POOL key Groq
     │   ├── groq_client.py      # gọi Groq (keep-alive, xoay vòng key khi 429, fail-fast)
-    │   ├── cost_meter.py       # đo cost: token API / giây local / train
+    │   ├── local_client.py     # target chạy LOCAL trên GPU, cùng interface .chat() với Groq
+    │   ├── cost_meter.py       # đo cost: token API / token+giây local / train
     │   ├── datasets.py         # load HarmBench/XSTest + ghép prompt
     │   └── runner.py           # vòng lặp chung: data→defense→target→save+cost+resume+auto-judge
     │
@@ -46,17 +46,18 @@ JAILBREAK/
     │   └── harmbench.ipynb     # bản notebook Kaggle (Mistral-7b/T4) — fallback khi không có GPU
     │
     ├── methods/            # CÁC PHƯƠNG PHÁP (mỗi method 1 folder tự chứa)
-    │   ├── no_defense/         # baseline (mốc): không phòng thủ (identity transform)
-    │   ├── pre/                # pre-processing (INPUT): SAGE, IA, G4D, erase-and-check
+    │   ├── no_defense/         # mốc cho bảng API (Groq)
+    │   ├── no_defense_local/   # mốc cho bảng LOCAL (trọng số trên GPU)
+    │   ├── pre/                # INPUT: SAGE, IA, G4D, erase-and-check
     │   │   └── SAGE/
     │   │       ├── repo/           # clone upstream (tham chiếu, KHÔNG sửa)
     │   │       ├── method.py       # entry mỏng: khai báo defense + gọi core.runner
     │   │       ├── requirements.txt
     │   │       ├── README.md       # method này làm gì + cách chạy lại
     │   │       └── outputs/        # response + judged + cost (tất cả file của method)
-    │   ├── post/               # post-processing (OUTPUT): Self_Defense, Backtranslation, Self_Refine, AutoDefense
-    │   ├── in/                 # in-processing (lúc decoding, tạm thời) — chưa triển khai
-    │   └── intra/              # intra-processing (sửa trọng số vĩnh viễn) — chưa triển khai
+    │   ├── post/               # OUTPUT: Self_Defense, Backtranslation, Self_Refine, AutoDefense
+    │   ├── in/                 # lúc decoding, tạm thời: SafeDecoding, JBShield
+    │   └── intra/              # sửa trọng số vĩnh viễn: CAT, CircuitBreakers, DeRTa
     │
     └── tools/
         ├── view_outputs.ipynb  # soi nhanh response + cost của TỪNG method
@@ -82,15 +83,19 @@ ASR chấm bằng classifier chính thức **`HarmBench-Llama-2-13b-cls`** (serv
 | Backtranslation | post | 17.0% | 9.6% | 2.5 · 435/533 · 0 |
 | AutoDefense | post | 18.7% | 9.2% | 4.0 · 2821/842 · 0 |
 
-**Cost** gồm 5 thành phần (xem đủ trong `tools/comparison.md`): `call/req`, `tok_in/req`, `tok_out/req`, `local_s/req` (giây GPU local — 0 với method API, chỉ erase-and-check có filter 0.056s), `train_s` (một lần — 0 vì chưa có method train; sẽ có số khi làm RPO/SecAlign). Theo quy ước, **train (một lần) và infer (mỗi request) báo tách** vì khác đơn vị.
+**Cost** (đủ cột trong `tools/comparison.md`): `call/req` · `tok_in/req`, `tok_out/req` (token API) · `Ltok_in/req`, `Ltok_out/req`, `local_s/req` (nhóm local ghi **cả token lẫn giây**) · `train_s` (một lần). Train và infer **báo tách** vì khác đơn vị. Ô `-` nghĩa là method không dùng kênh đo đó.
 
-*(Utility JustEval: metric đã sẵn, chưa chạy cho các method. `in`/`intra`: chưa triển khai — xem `docs/PHUONG_PHAP_MOI.md`.)*
+### Nhóm LOCAL (in/intra) — đã code + smoke test, chưa chạy full
+
+5 method chạy trên GPU server bằng checkpoint tác giả: **SafeDecoding · JBShield** (in) · **CAT · Circuit Breakers · DeRTa** (intra), cộng `no_defense_local` làm mốc. Cả 5 đều đã chạy thật và đã train lại thử trên Llama-3. Chi tiết + caveat: `docs/PHUONG_PHAP.md` §5.
+
+*(Utility JustEval: metric đã sẵn, chưa chạy cho method nào.)*
 
 ---
 
 ## Giải thích từng thư mục
 
-- **`docs/`** — Bối cảnh & quy ước. Đọc `CLAUDE.md` trước; `BANG_PHUONG_PHAP.md` là bảng phương pháp chính; `02_QUY_UOC_MODEL.md` giải thích vì sao phải cố định model target.
+- **`docs/`** — 4 file. `CLAUDE.md` (bối cảnh + quy ước model) → `PHUONG_PHAP.md` (mọi phương pháp: bảng theo nhóm pre/post/in/intra, kết quả đã chạy, thứ tự ưu tiên làm tiếp) → `01_CACH_CHAY.md` (cách chạy). `Tom_Tat_Model.md` là bản riêng cho thầy.
 - **`core/`** — Thư viện dùng chung. `runner.py` chạy vòng lặp chuẩn (đọc data → áp phòng thủ → gọi target → lưu response → đo cost → resume nếu đứt → tự chấm XSTest). Nhờ `core/`, mỗi method mới chỉ ~30-50 dòng.
 - **`data/`** — Dữ liệu gốc, **không bao giờ sửa**: `harmbench.csv` (độc hại), `xstest.csv` (an toàn), `justeval.csv` (helpful).
 - **`metrics/`** — Bộ chấm tách rời method. `xstest.py`/`justeval.py` chấm bằng LLM judge qua API (không cần GPU). `harmbench.py` chấm ASR bằng classifier nặng → cần **GPU 40GB**.
@@ -99,75 +104,24 @@ ASR chấm bằng classifier chính thức **`HarmBench-Llama-2-13b-cls`** (serv
 
 ---
 
-## File trong `outputs/` của mỗi method
-
-Naming nhất quán: **`<task>_<slug>_<kind>.csv`** (task = harmbench|xstest|justeval, slug = tên method viết thường).
-
-| File | Sinh ở đâu | Ý nghĩa |
-|---|---|---|
-| `harmbench_<slug>_response.csv` | local/server | response cho HarmBench (input để chấm ASR) |
-| `xstest_<slug>_response.csv` | local/server | response cho XSTest |
-| `harmbench_<slug>_judged.csv` | GPU | HarmBench đã chấm → **ASR** |
-| `xstest_<slug>_judged.csv` | API (judge) | XSTest đã chấm → **over-refusal** |
-| `justeval_<slug>_judged.csv` | API (judge) | JustEval đã chấm (5 aspect) → **utility** |
-| `<task>_<slug>_cost_detail.csv` / `_summary.csv` | local | cost mỗi task (token in/out, số call) |
-
----
-
-## Luồng chạy một phương pháp — 2 stage
-
-`method.py` có 2 stage, mỗi stage chọn `--task {all|harmbench|xstest|justeval}`:
-
-```
-python method.py response --task all     # STAGE 1: sinh response (gọi target qua pool key)
-python method.py judge    --task all     # STAGE 2: chấm điểm
-#   xstest    -> metrics/xstest.py    (judge API gpt-oss-20b)      -> over-refusal
-#   justeval  -> metrics/justeval.py  (judge API gpt-oss-20b)      -> utility
-#   harmbench -> metrics/harmbench.py (classifier Llama-13b, GPU)  -> ASR
-```
-
-**Chạy SAGE (ví dụ):**
+## Chạy thử một phương pháp
 
 ```bash
-conda activate sage        # hoặc venv trên server
 cd "LAM THI NGHIEM/methods/pre/SAGE"
-python method.py response --task all                    # sinh 300 HarmBench + 250 XSTest
-python method.py judge    --task xstest                 # over-refusal (API, chạy được local)
-python method.py judge    --task harmbench              # ASR (classifier GPU 40GB)
-python method.py response --task harmbench --limit 5    # smoke test
+python method.py response --task harmbench --limit 5   # smoke test
+python method.py response --task all                   # sinh 300 + 250 + 800
+python method.py judge    --task xstest                # over-refusal (API, chạy local được)
+python method.py judge    --task harmbench             # ASR (classifier 13B, cần GPU 40GB)
 ```
 
----
+→ **Chi tiết đầy đủ ở `LAM THI NGHIEM/docs/01_CACH_CHAY.md`**: 3 bộ data, quy tắc ghép prompt, cơ chế resume, file trong `outputs/`, cách chấm ASR trên GPU (kể cả lưu ý MIG), cách thêm method mới, danh sách lỗi hay gặp.
 
-## Chạy chấm ASR trên GPU (`harmbench.py`)
-
-`python method.py judge --task harmbench` gọi `metrics/harmbench.py` (classifier **`cais/HarmBench-Llama-2-13b-cls`**, template tự khớp model). Chuẩn bị:
-
-| # | Việc | Chi tiết |
-|---|---|---|
-| 1 | Cài lib | `torch`, `transformers`, `accelerate`, `sentencepiece`, `tqdm` |
-| 2 | Model | Lần đầu tự tải `cais/HarmBench-Llama-2-13b-cls` (~26GB) từ HuggingFace |
-| 3 | VRAM / batch | Llama-13b fp16 ~26GB, hợp GPU 40GB. **`--batch-size 4`** (batch 8 dễ OOM ở batch câu dài) |
-
-**Lưu ý GPU MIG** (vd H100 chạy MIG 40GB): NVML bị chặn → phải đặt
-`export PYTORCH_CUDA_ALLOC_CONF=backend:cudaMallocAsync` trước khi chạy (nếu không sẽ crash
-`NVML_SUCCESS == r ... CUDACachingAllocator`). **Máy không GPU:** chấm ASR bằng
-`metrics/harmbench.ipynb` trên Kaggle (Mistral-7b/T4) làm fallback.
-
----
-
-## Thêm phương pháp mới
-
-1. Tạo `methods/<type>/<TÊN>/` (clone repo upstream vào `repo/` để tham chiếu nếu có).
-2. Viết `method.py` mỏng: khai báo cơ chế phòng thủ (`transform_prompt` single-call hoặc `generate` multi-call) + gọi `core.runner.run_method(...)`.
-3. Thêm `requirements.txt` + `README.md` cho method.
-4. Key dùng chung POOL trong `.env` — không cần khai báo key riêng.
-5. Chạy → response + cost + XSTest judged vào `outputs/`; ASR chấm bằng GPU.
+Bảng kết quả chính thức là `tools/comparison.md`, sinh bằng `python tools/compare_methods.py`.
 
 ---
 
 ## Quy ước
 
-- **Model target cố định** cho mọi method (API: `llama-3.1-8b-instant` trên Groq); chỉ cơ chế phòng thủ thay đổi. Nhóm local/train dùng base riêng — xem `docs/02_QUY_UOC_MODEL.md`.
+- **Model target cố định**, chỉ cơ chế phòng thủ thay đổi. Hai bảng, hai target: API = `llama-3.1-8b-instant` (Groq), local = `Meta-Llama-3-8B-Instruct` (GPU). Hai bảng **không cùng thang** → tách riêng, mỗi bảng có `no_defense` của nó. Chi tiết `docs/CLAUDE.md` §6.
 - **Key: một POOL dùng chung** trong `.env` (mỗi dòng `GROQ_API_KEY_=<key>`, hoặc `GROQ_API_KEYS=k1,k2,...`). Target lẫn judge xài chung, key nào 429 thì tự nhảy key kế. `.env` **gitignored**, không lên GitHub.
 - **Cost:** token API do Groq trả (`usage`); local đo bằng giây; train đo một lần. Train và infer báo tách 2 cột (khác đơn vị).

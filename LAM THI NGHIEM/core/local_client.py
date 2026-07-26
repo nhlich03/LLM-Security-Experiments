@@ -15,9 +15,10 @@ Extra surface that white-box methods need (GroqClient cannot offer these):
 Generation defaults mirror the API side so the two tables stay comparable:
 temperature=0 (greedy), max_new_tokens=512.
 
-`resp.usage` is filled with real token counts so `meter.record_api()` still works, but for a
-local target the project convention (CLAUDE.md section 5) is to measure SECONDS via
-`meter.local(label)` instead - tokens are there only for reference.
+`resp.usage` carries real token counts. A local target records BOTH units - seconds and
+tokens - through `meter.local(label)`, because neither alone is enough (see the docstring
+of `core/cost_meter.py`). Do NOT route a local call through `meter.record_api()`: that
+would file its tokens under the API columns, which are on a different cost scale.
 """
 
 import os
@@ -158,12 +159,17 @@ class LocalClient:
             torch.cuda.empty_cache()
 
 
-# ----- Default hook for a local target: measure SECONDS, not tokens -----
+# ----- Default hook for a local target: measure SECONDS *and* TOKENS -----
 def local_generate(client, raw, meter, label="target"):
     """Drop-in `generate` hook for any method whose whole defense is baked into the
-    weights (all intra methods): call the target once, time it on the GPU."""
-    with meter.local(label):
-        text, _ = client.chat(raw)
+    weights (all intra methods): call the target once, time it on the GPU.
+
+    Records both units - which one the survey reports is still undecided, so keep
+    both. See the docstring of `core/cost_meter.py`.
+    """
+    with meter.local(label) as rec:
+        text, resp = client.chat(raw)
+        rec.from_usage(resp)
     return text
 
 

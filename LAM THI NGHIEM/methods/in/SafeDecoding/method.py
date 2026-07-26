@@ -175,10 +175,13 @@ def _factory(model, temperature, max_tokens):
     return SafeDecodingClient(model, EXPERT, temperature=temperature, max_tokens=max_tokens)
 
 
-# ----- Defense = guided decoding; cost is local SECONDS (overhead vs no_defense) -----
+# ----- Defense = guided decoding; cost = local seconds AND tokens -----
+# Seconds is the meaningful one here: the token count is (by design) the same as
+# no_defense, while every token costs two forward passes (base + expert).
 def sd_generate(client, raw, meter):
-    with meter.local("guided_decode"):
-        text, _ = client.chat(raw)
+    with meter.local("guided_decode") as rec:
+        text, resp = client.chat(raw)
+        rec.from_usage(resp)
     return text
 
 

@@ -35,7 +35,7 @@ LƯU Ý survey: cặp tên "in/intra" tự đặt, khác khung fairness truyền
 
 ## 3. Danh sách paper đã phân loại (đã verify)
 
-Doc trong BANG_PHUONG_PHAP.MD
+→ **`PHUONG_PHAP.md`** — mọi phương pháp chia theo 4 nhóm, mỗi nhóm một bảng: tên · venue · GitHub (có code / có data không) · flow chạy cơ bản · thứ tự ưu tiên. Kèm kết quả đã chạy, caveat bắt buộc ghi vào báo cáo, và việc tiếp theo.
 
 ---
 
@@ -69,8 +69,21 @@ QUAN TRỌNG: train cost (một lần) và infer cost (mỗi request) KHÔNG cù
 
 Đơn vị THÔ (tiền quy đổi tính sau, để placeholder):
 - API infer -> token (prompt+completion, lấy từ response.usage) × đơn giá Groq
-- Local infer -> giây (perf_counter + cuda.synchronize) × giá thuê GPU
+- Local infer -> **giây VÀ token**, ghi cả hai (xem dưới) × giá thuê GPU
 - Train -> giây (một lần) × giá thuê GPU
+
+**Local ghi cả hai đơn vị, chưa chốt dùng cái nào** — mỗi cái bắt một thứ khác nhau:
+- *giây* bắt được overhead decoding (SafeDecoding 2 forward/token, JBShield SVD mỗi forward) nhưng lẫn cả chênh lệch model và tải máy.
+- *token* không phụ thuộc phần cứng và cùng đơn vị với nhóm API, nhưng **mù với overhead decoding** — method 2-forward sinh ra đúng bằng số token của no_defense.
+
+Token local để **cột riêng** (`local_in_tokens` / `local_out_tokens`), KHÔNG trộn vào `api_*` vì hai nhóm không cùng thang giá. Đo hết rồi phân tích sau.
+
+Cách ghi ở call site:
+```python
+with meter.local("target") as rec:
+    text, resp = client.chat(raw)
+    rec.from_usage(resp)          # bỏ dòng này thì token = 0, chỉ còn giây
+```
 
 Cost đo TẠI CHỖ trong lúc phương pháp chạy (không tách rời như 2 metric kia). Dùng module `core/cost_meter.py` — `core.runner` tự nhúng vào mọi method.
 
@@ -91,26 +104,40 @@ Model target (sinh response cuối, đem đi chấm) phải CỐ ĐỊNH; chỉ 
 
 | Loại                 | Model                                     | Nguồn      |
 | -------------------- | ----------------------------------------- | ---------- |
-| Target chạy API      | llama-3.1-8b-instant                      | Groq       |
-| Target chạy local    | Qwen 1.5B (train lại hay không tuỳ paper) | local host |
-| Judge XSTest + JustEval | openai/gpt-oss-20b                     | Groq       |
-| Classifier HarmBench | Llama-2-13b-cls (local GPU) / Mistral-7b-val-cls (Kaggle T4) | local/Kaggle |
+| Target chạy API      | `llama-3.1-8b-instant`                    | Groq       |
+| Target chạy **local**| **`Meta-Llama-3-8B-Instruct`** (mirror `NousResearch/*`) | GPU server |
+| Judge XSTest + JustEval | `openai/gpt-oss-20b`                   | Groq       |
+| Classifier HarmBench | `Llama-2-13b-cls` (GPU 40GB) / `Mistral-7b-val-cls` (Kaggle T4) | local/Kaggle |
 
-- Method gọi API infer: dùng model quy ước chung.
-- Method train lại (intra): base PHẢI là Qwen 1.5B.
-- Method dùng 2 LLM (target + phụ trợ): target cố định; con phụ trợ tự do nhưng phải khai báo.
-- Nhóm target-API (llama-3.1-8b) và target-local (Qwen 1.5B) KHÔNG cùng thang so sánh (base khác nhau) — nếu gộp bảng thì tách 2 bảng, mỗi bảng có no_defense riêng.
+Nếu phương pháp A dùng Qwen còn B dùng Llama thì bảng so sánh vô nghĩa — lúc đó đang so *model* chứ không so *phương pháp phòng thủ*.
+
+Hai bảng **KHÔNG cùng thang** (base khác nhau) → tách riêng, mỗi bảng có `no_defense` của chính nó (`methods/no_defense/` và `methods/no_defense_local/`). Muốn bắc cầu thì chạy `no_defense` ở cả hai chế độ trên cùng một model.
+
+### Ba trường hợp
+
+| TH | Tình huống | Quy ước |
+|---|---|---|
+| **1** | Phương pháp gọi API để infer (viết lại prompt, phân loại, kiểm duyệt output...) | Dùng đúng model quy ước chung, không mỗi người một API. Tham số target: `temperature=0`, `max_tokens=512`. Key = **pool dùng chung** trong `.env`, xoay vòng khi 429 |
+| **2** | Phương pháp train lại / fine-tune (nhóm intra) | **Base phải là target local chung**, không đổi sang base khác. Sau khi train, chính model đó thành target. Cấu hình train (LoRA/full, data, số step) là *phần của phương pháp*, được phép khác nhau |
+| **3** | Phương pháp dùng 2 LLM (target + phụ trợ) | Con **target** cố định. Con **phụ trợ** là "cái hay" mà phương pháp đóng góp → để tự do, nhưng **phải khai báo rõ** tên + size + local hay API |
+
+### Vì sao base local là Llama-3-8B
+
+**Cả 5 checkpoint nhóm intra mà mình có đều dựng trên nó** (CAT · Circuit Breakers · DeRTa · DeepRefusal · Targeted LAT) → tải về chạy, khỏi train. Chọn base khác là mất sạch 5 checkpoint đó và lệch khỏi mọi số liệu công bố. Bảng phủ đầy đủ ở `Tom_Tat_Model.md` §2.
+
+*(Trước đây doc ghi `Qwen2.5-1.5B-Instruct` — đã bỏ: không paper nào chạy 1.5B nên không đối chiếu được với ai.)*
+
+**Tải từ đâu:** `meta-llama/*` bị **gated** (phải xin duyệt + có token), server chưa có → dùng mirror `NousResearch/Meta-Llama-3-8B-Instruct`. Đã đối chiếu SHA256 cả 4 shard: **trùng khít**. Có `HF_TOKEN` thì đổi sang kho chính thức được ngay. Override bằng env:
+
+```bash
+LOCAL_TARGET_MODEL=<hf_id> python method.py response --task all
+```
 
 ---
 
-## 7. Cấu trúc repo (chi tiết xem `README.md` gốc)
+## 7. Cấu trúc repo
 
-- `core/` — thư viện chung: `env.py` (pool key), `groq_client.py`, `cost_meter.py`, `datasets.py`, `runner.py`.
-- `data/` — `harmbench.csv` (300), `xstest.csv` (250), `justeval.csv` (800).
-- `metrics/` — scorer: `xstest.py` (over-refusal), `justeval.py` (utility), `harmbench.py` + `harmbench.ipynb` (ASR).
-- `methods/<type>/<TÊN>/` — mỗi method: `method.py` + `repo/` + `outputs/` + README. Có `no_defense` làm mốc.
-- `docs/` — bối cảnh (file này, 01, 02, BANG_PHUONG_PHAP).
-- `tools/view_outputs.ipynb` — soi output.
+→ **`README.md` ở gốc repo** — cây thư mục đầy đủ + giải thích từng phần.
 
 ---
 

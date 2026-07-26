@@ -68,7 +68,7 @@ Vector jailbreak được calibrate **riêng cho từng attack**. Nhưng `harmbe
 
 Hook gọi `interpret_difference_matrix` (**một SVD**) ở **mỗi forward pass**. Đó là lý do upstream đánh giá với `max_new_tokens=50`. Mình sinh **512 token** theo chuẩn project → method này sẽ chậm hơn hẳn 4 bài kia.
 
-> Đính chính so với ước lượng trước của tôi trong `README_CHOT_5IN_5INTRA.md`: tôi ghi ~1.1×T. Sau khi đọc code thì con số đó **quá lạc quan**. Phải **đo thực tế**, đừng suy từ paper.
+> Đính chính so với ước lượng trước của tôi trong `docs/PHUONG_PHAP.md`: tôi ghi ~1.1×T. Sau khi đọc code thì con số đó **quá lạc quan**. Phải **đo thực tế**, đừng suy từ paper.
 
 Nếu quá chậm: giảm `max_tokens`, hoặc bật lại tối ưu mà upstream comment sẵn trong `repo/mitigation.py` (`self.count`) — chỉ manipulate vài token đầu.
 

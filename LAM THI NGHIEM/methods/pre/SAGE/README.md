@@ -71,7 +71,7 @@ Naming nhất quán: `<task>_<slug>_<kind>.csv` (slug=`sage`).
 | `justeval_sage_response.csv` / `_judged.csv`      | JustEval thô / đã chấm (5 aspect) → **utility**                            |
 | `<task>_sage_cost_detail.csv` / `_summary.csv`    | cost mỗi task (token in/out, số call)                                      |
 
-## 5. Bảng khai báo (để so sánh công bằng — 02_QUY_UOC_MODEL.md)
+## 5. Bảng khai báo (để so sánh công bằng — CLAUDE.md §6)
 
 | Mục                            | Giá trị                                                                                 |
 | ------------------------------ | --------------------------------------------------------------------------------------- |

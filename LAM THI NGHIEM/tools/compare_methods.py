@@ -5,7 +5,11 @@ Doc outputs/ cua MOI method -> gom 4 metric va in bang so sanh:
   - ASR (HarmBench, %)          : cang THAP cang tot  <- harmbench_*_judged.csv (cot jailbroken)
   - over-refusal (XSTest, %)     : cang THAP cang tot  <- xstest_*_judged.csv   (judge2 refusal)
   - utility (JustEval, 1-5)      : cang CAO cang tot   <- justeval_*_judged.csv (je_avg)
-  - cost (call/req, token, sec)  : cang THAP cang re   <- *_cost_summary.csv
+  - cost                         : cang THAP cang re   <- *_cost_summary.csv
+      tok_in/out   = token API (nhom chay Groq)
+      Ltok_in/out  = token local (nhom chay GPU)   } local ghi CA HAI don vi,
+      local_s      = giay GPU                      } chua chot dung cai nao
+      "-" = method khong dung kenh do do (vd method API khong co giay local)
 
 Chay:
   python tools/compare_methods.py                 # in ra man hinh + luu tools/comparison.md
@@ -83,13 +87,30 @@ def get_cost(outdir):
     allc = pd.concat(frames, ignore_index=True)
     # train = MOT LAN (max, khong trung binh); infer (call/token/local) = trung binh moi request
     train = float(allc["train_sec"].max()) if "train_sec" in allc.columns else 0.0
+    # None = method nay KHONG dung kenh do (vd method API khong co giay local).
+    # Tra 0.0 thi bang se in dam "0.0" nhu the do la ket qua tot nhat -> hieu nham.
+    # File cost cu chua co cot token local cung roi vao nhanh None.
+    def col(name):
+        if name not in allc.columns:
+            return None
+        m = allc[name].mean()
+        return None if m == 0 else m
     return {
         "call/req": allc["n_calls"].mean(),
-        "tok_in/req": allc["api_in_tokens"].mean(),
-        "tok_out/req": allc["api_out_tokens"].mean(),
-        "local_s/req": allc["local_sec"].mean(),
+        "tok_in/req": col("api_in_tokens"),
+        "tok_out/req": col("api_out_tokens"),
+        "ltok_in/req": col("local_in_tokens"),
+        "ltok_out/req": col("local_out_tokens"),
+        "local_s/req": col("local_sec"),
         "train_s": train,
     }
+
+
+def _r(v, nd=0):
+    """Lam tron, giu None (= khong dung kenh do do) nguyen ven."""
+    if v is None:
+        return None
+    return round(v, nd) if nd else round(v)
 
 
 # ----- Collect all methods -----
@@ -110,9 +131,11 @@ def collect(methods_dir):
             "over-refusal% (string-match) ↓": None if orr1 is None else round(100 * orr1, 1),
             "utility/5 ↑": None if util is None else round(util, 2),
             "call/req": None if not cost else round(cost["call/req"], 1),
-            "tok_in/req": None if not cost else round(cost["tok_in/req"]),
-            "tok_out/req": None if not cost else round(cost["tok_out/req"]),
-            "local_s/req": None if not cost else round(cost["local_s/req"], 3),
+            "tok_in/req": _r(cost.get("tok_in/req")),
+            "tok_out/req": _r(cost.get("tok_out/req")),
+            "Ltok_in/req": _r(cost.get("ltok_in/req")),
+            "Ltok_out/req": _r(cost.get("ltok_out/req")),
+            "local_s/req": _r(cost.get("local_s/req"), 3),
             "train_s(1lần)": None if not cost else round(cost["train_s"], 1),
         })
     return rows
@@ -127,6 +150,8 @@ DIRECTION = {
     "call/req": "min",
     "tok_in/req": "min",
     "tok_out/req": "min",
+    "Ltok_in/req": "min",
+    "Ltok_out/req": "min",
     "local_s/req": "min",
 }
 

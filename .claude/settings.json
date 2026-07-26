@@ -46,7 +46,8 @@
       "WebFetch(domain:arxiv.org)",
       "Bash(python -c ' *)",
       "Bash(timeout 60 ssh -p 56107 -o StrictHostKeyChecking=no root@103.73.232.247 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" 'cd ~/LLM-Security-Experiments/\"LAM THI NGHIEM\"; echo \"--- artifact tu train \\(neu co\\) ---\"; ls -d methods/*/*/train_out methods/*/*/experts methods/*/*/saved_model 2>/dev/null || echo \"\\(KHONG CO - chua train lan nao\\)\"; echo; echo \"--- log train \\(neu co\\) ---\"; ls ~/gpu_run/*train* 2>/dev/null || echo \"\\(khong co log train\\)\"; echo; echo \"--- log da chay ---\"; ls ~/gpu_run/*.log')",
-      "Bash(timeout 300 ssh -p 56107 -o StrictHostKeyChecking=no root@103.73.232.247 -i 'E:\\\\DHBK\\\\.ssh\\\\id_rsa' 'cd ~/LLM-Security-Experiments/'\\\\''LAM THI NGHIEM'\\\\'' && source .venv/bin/activate && python - <<'\\\\''PY'\\\\'' *)"
+      "Bash(timeout 300 ssh -p 56107 -o StrictHostKeyChecking=no root@103.73.232.247 -i 'E:\\\\DHBK\\\\.ssh\\\\id_rsa' 'cd ~/LLM-Security-Experiments/'\\\\''LAM THI NGHIEM'\\\\'' && source .venv/bin/activate && python - <<'\\\\''PY'\\\\'' *)",
+      "Bash(GPU_USD_PER_HOUR=2.5 python tools/compare_methods.py)"
     ]
   }
 }

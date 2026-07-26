@@ -160,10 +160,19 @@ def run_method(name, defense_type, model, out_dir, slug=None,
         if transform_prompt is None:
             raise ValueError("run_method: can transform_prompt hoac generate")
 
-        def generate(client, raw, meter, _tp=transform_prompt):
-            text, resp = client.chat(_tp(raw))
-            meter.record_api("target", resp)
-            return text
+        # Target local thi cost la GIAY + token local, khong phai token API.
+        # Ghi nham vao cot api_* thi bang so sanh cong nham hai thang gia khac nhau.
+        if backend == "local" or client_factory is not None:
+            def generate(client, raw, meter, _tp=transform_prompt):
+                with meter.local("target") as rec:
+                    text, resp = client.chat(_tp(raw))
+                    rec.from_usage(resp)
+                return text
+        else:
+            def generate(client, raw, meter, _tp=transform_prompt):
+                text, resp = client.chat(_tp(raw))
+                meter.record_api("target", resp)
+                return text
 
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["response", "judge"],
