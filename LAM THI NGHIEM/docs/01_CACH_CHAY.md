@@ -93,7 +93,7 @@ Naming nhất quán: **`<task>_<slug>_<kind>.csv`** (task = `harmbench`|`xstest`
 | `<task>_<slug>_cost_detail.csv` | stage 1 | mỗi call một dòng |
 | `<task>_<slug>_cost_summary.csv` | stage 1 | gom theo request |
 
-Cột trong file cost: `n_calls` · `api_in_tokens`/`api_out_tokens` (nhóm API) · `local_in_tokens`/`local_out_tokens`/`local_sec` (nhóm local — ghi cả token lẫn giây, xem `PHUONG_PHAP.md` §7) · `train_sec` (một lần).
+Cột trong file cost: `n_calls` · `api_in_tokens`/`api_out_tokens` (nhóm API) · `local_in_tokens`/`local_out_tokens`/`local_sec` (nhóm local — ghi cả token lẫn giây, xem `PHUONG_PHAP.md` §9) · `train_sec` (một lần).
 
 ---
 

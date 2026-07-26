@@ -87,7 +87,7 @@ ASR chấm bằng classifier chính thức **`HarmBench-Llama-2-13b-cls`** (serv
 
 ### Nhóm LOCAL (in/intra) — đã code + smoke test, chưa chạy full
 
-5 method chạy trên GPU server bằng checkpoint tác giả: **SafeDecoding · JBShield** (in) · **CAT · Circuit Breakers · DeRTa** (intra), cộng `no_defense_local` làm mốc. Cả 5 đều đã chạy thật và đã train lại thử trên Llama-3. Chi tiết + caveat: `docs/PHUONG_PHAP.md` §5.
+5 method chạy trên GPU server bằng checkpoint tác giả: **SafeDecoding · JBShield** (in) · **CAT · Circuit Breakers · DeRTa** (intra), cộng `no_defense_local` làm mốc. Cả 5 đều đã chạy thật và đã train lại thử trên Llama-3. Chi tiết + caveat: `docs/PHUONG_PHAP.md` §7.
 
 *(Utility JustEval: metric đã sẵn, chưa chạy cho method nào.)*
 

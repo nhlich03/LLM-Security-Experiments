@@ -43,4 +43,4 @@ Smoke test `--task harmbench --limit 3` → **PASS**. **local_sec = 0.662 ± 0.3
 
 Bảng **target-API** và bảng **target-local** không cùng thang — base khác nhau. Báo cáo phải **tách 2 bảng**, mỗi bảng có dòng `no_defense` của chính nó. Muốn bắc cầu giữa hai bảng thì chạy `no_defense` ở **cả hai chế độ trên cùng một model** rồi so chênh lệch.
 
-Cost local ghi **cả giây lẫn token** (`local_sec`, `local_in_tokens`, `local_out_tokens`) — chưa chốt dùng đơn vị nào, xem `docs/PHUONG_PHAP.md` §7.
+Cost local ghi **cả giây lẫn token** (`local_sec`, `local_in_tokens`, `local_out_tokens`) — chưa chốt dùng đơn vị nào, xem `docs/PHUONG_PHAP.md` §9.
