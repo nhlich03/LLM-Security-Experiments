@@ -1,0 +1,6 @@
+# SelfDefend-basic: shadow = chinh target qua Groq -> khong them gi.
+# Ban SelfDefend-tuning (Llama-2-7b + LoRA trong repo/checkpoint/) can them:
+#   torch, transformers, peft
+pandas
+python-dotenv
+groq

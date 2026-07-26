@@ -1,0 +1,7 @@
+# DRO: bat buoc train truoc (upstream khong phat hanh soft prompt).
+torch
+transformers
+accelerate
+safetensors
+scikit-learn
+pandas

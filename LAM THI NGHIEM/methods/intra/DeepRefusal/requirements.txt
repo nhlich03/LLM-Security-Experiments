@@ -1,0 +1,9 @@
+# DeepRefusal: infer chi can transformers (ckpt full merged).
+torch
+transformers
+accelerate
+pandas
+# Train lai (train_smoke.py) can them:
+peft
+datasets
+pyarrow

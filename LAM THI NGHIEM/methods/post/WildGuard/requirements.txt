@@ -1,0 +1,10 @@
+# WildGuard: target qua Groq + guard allenai/wildguard chay LOCAL.
+# KHONG cai `wildguard` tu pip - no pin vllm>=0.4.2 lam hard dep va se
+# nang torch len cu130 => pha venv chung (da xay ra 27/07/2026).
+# Nap thang bang transformers, prompt format lay verbatim trong method.py.
+pandas
+python-dotenv
+groq
+torch
+transformers
+accelerate

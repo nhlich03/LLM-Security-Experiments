@@ -1,0 +1,4 @@
+# Self-Reminder: prompt-only, chi can core/ (Groq client). Khong them gi.
+pandas
+python-dotenv
+groq

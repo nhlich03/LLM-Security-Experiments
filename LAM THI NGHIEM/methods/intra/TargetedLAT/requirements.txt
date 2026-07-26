@@ -1,0 +1,5 @@
+# Targeted LAT: infer chi can transformers (ckpt full merged).
+torch
+transformers
+accelerate
+pandas
