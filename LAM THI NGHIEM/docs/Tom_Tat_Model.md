@@ -2,7 +2,7 @@
 
 ## 1. Model trong paper gốc
 
-**Target** = model sinh câu trả lời cuối, đem đi chấm. **Phụ trợ** = model khác mà cơ chế phòng thủ cần thêm.
+**Target** = model sinh câu trả lời cuối, chúng ta cần bảo vệ nó. **Phụ trợ** = model khác mà cơ chế phòng thủ cần thêm để hỗ trợ phòng thủ.
 
 | Nhóm | Method | Venue | Target model mã nguồn mở | Target model đóng (API) | Model phụ trợ | Phụ trợ dùng để làm gì | Đang dùng |
 |---|---|---|---|---|---|---|---|
@@ -10,15 +10,22 @@
 | pre | IA | COLING 2025 | Vicuna-7B/13B · ChatGLM-6B · Llama2-7B-Chat · Llama3-8B-Instruct | GPT-3.5 | chính target | Phân tích ý định thật của câu hỏi → **đoạn phân tích được ghép vào hội thoại** làm ngữ cảnh, rồi target trả lời ở lượt 2. Không chặn request nào | `llama-3.1-8b-instant` (cả 2 lượt) |
 | pre | G4D | Findings NAACL 2025 | Vicuna-v1.5-13B | GPT-4o-mini | GPT-4o-mini (3 agent) | 3 lượt gọi riêng: phát hiện ý định · viết lại câu hỏi (chỉ khi bị nghi ngờ) · phân tích an toàn → cả 3 kết quả **ghép thành đoạn "guidance" chèn vào prompt** gửi cho target. Không chặn request | `llama-3.1-8b-instant` (cả 3 agent + target)<br>→ **thay GPT-4o-mini** |
 | pre | erase-and-check | arXiv 2023 | Llama-2 | — | DistilBERT (**66M tham số**, đã fine-tune) | Chấm từng biến thể prompt là harmful hay an toàn → chỉ cần **một** biến thể bị gắn harmful là **chặn thẳng, KHÔNG gọi target**, trả về câu từ chối cố định | target `llama-3.1-8b-instant`<br>filter **DistilBERT** local (giữ như paper) |
+| pre | Self-Reminder | Nature MI 2023 | (prompt-only, bất kỳ instruct model) | ChatGPT (GPT-3.5) · GPT-4 | không | — | `llama-3.1-8b-instant` *(chưa chạy)* |
 | post | LLM Self Defense | arXiv 2023 | Llama 2 | GPT-3.5 | chính target | Đọc câu trả lời của target rồi phán có hại hay không → nếu có hại thì **vứt câu trả lời, thay bằng câu từ chối cố định**; nếu không thì giữ nguyên | `llama-3.1-8b-instant` (cả 2 lượt) |
 | post | Self-Refine | NeurIPS 2023 | Vicuna-13B | GPT-3.5 · GPT-4 · text-davinci-003 | chính target | Phê bình câu trả lời rồi viết lại bản mới → bản mới **thay thế** bản cũ, lặp k vòng. Không chặn request | `llama-3.1-8b-instant` (mọi lượt) |
 | post | Backtranslation | Findings ACL 2024 | Llama-2-13B-Chat · Vicuna-13B | GPT-3.5-turbo · GPT-4 | Vicuna-13B | Suy ngược từ câu trả lời ra câu hỏi gốc → **hỏi lại target bằng câu hỏi suy ngược đó**; nếu target từ chối câu hỏi này thì câu trả lời ban đầu bị **vứt, thay bằng từ chối** | `llama-3.1-8b-instant` (cả 3 lượt)<br>→ **thay Vicuna-13B** |
 | post | AutoDefense | arXiv 2024 | — | GPT-3.5 (con được bảo vệ) | LLaMA-2-13B | Nhiều agent cùng đọc câu trả lời của target rồi bỏ phiếu → nếu kết luận có hại thì **thay câu trả lời bằng từ chối**; nếu không thì giữ nguyên | `llama-3.1-8b-instant` (victim + mọi agent)<br>→ **thay LLaMA-2-13B** |
+| post | SelfDefend | USENIX Sec 2025 | Llama-2/3 · Mistral · Qwen (target) | GPT-3.5 · GPT-4 · Claude | **shadow LLM** (bản prompt-only = chính target; bản tuned = Llama-2-7B + LoRA `-direct`/`-intent`) | Chạy **song song** target: shadow đọc *prompt* (bọc P_direct/P_intent) → "No" thì thả response đã cache, ngược lại vứt + trả từ chối. Target vẫn sinh đủ (cache lại) | `llama-3.1-8b-instant` (target + shadow, bản prompt-only) *(chưa chạy)* |
 | in | SafeDecoding | ACL 2024 | Vicuna-7B · Llama-2-7B-chat · Guanaco-7B · Falcon-7B · Dolphin-7B | — | expert = target + LoRA | Đưa ra phân phối xác suất token thiên về từ chối → **trộn với phân phối của target ở 2 token đầu** để lái ngay từ đầu câu; từ token thứ 3 target sinh tiếp bình thường | **local** `Llama-2-7b-chat` + expert LoRA của tác giả<br>*(đã thử cả Llama-3-8B + expert tự train)* |
 | in | JBShield | USENIX Sec 2025 | Mistral-7B-v0.2 · Llama-2-7b-chat · Llama-3-8B-Instruct · Vicuna-7B/13B-v1.5 | — | không | — | **local** `Meta-Llama-3-8B-Instruct` |
+| in | ROSE | Findings ACL 2024 | Llama-2-chat · Vicuna · (demo Baichuan2-7B) | — | không (chính target, 2 forward/token) | Contrastive decoding: chạy target 2 lần (prompt thường + **reverse prompt độc**), lấy hiệu logit để triệt token độc. Training-free | **local** `Meta-Llama-3-8B-Instruct` *(chưa chạy)* |
+| in | DRO | ICML 2024 | Llama-2-chat · Mistral-Instruct · Vicuna | — | **soft prompt** train offline; *lúc train* cần evaluator LlamaGuard-7B gán nhãn | Prepend soft prompt đã tối ưu (đẩy biểu diễn harmful theo hướng từ chối) → sinh bình thường, không overhead decoding | **local** `Meta-Llama-3-8B-Instruct` *(đang treo — script chỉ Mistral-v1)* |
+| in | SafeInfer | AAAI 2025 | Llama-2-7b-chat · Mistral-7B · Vicuna | — | con **M_unsafe** (model fine-tune "unsafe") + demonstration examples | Lúc decode: (1) dịch hidden state theo hướng an toàn trích từ demonstration, (2) phối logit với M_unsafe để triệt token độc. Cần 2 model cùng trong VRAM | **local** `Meta-Llama-3-8B-Instruct` + M_unsafe (quantize 4-bit) *(chưa chạy)* |
 | intra | CAT / CAPO | NeurIPS 2024 | Gemma-2B · Phi-3-Mini · Mistral-7B · Zephyr-7B · Llama2-7B | — | không | — | **local** `ContinuousAT/Llama3-8B-IT-CAT` |
 | intra | Circuit Breakers | NeurIPS 2024 | Mistral-7B-Instruct-v2 · Llama-3-8B-Instruct | — | không | — | **local** `GraySwanAI/Llama-3-8B-Instruct-RR` |
 | intra | DeRTa | ACL 2025 | Llama-3-8B · Llama-3-70B (+Instruct) | — | không | — | **local** `Meta-Llama-3-8B-Instruct` + LoRA `Youliang/llama3-8b-instruct-lora-derta-100step` |
+| intra | DeepRefusal | Findings EMNLP 2025 | Llama-3-8B-Instruct | — | không | — | **local** `skysys00/Meta-Llama-3-8B-Instruct-DeepRefusal` |
+| intra | Targeted LAT | arXiv 2024 (2407.15549) | Llama-3-8B-Instruct | — | không | — | **local** checkpoint org HF `LLM-LAT` |
 
 ---
 
