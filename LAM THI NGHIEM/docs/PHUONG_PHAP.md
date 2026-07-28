@@ -17,6 +17,14 @@
 
 Cập nhật 27/07/2026: thêm 6 bài — Self-Reminder (pre) · SelfDefend + WildGuard (post) · DRO (in) · DeepRefusal + Targeted LAT (intra).
 
+### Cập nhật 28/07/2026 — các quyết định chốt trong đợt chạy full
+
+- **Quy ước model chốt:** bài gọi API → target `llama-3.1-8b-instant` (Groq); bài local → target `NousResearch/Meta-Llama-3-8B-Instruct` (mirror mở, khỏi HF token). Phụ trợ loại A (LLM đa dụng) dùng chung target; loại B (classifier/expert/guard) giữ như paper.
+- **JustEval rút còn 200 câu** (subset stratified proportional theo `dataset`, seed=42, `data/justeval_200.csv`) thay vì 800 — vẫn đại diện, rẻ hơn, dùng chung mọi method. Chạy full 800: `JUSTEVAL_FILE=justeval.csv`.
+- **Train lại để cost công bằng:** mọi bài trainable train lại trên Llama-3-8B của mình với **liều CỐ ĐỊNH 500 optimizer step (batch 1)** — KHÔNG dùng số/checkpoint paper. Đây là **deviation có chủ ý** (xem §8): với dataset lớn (DeRTa 65k mẫu) 500 step chỉ ~1.5% của 1 epoch → intra bị *undertrained*, phải khai báo. Full epoch (DeRTa ~7.8h/bài) không kịp deadline GPU.
+- **Bỏ WildGuard đợt này** (gated, không có mirror; post đã đủ 5/5) · **DRO để cuối** (thay evaluator LlamaGuard bằng HarmBench-13b đã có).
+- **Judge concurrency:** `gpt-oss-20b` chậm/thrash khi CHẠY NHIỀU LUỒNG judge cùng lúc (không phải rate-limit) → chạy **1 luồng serial**, round-robin 15+2 key. Đã vá `metrics/justeval.py`+`xstest.py` (round-robin mỗi call, backoff ≤3s) + thêm env `HB_BATCH` cho classifier. Xem §8.
+
 ---
 
 ## 1. PRE — can thiệp ở INPUT
@@ -337,55 +345,55 @@ Adversarial training với nhiễu đặt ở **activation giữa các layer** (
 
 ### 7.1 Nhóm API — target `llama-3.1-8b-instant` (Groq)
 
-ASR chấm bằng classifier chính thức `cais/HarmBench-Llama-2-13b-cls`. Over-refusal = XSTest judge2 (`gpt-oss-20b`).
+ASR = classifier `cais/HarmBench-Llama-2-13b-cls` (n=300) · over-refusal = XSTest judge2 `gpt-oss-20b` (n=250) · utility = JustEval (n=200). **Đủ 5/5 cả pre lẫn post.**
 
-| Method | Nhóm | ASR ↓ | Over-refusal ↓ | Utility ↑ | Call/req |
-|---|---|---:|---:|---|---:|
-| **no_defense** *(mốc)* | — | 30.7% | 8.0% | chưa chạy | 1.0 |
-| SAGE | pre | **0.7%** | 34.8% | chưa chạy | 1.0 |
-| IA | pre | 2.0% | 12.4% | chưa chạy | 2.0 |
-| G4D | pre | 7.0% | 10.8% | chưa chạy | 4.0 |
-| erase-and-check | pre | 14.7% | **8.4%** | chưa chạy | 1.6 + filter |
-| Self_Defense | post | 9.7% | 35.6% | chưa chạy | 2.0 |
-| Self_Refine | post | 6.3% | 12.0% | chưa chạy | 3.3 |
-| Backtranslation | post | 17.0% | 9.6% | chưa chạy | 2.5 |
-| AutoDefense | post | 18.7% | 9.2% | chưa chạy | 4.0 |
+| Method | Nhóm | ASR ↓ | Over-refusal ↓ | Utility ↑ |
+|---|---|---:|---:|---:|
+| **no_defense** *(mốc)* | — | 30.7% | 8.0% | 3.63 |
+| SAGE | pre | **0.7%** | 34.8% | 3.61 |
+| IA | pre | 2.0% | 12.4% | **3.76** |
+| G4D | pre | 7.0% | 10.8% | 3.56 |
+| erase-and-check | pre | 14.7% | **8.4%** | 3.35 |
+| Self-Reminder | pre | 4.3% | 22.0% | ⏳ |
+| Self_Defense | post | 9.7% | 35.6% | ⏳ |
+| Self_Refine | post | 6.3% | 12.0% | ⏳ |
+| Backtranslation | post | 17.0% | 9.6% | ⏳ |
+| AutoDefense | post | 18.7% | 9.2% | ⏳ |
+| SelfDefend | post | **0.3%** | 28.0% | ⏳ |
 
-**Đọc bảng:** ASR thấp nhất chưa chắc tốt nhất — SAGE hạ ASR còn 0.7% nhưng từ chối oan **34.8%**, gấp hơn 4 lần mốc; Self_Defense cũng vậy. Cặp **cả hai cột đều tốt** hiện là IA và Self_Refine.
-
-> ⚠️ **Utility (JustEval) chưa chạy cho bất kỳ method nào.** Không có cột này thì chưa kết luận được trade-off.
+**Đọc bảng — không có bữa trưa miễn phí:** bài ép ASR thật thấp (SelfDefend 0.3%, SAGE 0.7%) thì over-refusal vọt lên 28-35% (từ chối oan cả câu lành). Cân bằng tốt nhất là **IA** (ASR 2.0 · over-refusal 12.4 · utility 3.76 cao nhất). ⏳ = 6 utility đang chấm nốt (judge JustEval bị ngắt lúc tinh chỉnh concurrency, đang chạy lại serial).
 
 Bảng đầy đủ kèm token/cost: **`tools/comparison.md`** — tự sinh bằng `python tools/compare_methods.py`, đây mới là số chính thức. Bảng trên chép tay nên có thể cũ.
 
-### 7.2 Nhóm LOCAL — target `Meta-Llama-3-8B-Instruct` trên GPU
+### 7.2 Nhóm LOCAL — target `Meta-Llama-3-8B-Instruct` (GPU), full 3 metric
 
-Smoke test `--task harmbench --limit 3` → **6/6 PASS**.
+Adapter dùng bản **tự train 500-step của mình** (không phải checkpoint tác giả — fair cost, xem §8). ASR/over-refusal/utility đo trên full 300/250/200.
 
-| Method | Nhóm | Checkpoint | s/req | Ghi chú |
-|---|---|---|---:|---|
-| no_defense_local | — | base thuần | 0.662 | mốc quy chiếu |
-| CAT | intra | `ContinuousAT/Llama3-8B-IT-CAT` | 0.317 | trả đúng chuỗi cố định `"Sorry, I can't do that."` |
-| JBShield | in | không có ckpt — `calibrate.py` tự sinh | 0.839 | phải chạy `calibrate.py` **trước** |
-| DeRTa | intra | base + LoRA `Youliang/...-derta-100step` | 2.567 | từ chối có giải thích, tự nhiên nhất |
-| SafeDecoding | in | Llama-2-7b-chat + expert LoRA trong repo | 5.490 | `disable_adapter()` thay được mixed-adapter-batch |
-| Circuit Breakers | intra | `GraySwanAI/Llama-3-8B-Instruct-RR` | 6.067 | 1/3 response là **chuỗi vô nghĩa** — đúng cơ chế, không phải bug |
+| Method | Nhóm | ASR ↓ | Over-refusal ↓ | Utility ↑ | Trạng thái |
+|---|---|---:|---:|---:|---|
+| no_defense_local *(mốc)* | — | 11.0% | ⏳ | ⏳ | ASR xong, ORef/Util đang chấm |
+| **CAT** | intra | **0.0%** | 61.8% | 3.34 | ✅ đủ 3 metric |
+| **JBShield** | in | **0.0%** | 39.2% | 3.43 | ✅ đủ 3 metric |
+| DeRTa | intra | ⏳ | ⏳ | ⏳ | chạy lại (fix vocab 128257) |
+| Circuit Breakers | intra | ⏳ | ⏳ | ⏳ | retrain+regen (fix loss bug) |
+| SafeDecoding | in | ⏳ | ⏳ | ⏳ | đang sinh (base L2→L3 + expert tự train) |
 
-⚠️ **n=3, chưa kết luận được gì.** CAT nhanh hơn baseline vì nó sinh ít token (từ chối một câu), không phải vì model nhanh hơn.
+**Nhận xét:** CAT lẫn JBShield chặn sạch attack (ASR 0%) nhưng đánh đổi over-refusal lớn — **CAT 61.8% (gắt nhất), JBShield 39.2% (nhẹ hơn)**. no_defense_local ASR 11% (Llama-3-8B-Instruct vốn có safety nền, nên khoảng trống so sánh ở bảng local hẹp hơn bảng API 30.7%).
 
-✅ **JBShield tái hiện đúng paper**: detection accuracy trung bình **0.958** trên 9 loại attack (paper báo 0.95).
+✅ **JBShield tái hiện đúng paper phần detection**: accuracy trung bình **0.958** trên 9 loại attack (paper báo 0.95).
 
-### 7.3 Train lại trên Llama-3 (smoke-size) — 4/4 PASS
+### 7.3 Train lại trên Llama-3 — liều CỐ ĐỊNH 500 step (fair cost)
 
-| Method | Script | Thời gian | Adapter tự train nạp lại | Số thứ phải vá |
-|---|---|---:|---|:--:|
-| SafeDecoding expert | `train_expert.py` | **16.2 s** | ✅ 1.932 s/req | **0** |
-| Circuit Breakers | `train_smoke.py` | 8.1 s / 5 step | ✅ 1.121 s/req | 5 |
-| CAT | `train_smoke.py` | 2.26 s / 5 step | ✅ 1.022 s/req | 6 |
-| DeRTa | `train_smoke.py` | 3.41 s / 5 step | ✅ 1.006 s/req | 6 |
+| Method | Nhóm | Train (500 step, batch 1) | Ghi chú |
+|---|---|---:|---|
+| SafeDecoding expert | in | **17.8 s** | expert LoRA 72 mẫu, 2 epoch = **full recipe** (đủ) |
+| CAT | intra | **225.2 s** | adversarial UL, mix 0.5 utility / 0.5 adv |
+| Circuit Breakers | intra | **~426 s** | rep-rerouting; **bản đầu crash ở hàm loss** (đã vá — §8) |
+| DeRTa | intra | **429.3 s** | SFT refusal-shift, LoRA r=96, data 65,302 mẫu |
 
-Bốn nhóm lỗi: **transformers v4→v5** (`deepspeed` alias bị bỏ · `fsdp=None` · `tokenizer=`→`processing_class` · `num_items_in_batch` · `is_torch_tpu_available` · `--eval_strategy`) · **trl 1.9 xoá `DataCollatorForCompletionOnlyLM`** (CAT *kế thừa* nó → phải venv riêng `.venv_cat`) · **MIG** (NCCL chết → bỏ accelerate · `cpu_adam` JIT cần ninja → tắt) · **Llama-3** (không có `unk_token` · DeRTa resize vocab 128256→128257 · `target_modules` chứa `w1/w2/w3` của Mixtral).
+⚠️ **500 step ≪ recipe paper** (DeRTa 1 epoch = ~32,651 step; CB 3 epoch). CAT + SafeDecoding *đủ tốt* (CAT ASR 0%; SD chạy đúng full recipe 72 mẫu); **DeRTa/CB bị undertrained** — khai báo ở §8.
 
-Chi tiết vá lỗi từng bài: **README trong chính folder method**.
+Bốn nhóm lỗi khi làm code train/infer chịu chạy: **transformers v4→v5** (`deepspeed` alias bị bỏ · `fsdp=None` · `tokenizer=`→`processing_class` · `num_items_in_batch` · `--eval_strategy`) · **trl 1.9 xoá `DataCollatorForCompletionOnlyLM`** (CAT *kế thừa* → venv riêng `.venv_cat`; DeRTa → `.venv_legacy`) · **MIG** (NCCL chết → bỏ accelerate · allocator NVML → `cudaMallocAsync`) · **Llama-3** (không có `unk_token` · DeRTa resize vocab 128256→128257 · `target_modules` chứa `w1/w2/w3` của Mixtral). Chi tiết: README từng method.
 
 ---
 
@@ -396,13 +404,17 @@ Chi tiết vá lỗi từng bài: **README trong chính folder method**.
 3. **DeRTa thiếu hẳn file data safety** (`safety_beaver_safe_and_unsafe_response.json` — dòng đầu tiên script data đọc). Đã viết `rebuild_safety_data.py` tái tạo 6000 cặp từ `PKU-Alignment/PKU-SafeRLHF`, nhưng **không bit-exact** → model tự train chỉ là "DeRTa-style".
 4. **JBShield** học jailbreak concept theo **từng loại attack** từ calibration set, nhưng `harmbench.csv` là prompt thô **không bọc jailbreak template** → jailbreak concept gần như không kích hoạt, method chỉ còn chạy bằng toxic concept.
 5. **DeRTa** nhắm thẳng **prefilling attack**, mà HarmBench thô không có prefilling → điểm mạnh nhất của nó **không hiện ra trong bảng**. Đừng kết luận "DeRTa yếu".
-6. **SafeDecoding đang chạy Llama-2-7b** (dùng expert có sẵn) còn baseline chạy Llama-3-8B → bội số 8.3× lẫn cả chênh lệch model. Paper báo ATGR 1.03–1.07×.
+6. **SafeDecoding: đã đổi base Llama-2-7b → Llama-3-8B + expert LoRA TỰ TRAIN** (upstream không có expert cho Llama-3, train 17.8s). Khác bản gốc → khai báo là "our reimplementation trên Llama-3". *(Trước chạy Llama-2 để mượn expert sẵn — đã bỏ để đồng nhất target local.)*
+7. **Liều train 500 step là budget cắt gọn CÓ CHỦ Ý (fair cost).** Dataset lớn → 500 step chỉ là phần nhỏ 1 epoch (DeRTa 65,302 mẫu → 1 epoch ~32,651 step, mình chạy ~1.5%). → **DeRTa/CB undertrained** so với paper (train tới hội tụ). Full epoch (~7.8h/bài DeRTa) không kịp GPU deadline. Đọc số defense DeRTa/CB là "reduced-budget reimplement", đừng so trực tiếp số công bố. CAT (ASR 0%) + SafeDecoding (full recipe 72 mẫu) thì đủ.
+8. **Bug loss Circuit Breakers (đã vá).** Loss dùng `retain_loss`/`circuit_breaker_loss` vô điều kiện nhưng chỉ gán trong `if coeff>0`; ở hai đầu schedule một coeff=0 → biến chưa gán → `UnboundLocalError` → crash step ~299. Đã guard (0×loss=0, số không đổi). Smoke 5-step né được nên trước không lộ.
+9. **Bug nạp adapter DeRTa (đã vá).** Adapter tự train resize vocab 128256→128257; trỏ `DERTA_LORA` vào subdir không có tokenizer thì resize không kích hoạt → size mismatch → load fail (ra n=2 vô nghĩa). Fix: trỏ vào thư mục cha chứa cả adapter + tokenizer 128257.
+10. **Judge `gpt-oss-20b` phải chạy 1 LUỒNG.** Chạy nhiều luồng judge song song làm endpoint thrash (429 + latency vọt 30-45s/call) — KHÔNG phải rate-limit (1 call sạch vẫn 0.8s); giới hạn theo TỪNG KEY (8000 TPM/key). Đã vá `metrics/justeval.py`+`xstest.py`: round-robin mỗi call + backoff ≤3s + serial. Classifier HarmBench ép batch 4 qua env `HB_BATCH` (batch 8 OOM trên MIG 40GB).
 
 ---
 
 ## 9. Chi phí
 
-**Mốc:** một lượt `response` đầy đủ = 300 HarmBench + 250 XSTest + 800 JustEval = **1350 prompt × 512 max_token**. Gọi thời gian `no_defense` local là **T**.
+**Mốc:** một lượt `response` đầy đủ = 300 HarmBench + 250 XSTest + **200** JustEval = **750 prompt × 512 max_token** (JustEval đã rút từ 800 còn 200). Gọi thời gian `no_defense` local là **T**.
 
 Cost đo ở **đơn vị thô, không quy ra tiền**: API đo bằng **token**, local đo bằng **cả token lẫn giây**, train tách riêng (một lần, khác đơn vị).
 
@@ -424,11 +436,16 @@ with meter.local("target") as rec:
 
 ## 10. Việc tiếp theo
 
-1. Chạy `no_defense_local` full → mốc cho bảng thứ hai.
-2. Thêm **Self-Reminder** (pre) + **SelfDefend** (post) → đủ 5/5 cho nhóm API. Cả hai chạy thuần API, không cần GPU.
-3. Chạy `judge --task justeval` cho 9 method API đã có response — **đang thiếu hẳn một metric**.
-4. Chạy full `--task all` cho 5 bài local đã code.
+**Đang chạy nền trên server (detached, chạy tiếp cả khi tắt máy local):**
+1. Nhóm local full 3-metric còn lại: **DeRTa** (chạy lại, fix vocab) · **Circuit Breakers** (retrain+regen, fix loss) · **SafeDecoding** — trong `gpu_cleanup` / `phase2_gen`.
+2. **Utility 6 bài API** còn thiếu (Self-Reminder · Self_Defense · Self_Refine · Backtranslation · AutoDefense · SelfDefend) + **no_defense_local** (XS+JE) — trong `phase1_finish`, judge serial 1 luồng.
+
+**Đã xong đợt này:** pre/post đủ 5/5 (ASR+over-refusal) · utility 5/11 API · CAT + JBShield đủ 3 metric · train lại 500-step CAT/DeRTa/SD-expert.
+
+**Còn lại (sau đợt / nếu còn GPU):**
+3. `tools/compare_methods.py` **chưa deploy lên server** → hiện đọc số trực tiếp từ file judged; nên đẩy lên để tự sinh `comparison.md`.
+4. Thêm **ROSE · DRO · SafeInfer** (in) + retrain **DeepRefusal · Targeted LAT** (intra).
 5. Quét `JBS_FIRST_M` trên full 300 (hiện đặt 2, **chưa kiểm còn tác dụng phòng thủ không**).
-6. Thêm **ROSE · DRO · SafeInfer** (in) + **DeepRefusal · Targeted LAT** (intra).
+6. Cân nhắc **bơm liều train intra** (500 step đang undertrained DeRTa/CB — §8 caveat 7) nếu gia hạn được GPU.
 
 > Nhóm target-API và nhóm target-local **không cùng thang** — tách 2 bảng, mỗi bảng có `no_defense` của chính nó.

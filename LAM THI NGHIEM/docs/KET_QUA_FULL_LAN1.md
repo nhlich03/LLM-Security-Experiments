@@ -51,25 +51,27 @@
 
 **🐛 Lỗi CB đã sửa (khai báo):** lần train 500-step đầu crash ở [lorra_circuit_breaker.py](../methods/intra/CircuitBreakers/repo/src/lorra_circuit_breaker.py) — hàm loss dùng `retain_loss`/`circuit_breaker_loss` vô điều kiện, nhưng mỗi biến chỉ được gán trong nhánh `if <coeff> > 0`. Ở hai đầu schedule một coeff = 0 (progress 0 → retain_coeff 0; progress 1 → cb_coeff 0) → biến chưa gán → `UnboundLocalError`. Smoke 5-step né được, 500-step dính. Đã thêm 1 patch vào `train_smoke.py` (guard mỗi term, `0 * loss == 0` nên kết quả không đổi) → đang retrain qua `cb_redo.sh`. **⚠️ Trong bảng dưới, CB của lần gen đầu chạy bằng adapter 5-step CŨ (rác) và SẼ bị ghi đè bằng adapter 500-step đúng — đừng đọc số CB cho tới khi cb_redo xong.**
 
-## 4. Kết quả — Utility (JustEval 200), nhóm API
+## 4. Kết quả — nhóm API (đủ 3 metric)
 
-Phase 1 = chạy JustEval cho 11 bài API vốn đã có HB+XS (chỉ thiếu utility).
+ASR + over-refusal đã có sẵn từ trước; Phase 1 bổ sung Utility (JustEval 200). Gộp cả 3 để so trực tiếp.
 
-| Nhóm | Method | Utility (/5) |
-|---|---|---|
-| — | no_defense (mốc) | **3.632** ✅ |
-| pre | SAGE | 3.611 ✅ |
-| pre | IA | 3.764 ✅ |
-| pre | G4D | ⏳ |
-| pre | erase-and-check | ⏳ |
-| pre | Self-Reminder | ⏳ |
-| post | Self_Defense | ⏳ |
-| post | Self_Refine | ⏳ |
-| post | Backtranslation | ⏳ |
-| post | AutoDefense | ⏳ |
-| post | SelfDefend | ⏳ |
+| Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ |
+|---|---|---|---|---|
+| — | no_defense (mốc) | 30.7 | **8.0** | 3.63 |
+| pre | SAGE | 0.7 | 34.8 | 3.61 |
+| pre | IA | 2.0 | 12.4 | **3.76** |
+| pre | G4D | 7.0 | 10.8 | 3.56 |
+| pre | erase-and-check | 14.7 | 8.4 | 3.35 |
+| pre | Self-Reminder | 4.3 | 22.0 | ⏳ |
+| post | Self_Defense | 9.7 | 35.6 | ⏳ |
+| post | Self_Refine | 6.3 | 12.0 | ⏳ |
+| post | Backtranslation | 17.0 | 9.6 | ⏳ |
+| post | AutoDefense | 18.7 | 9.2 | ⏳ |
+| post | SelfDefend | **0.3** | 28.0 | ⏳ |
 
-*(ASR + over-refusal của 11 bài này đã có từ lần chạy trước — xem `tools/comparison.md`.)*
+ASR = HarmBench (classifier Llama-13b, n=300) · over-refusal = XSTest judge2 `gpt-oss-20b` (n=250) · utility = JustEval (n=200). **⏳** = utility 6 bài đang chấm lại (judge JustEval bị gián đoạn lúc tinh chỉnh concurrency; sẽ điền nốt).
+
+**Nhận xét nhanh:** SelfDefend & SAGE hạ ASR mạnh nhất (0.3%, 0.7%) nhưng **over-refusal vọt** (28%, 35% — từ chối oan nhiều). **IA cân bằng tốt nhất** trong nhóm đã đủ số (ASR 2.0% · over-refusal 12.4% · utility 3.76 cao nhất). erase-and-check giữ over-refusal thấp (8.4%) nhưng ASR còn cao (14.7%) và utility thấp nhất (3.35). → **hạ ASR càng mạnh thường đánh đổi over-refusal càng nhiều.**
 
 ## 5. Kết quả — Full 3 metric, nhóm LOCAL ⏳
 
