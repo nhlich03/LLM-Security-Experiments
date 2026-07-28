@@ -58,7 +58,8 @@
       "Bash(scp -P 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -O /tmp/wgfix.tgz root@103.73.232.247:/tmp/)",
       "Bash(timeout 60 ssh -p 56107 -i 'E:\\\\DHBK\\\\.ssh\\\\id_rsa' root@103.73.232.247 'cd \"$HOME/LLM-Security-Experiments/LAM THI NGHIEM/methods\" && tar -xzf /tmp/wgfix.tgz && grep -c \"wildguard import\\\\|from wildguard\" post/WildGuard/method.py; echo \"0 = da la ban moi\"; grep -n \"WILDGUARD_INPUT_FORMAT = \" post/WildGuard/method.py | head -1')",
       "Bash(timeout 90 ssh -p 56107 -o ConnectTimeout=20 -i 'E:\\\\DHBK\\\\.ssh\\\\id_rsa' root@103.73.232.247 'for p in $\\(pgrep -f \"run_wg_full.sh\"\\); do pkill -9 -P $p 2>/dev/null; kill -9 $p 2>/dev/null; done; sleep 2 *)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Bash(ssh -p 56107 -i \"E:\\\\DHBK\\\\.ssh\\\\id_rsa\" -o StrictHostKeyChecking=no root@103.73.232.247 'bash -s')"
     ]
   }
 }

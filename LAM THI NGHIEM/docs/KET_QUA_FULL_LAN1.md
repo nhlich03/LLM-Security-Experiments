@@ -6,6 +6,34 @@
 
 ---
 
+## Tổng quan tiến độ (cập nhật 28/07 ~17:40 UTC)
+
+### Số bài mỗi nhóm (trong lần chạy này)
+| Nhóm | Số bài | Target | Bài |
+|---|:--:|---|---|
+| **pre** | 5 | API | SAGE · IA · G4D · erase-and-check · Self-Reminder |
+| **post** | 5 | API | Self_Defense · Self_Refine · Backtranslation · AutoDefense · SelfDefend |
+| **in** | 2 | local (GPU) | SafeDecoding · JBShield |
+| **intra** | 3 | local (GPU) | CAT · DeRTa · Circuit Breakers |
+| mốc | 2 | — | no_defense (API) · no_defense_local (GPU) |
+
+**Tổng: 17 bài** = 11 API + 6 local. *(Để đợt sau: WildGuard (post) · ROSE/DRO/SafeInfer (in) · DeepRefusal/Targeted-LAT (intra) — xem §7.)*
+
+### Hoàn tất theo metric
+| Nhóm | ASR (chấm GPU) | Over-refusal (API) | Utility (API) |
+|---|:--:|:--:|:--:|
+| **API — 11 bài** | ✅ 11/11 | ✅ 11/11 | 🔄 **5/11** |
+| **Local — 6 bài** | ✅ 5/6 *(CB ⏳)* | ✅ 4/6 | ✅ 3/6 |
+
+### Đang chạy gì (thời điểm cập nhật)
+- **GPU — việc cuối cùng:** Circuit Breakers retrain (đã fix bug loss) → sinh response → chấm ASR. ~30-40′ nữa là **đủ ASR 6/6 local**.
+- **API — chậm (endpoint gpt-oss throttle theo giờ):** 6 utility API + no_defense_local (XS/JE) + SafeDecoding (JE) + CB (XS/JE) — chấm serial 1 luồng. **Không cần GPU → chạy tiếp được cả sau khi server hết hạn** (đã backup response về local).
+
+### Đọc nhanh
+Mọi bài đã có số đều **chặn mạnh (ASR 0-4.3%) NHƯNG over-refusal cao (9-62%)** — "không có bữa trưa miễn phí". Cân bằng tốt nhất: **IA** (nhóm API) · **DeRTa** (nhóm local).
+
+---
+
 ## 0. Bối cảnh & hạ tầng
 
 - **Server:** 1× H100 80GB ở chế độ **MIG → slice 40GB** (thuê tới hết 29/07, không gia hạn). Chạy tuần tự trên 1 slice.
@@ -75,18 +103,24 @@ ASR = HarmBench (classifier Llama-13b, n=300) · over-refusal = XSTest judge2 `g
 
 **Nhận xét nhanh:** SelfDefend & SAGE hạ ASR mạnh nhất (0.3%, 0.7%) nhưng **over-refusal vọt** (28%, 35% — từ chối oan nhiều). **IA cân bằng tốt nhất** trong nhóm đã đủ số (ASR 2.0% · over-refusal 12.4% · utility 3.76 cao nhất). erase-and-check giữ over-refusal thấp (8.4%) nhưng ASR còn cao (14.7%) và utility thấp nhất (3.35). → **hạ ASR càng mạnh thường đánh đổi over-refusal càng nhiều.**
 
-## 5. Kết quả — Full 3 metric, nhóm LOCAL ⏳
+## 5. Kết quả — Full 3 metric, nhóm LOCAL
 
-6 bài local đang sinh response + chấm (HB GPU + XS/JE API), dùng **adapter 500-step tự train** (không phải checkpoint official):
+Dùng **adapter 500-step tự train** (không phải checkpoint official). Cost tách **2 tầng**: *1 lần* (train/calibrate, offline) và *mỗi request* (infer s/req).
 
-| Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ | Cost train |
-|---|---|---|---|---|---|
-| — | no_defense_local (mốc) | ⏳ | ⏳ | ⏳ | — |
-| in | SafeDecoding | ⏳ | ⏳ | ⏳ | (expert) |
-| in | JBShield | ⏳ | ⏳ | ⏳ | — (calibrate) |
-| intra | CAT | ⏳ | ⏳ | ⏳ | 225.2 s |
-| intra | CircuitBreakers | ⏳ | ⏳ | ⏳ | ⏳ |
-| intra | DeRTa | ⏳ | ⏳ | ⏳ | 429.3 s |
+| Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ | 1 lần (train/cal) | Infer s/req |
+|---|---|---|---|---|---|---|
+| — | no_defense_local (mốc) | 11.0 | ⏳ | ⏳ | — | 4.29 |
+| in | SafeDecoding | 4.3 | 45.8 | ⏳ | 17.8 s (train expert) | 3.28 |
+| in | JBShield | **0.0** | 39.2 | 3.43 | ~15 phút (calibrate) | 3.34 |
+| intra | CAT | **0.0** | 61.8 | 3.34 | 225.2 s (train) | 4.74 |
+| intra | DeRTa | **0.3** | 36.0 | 3.45 | 429.3 s (train) | 4.92 |
+| intra | CircuitBreakers | 11.0 ⚠️ | ⏳ | ⏳ | ~426 s (train) | 4.86 |
+
+> ⚠️ **CircuitBreakers ASR 11.0% = Y HỆT no_defense_local** → ở liều **500 step (~0.1 của 3 epoch) CB KHÔNG hạ được ASR** = defense chưa kích hoạt (undertrained — dù train-loss có tụt 9.9→0.1). Trái ngược CAT/DeRTa (cùng 500-step vẫn về ASR 0-0.3%). → **bằng chứng rõ nhất cho caveat "500-step là budget cắt gọn, chưa đủ cho bài cần nhiều epoch"** (§6). Muốn CB thật sự phòng thủ phải train nhiều epoch hơn (cần thêm giờ GPU).
+
+- **1 lần (train/calibrate)** = chi phí offline làm 1 lần trước khi phục vụ. *train* = đổi trọng số (CAT/DeRTa/CB, SafeDecoding-expert) · *calibrate* = JBShield chỉ trích vector, không đổi trọng số · `—` = không có (no_defense).
+- **Infer s/req** = giây/request lúc sinh (đã gồm overhead decoding: SafeDecoding 2-forward/token · JBShield hook mỗi forward · CAT/DeRTa/CB chạy như model thường).
+- ⚠️ **`s/req` bị LẪN độ dài response** — bài từ chối nhiều → câu ngắn → nhìn "nhanh/rẻ" một cách ảo (vd JBShield 3.34 *nhanh hơn* no_defense 4.29 dù có hook, chỉ vì trả lời ngắn hơn). **Đọc kèm token ra/req** (`tools/comparison.md`), đừng kết luận "rẻ" chỉ từ giây.
 
 > ⚠️ Bảng local và bảng API **KHÔNG cùng thang** (base khác: Groq Llama-3.1 quantized vs local Llama-3.0 fp16) → mỗi bảng có `no_defense` riêng, không so chéo hai bảng.
 

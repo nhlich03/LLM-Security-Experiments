@@ -369,27 +369,35 @@ Bảng đầy đủ kèm token/cost: **`tools/comparison.md`** — tự sinh b�
 
 Adapter dùng bản **tự train 500-step của mình** (không phải checkpoint tác giả — fair cost, xem §8). ASR/over-refusal/utility đo trên full 300/250/200.
 
-| Method | Nhóm | ASR ↓ | Over-refusal ↓ | Utility ↑ | Trạng thái |
-|---|---|---:|---:|---:|---|
-| no_defense_local *(mốc)* | — | 11.0% | ⏳ | ⏳ | ASR xong, ORef/Util đang chấm |
-| **CAT** | intra | **0.0%** | 61.8% | 3.34 | ✅ đủ 3 metric |
-| **JBShield** | in | **0.0%** | 39.2% | 3.43 | ✅ đủ 3 metric |
-| DeRTa | intra | ⏳ | ⏳ | ⏳ | chạy lại (fix vocab 128257) |
-| Circuit Breakers | intra | ⏳ | ⏳ | ⏳ | retrain+regen (fix loss bug) |
-| SafeDecoding | in | ⏳ | ⏳ | ⏳ | đang sinh (base L2→L3 + expert tự train) |
+| Method | Nhóm | ASR ↓ | Over-refusal ↓ | Utility ↑ | **Infer s/req** | Trạng thái |
+|---|---|---:|---:|---:|---:|---|
+| no_defense_local *(mốc)* | — | 11.0% | ⏳ | ⏳ | 4.29 | ASR xong |
+| **CAT** | intra | **0.0%** | 61.8% | 3.34 | 4.74 | ✅ đủ 3 |
+| **JBShield** | in | **0.0%** | 39.2% | 3.43 | 3.34 | ✅ đủ 3 |
+| **DeRTa** | intra | **0.3%** | 36.0% | 3.45 | 4.92 | ✅ đủ 3 |
+| SafeDecoding | in | 4.3% | 45.8% | ⏳ | 3.28 | JE chờ |
+| Circuit Breakers | intra | **11.0%** ⚠️ | ⏳ | ⏳ | 4.86 | **= baseline** (undertrained, xem dưới) |
 
-**Nhận xét:** CAT lẫn JBShield chặn sạch attack (ASR 0%) nhưng đánh đổi over-refusal lớn — **CAT 61.8% (gắt nhất), JBShield 39.2% (nhẹ hơn)**. no_defense_local ASR 11% (Llama-3-8B-Instruct vốn có safety nền, nên khoảng trống so sánh ở bảng local hẹp hơn bảng API 30.7%).
+> ⚠️ **CircuitBreakers ASR 11.0% = Y HỆT no_defense_local** → 500 step (~0.1 của 3 epoch) **KHÔNG kích hoạt được defense** (undertrained; train-loss tụt 9.9→0.1 nhưng rerouting chưa đủ đổi output). Trái ngược CAT/DeRTa (cùng 500-step vẫn về 0-0.3%). Đây là **bằng chứng rõ nhất cho caveat §8.7** — cần train nhiều epoch hơn.
+
+**Infer s/req** = chi phí **mỗi-request** (giây/request, đã gồm overhead decoding: JBShield hook · SafeDecoding 2-forward/token · CAT/DeRTa chạy như model thường). Chi phí **1-lần** (train/calibrate) tách riêng ở §7.3. ⚠️ **`s/req` bị LẪN độ dài response** — bài từ chối nhiều → câu ngắn → nhìn "nhanh/rẻ" ảo (JBShield 3.34 *nhanh hơn* baseline 4.29 dù có hook, chỉ vì trả lời ngắn hơn). Đọc kèm token ra/req.
+
+**Nhận xét:** 4 bài local đủ số đều chặn rất mạnh (ASR 0-4.3%) nhưng đánh đổi over-refusal cao — **DeRTa cân bằng tốt nhất** (ASR 0.3% · over-refusal **36.0% thấp nhất nhóm** · utility 3.45 cao nhất), rồi JBShield (39.2%), SafeDecoding (45.8%), **CAT gắt nhất (61.8%)**. no_defense_local ASR 11% (Llama-3-8B-Instruct vốn có safety nền → khoảng trống so sánh bảng local hẹp hơn bảng API 30.7%).
 
 ✅ **JBShield tái hiện đúng paper phần detection**: accuracy trung bình **0.958** trên 9 loại attack (paper báo 0.95).
 
-### 7.3 Train lại trên Llama-3 — liều CỐ ĐỊNH 500 step (fair cost)
+### 7.3 Chi phí 1-lần (offline) — train (500 step) / calibrate
 
-| Method | Nhóm | Train (500 step, batch 1) | Ghi chú |
-|---|---|---:|---|
-| SafeDecoding expert | in | **17.8 s** | expert LoRA 72 mẫu, 2 epoch = **full recipe** (đủ) |
-| CAT | intra | **225.2 s** | adversarial UL, mix 0.5 utility / 0.5 adv |
-| Circuit Breakers | intra | **~426 s** | rep-rerouting; **bản đầu crash ở hàm loss** (đã vá — §8) |
-| DeRTa | intra | **429.3 s** | SFT refusal-shift, LoRA r=96, data 65,302 mẫu |
+| Method | Nhóm | 1-lần | Loại | Ghi chú |
+|---|---|---:|---|---|
+| SafeDecoding expert | in | **17.8 s** | train | expert LoRA 72 mẫu, 2 epoch = **full recipe** (đủ) |
+| CAT | intra | **225.2 s** | train | adversarial UL, mix 0.5 utility / 0.5 adv |
+| Circuit Breakers | intra | **~426 s** | train | rep-rerouting; **bản đầu crash ở hàm loss** (đã vá — §8) |
+| DeRTa | intra | **429.3 s** | train | SFT refusal-shift, LoRA r=96, data 65,302 mẫu |
+| JBShield | in | **~15 phút** | **calibrate** | KHÔNG train — chỉ trích vector khái niệm, weight giữ nguyên |
+| no_defense_local | — | — | — | không có bước offline |
+
+*Train* = đổi trọng số (có gradient) · *calibrate* = chạy forward trích vector rồi lưu, không đổi trọng số. Đây là chi phí **1-lần**; chi phí **mỗi-request** (infer s/req) ở §7.2.
 
 ⚠️ **500 step ≪ recipe paper** (DeRTa 1 epoch = ~32,651 step; CB 3 epoch). CAT + SafeDecoding *đủ tốt* (CAT ASR 0%; SD chạy đúng full recipe 72 mẫu); **DeRTa/CB bị undertrained** — khai báo ở §8.
 
@@ -406,7 +414,7 @@ Bốn nhóm lỗi khi làm code train/infer chịu chạy: **transformers v4→v
 5. **DeRTa** nhắm thẳng **prefilling attack**, mà HarmBench thô không có prefilling → điểm mạnh nhất của nó **không hiện ra trong bảng**. Đừng kết luận "DeRTa yếu".
 6. **SafeDecoding: đã đổi base Llama-2-7b → Llama-3-8B + expert LoRA TỰ TRAIN** (upstream không có expert cho Llama-3, train 17.8s). Khác bản gốc → khai báo là "our reimplementation trên Llama-3". *(Trước chạy Llama-2 để mượn expert sẵn — đã bỏ để đồng nhất target local.)*
 7. **Liều train 500 step là budget cắt gọn CÓ CHỦ Ý (fair cost).** Dataset lớn → 500 step chỉ là phần nhỏ 1 epoch (DeRTa 65,302 mẫu → 1 epoch ~32,651 step, mình chạy ~1.5%). → **DeRTa/CB undertrained** so với paper (train tới hội tụ). Full epoch (~7.8h/bài DeRTa) không kịp GPU deadline. Đọc số defense DeRTa/CB là "reduced-budget reimplement", đừng so trực tiếp số công bố. CAT (ASR 0%) + SafeDecoding (full recipe 72 mẫu) thì đủ.
-8. **Bug loss Circuit Breakers (đã vá).** Loss dùng `retain_loss`/`circuit_breaker_loss` vô điều kiện nhưng chỉ gán trong `if coeff>0`; ở hai đầu schedule một coeff=0 → biến chưa gán → `UnboundLocalError` → crash step ~299. Đã guard (0×loss=0, số không đổi). Smoke 5-step né được nên trước không lộ.
+8. **Bug loss Circuit Breakers (đã vá 2 lần).** Hàm loss tham chiếu `retain_loss`/`circuit_breaker_loss` ở **2 chỗ** (dòng `loss=` + dòng `print` chẩn đoán) nhưng mỗi biến chỉ gán trong `if coeff>0`; ở hai đầu schedule một coeff=0 → biến chưa gán → `UnboundLocalError` → crash step ~299. Fix lần 1 chỉ guard dòng `loss=` (vẫn crash ở dòng `print`); **fix lần 2 = init cả 2 loss = 0.0 ngay sau dòng coeff** → an toàn cả 2 chỗ. Smoke 5-step né được nên trước không lộ.
 9. **Bug nạp adapter DeRTa (đã vá).** Adapter tự train resize vocab 128256→128257; trỏ `DERTA_LORA` vào subdir không có tokenizer thì resize không kích hoạt → size mismatch → load fail (ra n=2 vô nghĩa). Fix: trỏ vào thư mục cha chứa cả adapter + tokenizer 128257.
 10. **Judge `gpt-oss-20b` phải chạy 1 LUỒNG.** Chạy nhiều luồng judge song song làm endpoint thrash (429 + latency vọt 30-45s/call) — KHÔNG phải rate-limit (1 call sạch vẫn 0.8s); giới hạn theo TỪNG KEY (8000 TPM/key). Đã vá `metrics/justeval.py`+`xstest.py`: round-robin mỗi call + backoff ≤3s + serial. Classifier HarmBench ép batch 4 qua env `HB_BATCH` (batch 8 OOM trên MIG 40GB).
 
@@ -416,9 +424,11 @@ Bốn nhóm lỗi khi làm code train/infer chịu chạy: **transformers v4→v
 
 **Mốc:** một lượt `response` đầy đủ = 300 HarmBench + 250 XSTest + **200** JustEval = **750 prompt × 512 max_token** (JustEval đã rút từ 800 còn 200). Gọi thời gian `no_defense` local là **T**.
 
-Cost đo ở **đơn vị thô, không quy ra tiền**: API đo bằng **token**, local đo bằng **cả token lẫn giây**, train tách riêng (một lần, khác đơn vị).
+Cost chia **2 tầng, KHÔNG cộng chung** (khác thời điểm + đơn vị):
+- **① Chi phí 1-lần (offline):** *train* (đổi trọng số — CAT/DeRTa/CB, SafeDecoding-expert) hoặc *calibrate* (JBShield — chỉ trích vector, không đổi trọng số). Đơn vị giây-GPU. Số thật ở **§7.3**.
+- **② Chi phí mỗi-request (online):** API → **token** (call/req · in · out); local → **cả giây lẫn token**. Số thật ở **§7.1** (API) / **§7.2** (local).
 
-**Vì sao local ghi cả hai đơn vị:** *giây* bắt được overhead decoding (SafeDecoding 2 forward/token, JBShield SVD mỗi forward) nhưng lẫn chênh lệch model và thưởng nhầm method từ chối cụt lủn (ca CAT 0.5×); *token* thì tái lập được và cùng đơn vị với nhóm API nhưng **mù** với overhead đó. Đo hết, chọn sau. Ghi bằng:
+**⚠️ Đọc cost phải TƯƠNG ĐỐI với `no_defense`** (nó = "giá trả lời thuần" 1 call); phần **vượt trên** mới là overhead phòng thủ. **Số call/req là tín hiệu sạch nhất**; còn **token-ra & giây/req bị LẪN độ dài response** — bài từ chối nhiều → câu ngắn → nhìn "rẻ" ảo (ca CAT 0.5×; JBShield 3.34s < baseline 4.29s **dù có hook**). Vì thế **local ghi CẢ giây LẪN token**: *giây* bắt overhead decoding (SafeDecoding 2 forward/token, JBShield SVD mỗi forward) nhưng lẫn độ dài + chênh lệch model; *token* tái lập được, cùng đơn vị nhóm API nhưng **mù** overhead. Đo hết, chọn sau. Ghi bằng:
 
 ```python
 with meter.local("target") as rec:
@@ -428,9 +438,9 @@ with meter.local("target") as rec:
 
 **Ước lượng sinh response nếu không train gì:** INTRA 5 bài × 1×T = ~5T · IN 5 bài (SafeDecoding 1.05T + JBShield ~1.1T + DRO 1T + ROSE 2T + SafeInfer 2T) ≈ 7.15T → **~12T tổng**.
 
-**Train lại** (số từ paper, A100-80GB): SafeDecoding 16 giây *(đã đo thật)* · CAPO ~19 phút · Circuit Breakers ~20 phút · CAT ~42 phút · DeepRefusal ~45 phút → **≈ 2 giờ 7 phút**. Trên MIG 40GB phải hạ batch → nhân **2–4×**.
+**Chi phí 1-lần đã đo THẬT (500-step trên MIG 40GB):** SafeDecoding-expert **17.8s** · CAT **225s** · Circuit Breakers **~426s** · DeRTa **429s** (train) · JBShield **~15 phút** (calibrate) → toàn nhóm ~**17 phút**. *(Đây là liều 500-step CẮT GỌN, KHÔNG phải recipe hội tụ của paper — DeRTa 1 epoch = ~32,651 step ≈ 7.8h; xem §8 caveat 7.)*
 
-→ **Nút thắt không phải train mà là inference.** Train lại cả nhóm intra rẻ hơn sinh response cho chúng cả chục lần.
+→ **Nút thắt không phải train mà là inference.** Train 500-step cả nhóm ~17 phút, còn sinh response 6 bài local (750 prompt/bài, tuần tự trên 1 slice) tốn nhiều giờ — inference mới là phần đắt.
 
 ---
 
