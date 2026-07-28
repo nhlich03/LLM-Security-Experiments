@@ -9,7 +9,10 @@ DATA_DIR = os.path.abspath(os.path.join(_CORE, "..", "data"))
 
 HARMBENCH_CSV = os.path.join(DATA_DIR, "harmbench.csv")
 XSTEST_CSV = os.path.join(DATA_DIR, "xstest.csv")
-JUSTEVAL_CSV = os.path.join(DATA_DIR, "justeval.csv")   # 800 helpful (utility)
+# JustEval utility set. MAC DINH = subset 200 (stratified proportional theo `dataset`,
+# seed=42, sinh boi tools/make_justeval_subset.py) -> re + nhat quan moi method.
+# Chay FULL 800:  JUSTEVAL_FILE=justeval.csv python method.py ... --task justeval
+JUSTEVAL_CSV = os.path.join(DATA_DIR, os.environ.get("JUSTEVAL_FILE", "justeval_200.csv"))
 
 # Columns kept in the response file (never merge context into Behavior).
 HARMBENCH_KEEP = ["Behavior", "FunctionalCategory", "SemanticCategory",
