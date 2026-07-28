@@ -55,21 +55,23 @@
 
 ASR + over-refusal đã có sẵn từ trước; Phase 1 bổ sung Utility (JustEval 200). Gộp cả 3 để so trực tiếp.
 
-| Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ |
-|---|---|---|---|---|
-| — | no_defense (mốc) | 30.7 | **8.0** | 3.63 |
-| pre | SAGE | 0.7 | 34.8 | 3.61 |
-| pre | IA | 2.0 | 12.4 | **3.76** |
-| pre | G4D | 7.0 | 10.8 | 3.56 |
-| pre | erase-and-check | 14.7 | 8.4 | 3.35 |
-| pre | Self-Reminder | 4.3 | 22.0 | ⏳ |
-| post | Self_Defense | 9.7 | 35.6 | ⏳ |
-| post | Self_Refine | 6.3 | 12.0 | ⏳ |
-| post | Backtranslation | 17.0 | 9.6 | ⏳ |
-| post | AutoDefense | 18.7 | 9.2 | ⏳ |
-| post | SelfDefend | **0.3** | 28.0 | ⏳ |
+| Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ | Call/req | Tok-in/req | Tok-out/req | Local s/req |
+|---|---|---|---|---|---|---|---|---|
+| — | no_defense (mốc) | 30.7 | **8.0** | 3.63 | 1.00 | 95 | 280 | — |
+| pre | SAGE | 0.7 | 34.8 | 3.61 | 1.00 | 238 | 173 | — |
+| pre | IA | 2.0 | 12.4 | **3.76** | 2.00 | 531 | 369 | — |
+| pre | G4D | 7.0 | 10.8 | 3.56 | 3.95 | 905 | 726 | — |
+| pre | erase-and-check | 14.7 | 8.4 | 3.35 | 1.68 | 70 | 225 | 0.077 |
+| pre | Self-Reminder | 4.3 | 22.0 | ⏳ | 1.00 | 142 | 211 | — |
+| post | Self_Defense | 9.7 | 35.6 | ⏳ | 2.00 | 443 | 399 | — |
+| post | Self_Refine | 6.3 | 12.0 | ⏳ | 3.21 | 1566 | 838 | — |
+| post | Backtranslation | 17.0 | 9.6 | ⏳ | 2.64 | 479 | 621 | — |
+| post | AutoDefense | 18.7 | 9.2 | ⏳ | 4.00 | 2944 | 890 | — |
+| post | SelfDefend | **0.3** | 28.0 | ⏳ | 2.00 | 265 | 303 | — |
 
 ASR = HarmBench (classifier Llama-13b, n=300) · over-refusal = XSTest judge2 `gpt-oss-20b` (n=250) · utility = JustEval (n=200). **⏳** = utility 6 bài đang chấm lại (judge JustEval bị gián đoạn lúc tinh chỉnh concurrency; sẽ điền nốt).
+
+**Cột cost** (trung bình / request trên toàn bộ 750 prompt HB+XS+JE): *Call/req* = số call API · *Tok-in/out* = token vào/ra · *Local s/req* = giây chạy local (chỉ erase-and-check có, do DistilBERT filter — `0.077`). Các cột **local-token** & **train-sec = — cho mọi bài API** (không sinh local, không train). → G4D (3.95 call, 905 tok vào) và AutoDefense (4 call, **2944** tok vào) là **đắt nhất**; SAGE/Self-Reminder rẻ nhất (1 call).
 
 **Nhận xét nhanh:** SelfDefend & SAGE hạ ASR mạnh nhất (0.3%, 0.7%) nhưng **over-refusal vọt** (28%, 35% — từ chối oan nhiều). **IA cân bằng tốt nhất** trong nhóm đã đủ số (ASR 2.0% · over-refusal 12.4% · utility 3.76 cao nhất). erase-and-check giữ over-refusal thấp (8.4%) nhưng ASR còn cao (14.7%) và utility thấp nhất (3.35). → **hạ ASR càng mạnh thường đánh đổi over-refusal càng nhiều.**
 
