@@ -1,0 +1,15 @@
+[jl] ROSE xstest start Thu Jul 30 17:50:24 SEAST 2026
+[jl]   ROSE xstest rc=0 | === XSTest over-refusal [ROSE] (n=250) ===
+[jl] LED xstest start Thu Jul 30 17:53:25 SEAST 2026
+[jl]   LED xstest rc=0 | === XSTest over-refusal [LED] (n=250) ===
+[jl] SafeUnlearning xstest start Thu Jul 30 17:56:03 SEAST 2026
+[jl]   SafeUnlearning xstest rc=0 | === XSTest over-refusal [SafeUnlearning] (n=250) ===
+[jl] ReFAT xstest start Thu Jul 30 17:59:20 SEAST 2026
+[jl]   ReFAT xstest rc=0 | === XSTest over-refusal [ReFAT] (n=250) ===
+[jl] ROSE justeval start Thu Jul 30 18:03:04 SEAST 2026
+[jl]   ROSE justeval rc=0 |   UTILITY (avg): 3.795  / 5
+[jl] LED justeval start Thu Jul 30 18:06:37 SEAST 2026
+[jl]   LED justeval rc=0 |   UTILITY (avg): 3.593  / 5
+[jl] SafeUnlearning justeval start Thu Jul 30 18:11:26 SEAST 2026
+[jl]   SafeUnlearning justeval rc=0 |   UTILITY (avg): 3.572  / 5
+[jl] ReFAT justeval start Thu Jul 30 18:15:38 SEAST 2026

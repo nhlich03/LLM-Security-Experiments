@@ -23,14 +23,15 @@
 | Nhóm | ASR (chấm GPU) | Over-refusal (API) | Utility (API) |
 |---|:--:|:--:|:--:|
 | **API — 12 bài** | ✅ 12/12 | ✅ **12/12** | ✅ **12/12** |
-| **Local — 11 bài** | ✅ **11/11** | 🔄 6/11 | 🔄 5/11 |
+| **Local — 11 bài** | ✅ **11/11** | ✅ **11/11** | 🔄 8/11 |
 
-### Đang chạy gì (29/07 ~05:40 UTC)
-- **GPU:** Antidote **1.3%** · LED **0.7%** · SafeUnlearning **4.0%** — cả 3 bài mới **XONG** (ASR + response, đã bank). Đang chạy 2 bài cuối **ReFAT (intra) + ROSE (in thứ 4)** qua `finale.sh` (mỗi bài smoke-gated).
-- **API judge (đã khôi phục xoay vòng full 19 key):** `judge_all` bank nốt over-refusal/utility còn thiếu nhóm local (CB · SafeDecoding · no_def_local) + XS/JE của 3 bài mới. Response backup đầy đủ (`_server_backup_20260728/`, 270 CSV) → chấm nốt được cả khi server hết hạn.
+### Trạng thái cuối (29/07 ~14:30 UTC — server GPU ĐÃ HẾT HẠN)
+- **GPU: XONG HẾT** trước khi server chết. 5 bài mới đủ ASR: **ROSE 0.3 · LED 0.7 · Antidote 1.3 · SafeUnlearning 4.0 · ReFAT 6.3** (mốc no_defense_local 11.0). **Tổng 23 bài** (12 API + 11 local).
+- **Backup local: 294 CSV** (`_server_backup_20260728/`) — có TOÀN BỘ response kể cả XS/JE của 5 bài mới → phần judge còn thiếu chấm được ở **local, không cần GPU**.
+- **⏳ CÒN LẠI (judge API, chấm local):** over-refusal + utility của **ROSE/LED/SafeUnlearning/ReFAT** + utility của **JailbreakAntidote & no_defense_local**. Nghẽn TPD Groq (đã đốt hết quota ngày) → chạy sau **reset 00:00 UTC = 07:00 sáng VN**.
 
 ### Đọc nhanh
-Mọi bài đã có số đều **chặn mạnh (ASR 0-4.3%) NHƯNG over-refusal cao (9-62%)** — "không có bữa trưa miễn phí". Cân bằng tốt nhất: **IA** (nhóm API) · **DeRTa** (nhóm local).
+Mọi bài đã có số đều **chặn mạnh (ASR 0-6.3%) NHƯNG over-refusal thường cao** — "không có bữa trưa miễn phí" (chặn càng mạnh → từ chối oan càng nhiều: CAT 61.8% · Antidote 59.8% · DeepRefusal 55.2%). **Cân bằng tốt nhất: GoalPriority** (ASR 3.3 · over-refusal 11.9 · utility 3.86) · **IA** (2.0/12.4/3.76) — nhóm API. Nhóm local: DeRTa cân bằng nhất trong các bài đã đủ số.
 
 ---
 
@@ -110,17 +111,17 @@ Dùng **adapter 500-step tự train** (không phải checkpoint official). Cost 
 
 | Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ | 1 lần (train/cal) | Infer s/req |
 |---|---|---|---|---|---|---|
-| — | no_defense_local (mốc) | 11.0 | ⏳ | ⏳ | — | 4.29 |
+| — | no_defense_local (mốc) | 11.0 | 8.0 | ⏳ | — | 4.29 |
 | in | SafeDecoding | 4.3 | 45.8 | 3.20 | 17.8 s (train expert) | 3.28 |
 | in | JBShield | **0.0** | 39.2 | 3.43 | ~15 phút (calibrate) | 3.34 |
 | in | **JailbreakAntidote** 🆕 | **1.3** | 59.8 | ⏳ | ~2.5 phút (calibrate PCA dir) | 2.80 |
-| in | **ROSE** 🆕 | **0.3** | ⏳ | ⏳ | — (training-free) | ⏳ (2× decode) |
+| in | **ROSE** 🆕 | **0.3** | 18.8 | 3.80 | — (training-free) | 6.89 (2× decode, đắt nhất) |
 | intra | CAT | **0.0** | 61.8 | 3.34 | 225.2 s (train) | 4.74 |
 | intra | DeRTa | **0.3** | 36.0 | 3.45 | 429.3 s (train) | 4.92 |
 | intra | CircuitBreakers | 11.0 ⚠️ | 7.4 | 3.75 | 507.4 s (train) | 6.26 |
-| intra | **LED** 🆕 | **0.7** | ⏳ | ⏳ | ~110 s (edit 6 layer, 500 step) | 3.09 |
-| intra | **SafeUnlearning** 🆕 | **4.0** | ⏳ | ⏳ | 1615 s (train, eff-batch 12) | 5.44 |
-| intra | **ReFAT** 🆕 | **6.3** | ⏳ | ⏳ | ~485 s (train LoRA r128 + RFA ablation) | 5.46 |
+| intra | **LED** 🆕 | **0.7** | 38.8 | 3.59 | ~110 s (edit 6 layer, 500 step) | 3.09 |
+| intra | **SafeUnlearning** 🆕 | **4.0** | 25.6 | 3.57 | 1615 s (train, eff-batch 12) | 5.44 |
+| intra | **ReFAT** 🆕 | **6.3** | **6.4** | ⏳ | ~485 s (train LoRA r128 + RFA ablation) | 5.46 |
 
 > ⚠️ **CircuitBreakers ASR 11.0% = Y HỆT no_defense_local** → ở liều **500 step (~0.1 của 3 epoch) CB KHÔNG hạ được ASR** = defense chưa kích hoạt (undertrained — dù train-loss có tụt 9.9→0.1). Trái ngược CAT/DeRTa (cùng 500-step vẫn về ASR 0-0.3%). → **bằng chứng rõ nhất cho caveat "500-step là budget cắt gọn, chưa đủ cho bài cần nhiều epoch"** (§6). Muốn CB thật sự phòng thủ phải train nhiều epoch hơn (cần thêm giờ GPU).
 
@@ -139,6 +140,15 @@ Dùng **adapter 500-step tự train** (không phải checkpoint official). Cost 
 - **JBShield** dùng `JBS_GATE=1, FIRST_M=2, attack=ijp` (đã kiểm detection acc khớp paper 0.958); **còn phải xác nhận** FIRST_M=2 có giữ tác dụng phòng thủ trên full 300 hay không.
 - **JustEval 200** thay vì 800 (subset đại diện, khai báo rõ).
 - Target API là Groq (Llama-3.1 tối ưu/quantized) — **không bit-identical** với local fp16.
+
+### Deviation của 5 bài MỚI (29/07) — chi tiết ở README từng method
+
+- **Jailbreak Antidote** (in, reimplement — không có repo): direction dựng từ **AdvBench+Alpaca** (paper dùng Phan-2023 `harmful_harmless_instructions`; cả 2 đều held-out khỏi HarmBench eval nên không leak). α=0.4, all 32 layer — paper cho khoảng `[-0.6,0.6]` nhưng không chốt 1 giá trị/layer-set → lựa chọn của mình. Cơ chế (PCA PC1 + mask top-5% + hook cộng α·dir) giữ đúng Eq.1-5.
+- **ROSE** (in, training-free): α=0.5 = default generation của paper, **chưa tune cho Llama-3** (paper test Alpaca/Vicuna/Qwen/InternLM); prompt POS/REV inject qua role `system` (verbatim Table 6); trừ trên raw logits đúng Eq.1.
+- **LED** (intra, reimplement editing — repo chỉ có notebook phân tích, `harmful_prompt.json` rỗng): edit layer E={4,5,6,13,14,15} & toxic T={29,30,31} **tái dùng chỉ số Llama-2-7B** (paper không báo cho Llama-3); edit data = **200 AdvBench** + refusal template (paper: 200 TDC-2023); full-weight edit đúng paper; LR/step **paper không công bố** → 500-step + AdamW-8bit lr 1e-5 là của mình.
+- **Safe Unlearning** (intra, port repo — loss `safe_unlearning` giữ VERBATIM): **LoRA + reference 4-bit** thay full-FT 4-GPU deepspeed (vừa 1 MIG 40GB); `batch 4×ga 3 = eff 12` × 500 step ≈ 5 epoch; data re-template vicuna→Llama-3. **4 fix tương thích v5/numerical** (sampler signature, `num_items_in_batch`, guard nan subgroup rỗng, log_softmax fp32 + clamp mẫu số) — không đổi ngữ nghĩa loss.
+- **ReFAT** (intra, reimplement — không có repo): **LoRA r=128** (paper cũng LoRA r128), layer 8-31 theo Table 4; 500-step (paper ~313); data D_r/D_u **thay thế** (SafeUnlearning refusal + LED harmful→refusal / SafeUnlearning benign→GPT-4; direction từ AdvBench+Alpaca); ablate mọi vị trí target layer (paper chỉ rõ token cuối để *tính* hướng).
+- **⚠️ over-refusal & utility của ROSE/LED/SU/ReFAT + utility Antidote/no_def_local:** chưa chấm xong (server hết hạn lúc judge đang nghẽn TPD) → **sẽ chấm local** từ response backup sau khi TPD reset. Chưa có số nên **chưa kết luận trade-off** cho 4 bài này (mới có ASR).
 
 ## 7. Còn lại (lần sau / Phase 3)
 

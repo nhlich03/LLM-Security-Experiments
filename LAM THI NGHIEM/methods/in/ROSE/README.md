@@ -46,5 +46,5 @@ Table 6 của paper.
 ## Trạng thái — ✅ CHẠY THẬT (29/07/2026, H100 MIG 40GB)
 
 - **HarmBench ASR = 0.3%** (n=300) — mạnh nhất trong 5 bài mới (từ 11.0%). Refusal coherent.
-- Infer chậm do 2× decode (đọc kèm token/req).
+- Infer **6.89 s/req** (combined HB+XS+JE) — **đắt nhất nhóm local** do 2× forward/token.
 - Over-refusal + utility: ⏳ đang sinh XS/JE response → chấm sau (judge API TPD-limited).
