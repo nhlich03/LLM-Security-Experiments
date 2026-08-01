@@ -23,7 +23,7 @@
 | Nhóm | ASR (chấm GPU) | Over-refusal (API) | Utility (API) |
 |---|:--:|:--:|:--:|
 | **API — 12 bài** | ✅ 12/12 | ✅ **12/12** | ✅ **12/12** |
-| **Local — 11 bài** | ✅ **11/11** | ✅ **11/11** | 🔄 8/11 |
+| **Local — 11 bài** | ✅ **11/11** | ✅ **11/11** | ✅ **11/11** |
 
 ### Trạng thái cuối (29/07 ~14:30 UTC — server GPU ĐÃ HẾT HẠN)
 - **GPU: XONG HẾT** trước khi server chết. 5 bài mới đủ ASR: **ROSE 0.3 · LED 0.7 · Antidote 1.3 · SafeUnlearning 4.0 · ReFAT 6.3** (mốc no_defense_local 11.0). **Tổng 23 bài** (12 API + 11 local).
@@ -111,17 +111,17 @@ Dùng **adapter 500-step tự train** (không phải checkpoint official). Cost 
 
 | Nhóm | Method | ASR% ↓ | Over-refusal% ↓ | Utility ↑ | 1 lần (train/cal) | Infer s/req |
 |---|---|---|---|---|---|---|
-| — | no_defense_local (mốc) | 11.0 | 8.0 | ⏳ | — | 4.29 |
+| — | no_defense_local (mốc) | 11.0 | 8.0 | 3.73 | — | 4.29 |
 | in | SafeDecoding | 4.3 | 45.8 | 3.20 | 17.8 s (train expert) | 3.28 |
 | in | JBShield | **0.0** | 39.2 | 3.43 | ~15 phút (calibrate) | 3.34 |
-| in | **JailbreakAntidote** 🆕 | **1.3** | 59.8 | ⏳ | ~2.5 phút (calibrate PCA dir) | 2.80 |
+| in | **JailbreakAntidote** 🆕 | **1.3** | 59.8 | 3.40 | ~2.5 phút (calibrate PCA dir) | 2.80 |
 | in | **ROSE** 🆕 | **0.3** | 18.8 | 3.80 | — (training-free) | 6.89 (2× decode, đắt nhất) |
 | intra | CAT | **0.0** | 61.8 | 3.34 | 225.2 s (train) | 4.74 |
 | intra | DeRTa | **0.3** | 36.0 | 3.45 | 429.3 s (train) | 4.92 |
 | intra | CircuitBreakers | 11.0 ⚠️ | 7.4 | 3.75 | 507.4 s (train) | 6.26 |
 | intra | **LED** 🆕 | **0.7** | 38.8 | 3.59 | ~110 s (edit 6 layer, 500 step) | 3.09 |
 | intra | **SafeUnlearning** 🆕 | **4.0** | 25.6 | 3.57 | 1615 s (train, eff-batch 12) | 5.44 |
-| intra | **ReFAT** 🆕 | **6.3** | **6.4** | ⏳ | ~485 s (train LoRA r128 + RFA ablation) | 5.46 |
+| intra | **ReFAT** 🆕 | **6.3** | **6.4** | 3.53 | ~485 s (train LoRA r128 + RFA ablation) | 5.46 |
 
 > ⚠️ **CircuitBreakers ASR 11.0% = Y HỆT no_defense_local** → ở liều **500 step (~0.1 của 3 epoch) CB KHÔNG hạ được ASR** = defense chưa kích hoạt (undertrained — dù train-loss có tụt 9.9→0.1). Trái ngược CAT/DeRTa (cùng 500-step vẫn về ASR 0-0.3%). → **bằng chứng rõ nhất cho caveat "500-step là budget cắt gọn, chưa đủ cho bài cần nhiều epoch"** (§6). Muốn CB thật sự phòng thủ phải train nhiều epoch hơn (cần thêm giờ GPU).
 
